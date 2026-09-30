@@ -1,11 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Virtual - MG</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/main.js"></script>
 </head>
-<body>
-    
+
+<body id="topo">
+    <aside class="barra-lateral">
+        <header>
+            <h1>Biblioteca Virtual de Matilde Gomes</h1>
+            <nav aria-label="Secções do site">
+                <ul>
+                    <li><a href="#lancamentos">Lançamentos</a></li>
+                    <li><a href="#estante">Estante</a></li>
+                    <li><a href="#favoritos">Favoritos <data id="contador-favoritos" value="0">0</data></a></li>
+                    <li><a href="#estatisticas">Estatísticas</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section aria-labelledby="titulo-adicionar">
+            <h2 id="titulo-adicionar">Adicionar livro</h2>
+            <form id="form-livro" novalidate>
+                <label>Título
+                    <input id="titulo" type="text">
+                </label>
+                <label>Autor
+                    <input id="autor" type="text">
+                </label>
+                <fieldset id="generos">
+                    <legend>Géneros</legend>
+                    <label><input type="checkbox" name="genero" value="Fantasia">Fantasia</label>
+                    <label><input type="checkbox" name="genero" value="Romance">Romance</label>
+                    <label><input type="checkbox" name="genero" value="Fantasia">Ficção Científica</label>
+                    <label><input type="checkbox" name="genero" value="Fantasia">Thriller</label>
+                    <label><input type="checkbox" name="genero" value="Fantasia">Terror</label>
+                    <label><input type="checkbox" name="genero" value="Distopia">Distopia</label>
+                    <label><input type="checkbox" name="genero" value="Outro">Outro</label>
+                </fieldset>
+                <label>Idioma
+                    <select id="idioma">
+                        <option value="Português">Português</option>
+                        <option value="Inglês">Inglês</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </label>
+                <label>Saga (opcional)
+                    <input id="saga" type="text" list="lista-sagas">
+                </label>
+                <datalist id="lista-sagas"></datalist>
+                <label>Páginas
+                    <input id="paginas" type="number" min="1">
+                </label>
+                <label>
+                    <input id="eh-lancamento" type="checkbox">
+                    Ainda não foi lançado?
+                </label>
+                <label id="campo-data" hidden>Data de lançamento
+                    <input id="data-lancamento" type="date">
+                </label>
+                <p id="erro-formulario" role="alert"></p>
+                <button type="submit">Adicionar</button>
+            </form>
+        </section>
+    </aside>
+    <main>
+        <section class="cabecalho" aria-label="Progresso de leitura e tema">
+            <p>Os meus livros, num só lugar.</p>
+            <p id="progresso-texto">0 de 0 livros lidos</p>
+            <progress id="progresso-barra" value="0" max="100" aria-labelledby="progresso-texto"></progress>
+            <button id="botao-tema" type="button" aria-label="Mudar para modo escuro">Modo escuro</button>
+        </section>
+        <section id="lancamentos" aria-labelledby="titulo-lancamentos">
+            <h2 id="titulo-lancamentos">Próximos lançamentos</h2>
+            <ul id="lista-lancamentos"></ul>
+        </section>
+        <section id="estante" aria-labelledby="titulo-estante">
+            <h2 id="titulo-estante">A minha estante</h2>
+            <search aria-label="Filtrar livros">
+                <label>Pesquisar
+                    <input id="filtro-pesquisa" type="search" placeholder="Título ou autor...">
+                </label>
+                <label>Género
+                    <select id="filtro-genero">
+                        <option value="todos">Todos</option>
+                    </select>
+                </label>
+                <label>Saga
+                    <select id="filtro-saga">
+                        <option value="todas">Todas</option>
+                    </select>
+                </label>
+                <label>Ordenar por
+                    <select id="ordenar">
+                        <option value="titulo">Título (A-Z)</option>
+                        <option value="autor">Autor (A-Z)</option>
+                        <option value="ano">Ano (mais recente)</option>
+                    </select>
+                </label>
+                <fieldset id="filtros-estado">
+                    <legend class="so-leitores">Filtrar por estado</legend>
+                    <label><input type="radio" name="estado" value="todos" checked>Todos</label>
+                    <label><input type="radio" name="estado" value="quero-ler">Quero ler</label>
+                    <label><input type="radio" name="estado" value="a-ler">A ler</label>
+                    <label><input type="radio" name="estado" value="lido">Lido</label>
+                </fieldset>
+            </search>
+            <ul id="lista-livros"></ul>
+        </section>
+        <section id="favoritos" aria-labelledby="titulo-favoritos">
+            <h2 id="titulo-favoritos">Favoritos</h2>
+            <ul id="lista-favoritos"></ul>
+        </section>
+        <section id="estatisticas" aria-labelledby="titulo-estatisticas">
+            <h2 id="titulo-estatisticas">Estatísticas</h2>
+            <dl id="estatisticas-conteudo"></dl>
+        </section>
+    </main>
+    <footer>
+        <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
+        <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
+    </footer>
+    <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
 </body>
+
 </html>
