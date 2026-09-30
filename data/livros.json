@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "titulo": "Casa da Chama e Sombra",
+    "autor": "Sarah J. Maas",
+    "generos": ["Fantasia", "Romance"],
+    "idioma": "Português",
+    "ano": 2024,
+    "paginas": 816,
+    "capa": "",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Cidade da Lua Crescente",
+    "volume": 3,
+    "goodreads": ""
+  },
+  {
+    "id": 2,
+    "titulo": "Strange the Dreamer",
+    "autor": "Laini Taylor",
+    "generos": ["Fantasia"],
+    "idioma": "Inglês",
+    "ano": 2017,
+    "paginas": 544,
+    "capa": "",
+    "estado": "a-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Strange the Dreamer",
+    "volume": 1,
+    "goodreads": ""
+  },
+  {
+    "id": 3,
+    "titulo": "Cidade de Jade",
+    "autor": "Fonda Lee",
+    "generos": ["Fantasia"],
+    "idioma": "Português",
+    "ano": 2017,
+    "paginas": 512,
+    "capa": "",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Saga dos Ossos Verdes",
+    "volume": 1,
+    "goodreads": ""
+  }
+]
