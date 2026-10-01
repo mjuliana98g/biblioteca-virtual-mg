@@ -8,17 +8,17 @@ function criarElemento(etiqueta, texto) {
     return elemento;
 };
 
-function transformarEstado(estado) {
-    switch (estado) {
-        case "lido":
-            return "Lido";
-        case "a-ler":
-            return "A ler";
-        case "quero-ler":
-            return "Quero ler";
-        default:
-            return "Sem estado";
-    }
+function textoEstado(estado) {
+  switch (estado) {
+    case "lido":
+      return "Lido";
+    case "a-ler":
+      return "A ler";
+    case "quero-ler":
+      return "Quero ler";
+    default:
+      return "Sem estado";
+  }
 };
 
 function criarCapa(livro) {
@@ -51,13 +51,45 @@ function criarTextos(livro) {
         textos.push(criarClassificacao(livro.classificacao));
     }
     return textos;
-}
+};
 
 function criarBotaoEstado(livro) {
-    const botao = criarElemento("button", `${transformarEstado(livro.estado)} ▾`);
+    const botao = criarElemento("button", `${textoEstado(livro.estado)} ▾`);
     botao.type = "button";
     botao.dataset.estado = livro.estado;
+    botao.setAttribute("aria-expanded", "false");
     return botao;
+};
+
+function criarOpcaoEstado(estado, livro) {
+    const item = criarElemento("li");
+    const botao = criarElemento("button", textoEstado(estado));
+    botao.type = "button";
+    botao.dataset.novoEstado = estado;
+
+    if (estado === livro.estado) {
+        botao.setAttribute("aria-current", "true");
+    }
+
+    item.append(botao);
+    return item;
+};
+
+function criarMenuEstado(livro) {
+    const menu = criarElemento("ul");
+    menu.className = "menu-estado";
+    menu.hidden = true;
+
+    const estados = ["quero-ler", "a-ler", "lido"];
+    menu.append(...estados.map((estado) => criarOpcaoEstado(estado, livro)));
+    return menu;
+};
+
+function criarSeletorEstado(livro) {
+    const seletor = criarElemento("div");
+    seletor.className = "seletor-estado";
+    seletor.append(criarBotaoEstado(livro), criarMenuEstado(livro));
+    return seletor;
 };
 
 function criarBotaoFavorito(livro) {
@@ -87,12 +119,12 @@ function criarFigura(livro) {
     legenda.append(criarLinkGoodreads(livro));
     figura.append(criarCapa(livro), legenda);
     return figura;
-}
+};
 
 function criarAcoes(livro) {
     const acoes = criarElemento("div");
     acoes.className = "acoes-livro";
-    acoes.append(criarBotaoEstado(livro), criarBotaoFavorito(livro));
+    acoes.append(criarSeletorEstado(livro), criarBotaoFavorito(livro));
     return acoes;
 };
 
