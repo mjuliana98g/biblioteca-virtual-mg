@@ -5,75 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Virtual - MG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Shadows+Into+Light&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/main.js"></script>
 </head>
 
 <body id="topo">
-    <aside class="barra-lateral">
+    <button id="botao-menu" type="button" aria-label="Abrir menu" aria-controls="barra-lateral"
+        aria-expanded="false">☰</button>
+
+    <aside id="barra-lateral" class="barra-lateral">
         <header>
-            <h1>Biblioteca Virtual de Matilde Gomes</h1>
+            <h1><img src="img/logo-biblioteca-mg.svg" alt="Biblioteca Virtual de Matilde Gomes"></h1>
+            <div class="progresso-lateral" aria-label="Progresso de leitura">
+                <p id="progresso-texto">0 de 0 livros lidos</p>
+                <progress id="progresso-barra" value="0" max="100" aria-labelledby="progresso-texto"></progress>
+            </div>
             <nav aria-label="Secções do site">
                 <ul>
-                    <li><a href="#lancamentos">Lançamentos</a></li>
-                    <li><a href="#estante">Estante</a></li>
-                    <li><a href="#favoritos">Favoritos <data id="contador-favoritos" value="0">0</data></a></li>
+                    <li><a href="#lancamentos">Lançamentos<data id="contador-lancamentos" value="0">0</data></a></li>
+                    <li><a href="#estante">Estante<data id="contador-estante" value="0">0</data></a></li>
+                    <li><a href="#favoritos">Favoritos<data id="contador-favoritos" value="0">0</data></a></li>
                     <li><a href="#estatisticas">Estatísticas</a></li>
                 </ul>
             </nav>
         </header>
-        <section aria-labelledby="titulo-adicionar">
-            <h2 id="titulo-adicionar">Adicionar livro</h2>
-            <form id="form-livro" novalidate>
-                <label>Título
-                    <input id="titulo" type="text">
-                </label>
-                <label>Autor
-                    <input id="autor" type="text">
-                </label>
-                <fieldset id="generos">
-                    <legend>Géneros</legend>
-                    <label><input type="checkbox" name="genero" value="Fantasia">Fantasia</label>
-                    <label><input type="checkbox" name="genero" value="Romance">Romance</label>
-                    <label><input type="checkbox" name="genero" value="Fantasia">Ficção Científica</label>
-                    <label><input type="checkbox" name="genero" value="Fantasia">Thriller</label>
-                    <label><input type="checkbox" name="genero" value="Fantasia">Terror</label>
-                    <label><input type="checkbox" name="genero" value="Distopia">Distopia</label>
-                    <label><input type="checkbox" name="genero" value="Outro">Outro</label>
-                </fieldset>
-                <label>Idioma
-                    <select id="idioma">
-                        <option value="Português">Português</option>
-                        <option value="Inglês">Inglês</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-                </label>
-                <label>Saga (opcional)
-                    <input id="saga" type="text" list="lista-sagas">
-                </label>
-                <datalist id="lista-sagas"></datalist>
-                <label>Páginas
-                    <input id="paginas" type="number" min="1">
-                </label>
-                <label>
-                    <input id="eh-lancamento" type="checkbox">
-                    Ainda não foi lançado?
-                </label>
-                <label id="campo-data" hidden>Data de lançamento
-                    <input id="data-lancamento" type="date">
-                </label>
-                <p id="erro-formulario" role="alert"></p>
-                <button type="submit">Adicionar</button>
-            </form>
-        </section>
+        <button id="botao-abrir-formulario" class="botao-adicionar" type="button" aria-haspopup="dialog">
+            + Adicionar livro
+        </button>
     </aside>
     <main>
-        <section class="cabecalho" aria-label="Progresso de leitura e tema">
-            <p>Os meus livros, num só lugar.</p>
-            <p id="progresso-texto">0 de 0 livros lidos</p>
-            <progress id="progresso-barra" value="0" max="100" aria-labelledby="progresso-texto"></progress>
+        <div class="painel-superior">
             <button id="botao-tema" type="button" aria-label="Mudar para modo escuro">Modo escuro</button>
-        </section>
+        </div>
         <section id="lancamentos" aria-labelledby="titulo-lancamentos">
             <h2 id="titulo-lancamentos">Próximos lançamentos</h2>
             <ul id="lista-lancamentos"></ul>
@@ -124,6 +92,56 @@
         <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
         <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
     </footer>
+    <dialog id="dialogo-livro" aria-labelledby="titulo-adicionar">
+        <form id="form-livro" novalidate>
+            <header class="dialogo-cabecalho">
+                <h2 id="titulo-adicionar">Adicionar livro</h2>
+                <button id="fechar-formulario" type="button" aria-label="Fechar">✕</button>
+            </header>
+            <label>Título
+                <input id="titulo" type="text">
+            </label>
+            <label>Autor
+                <input id="autor" type="text">
+            </label>
+            <fieldset id="generos">
+                <legend>Géneros</legend>
+                <label><input type="checkbox" name="genero" value="Fantasia">Fantasia</label>
+                <label><input type="checkbox" name="genero" value="Romance">Romance</label>
+                <label><input type="checkbox" name="genero" value="Ficção Científica">Ficção Científica</label>
+                <label><input type="checkbox" name="genero" value="Thriller">Thriller</label>
+                <label><input type="checkbox" name="genero" value="Terror">Terror</label>
+                <label><input type="checkbox" name="genero" value="Distopia">Distopia</label>
+                <label><input type="checkbox" name="genero" value="Outro">Outro</label>
+            </fieldset>
+            <label>Idioma
+                <select id="idioma">
+                    <option value="Português">Português</option>
+                    <option value="Inglês">Inglês</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </label>
+            <label>Páginas
+                <input id="paginas" type="number" min="1">
+            </label>
+            <label class="campo-largo">Saga (opcional)
+                <input id="saga" type="text" list="lista-sagas">
+            </label>
+            <datalist id="lista-sagas"></datalist>
+            <label class="campo-largo campo-caixa">
+                <input id="eh-lancamento" type="checkbox">
+                Ainda não foi lançado?
+            </label>
+            <label id="campo-data" class="campo-largo" hidden>Data de lançamento
+                <input id="data-lancamento" type="date">
+            </label>
+            <p id="erro-formulario" role="alert"></p>
+            <div class="dialogo-botoes">
+                <button id="cancelar-formulario" type="button">Cancelar</button>
+                <button type="submit">Adicionar</button>
+            </div>
+        </form>
+    </dialog>
     <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
 </body>
 
