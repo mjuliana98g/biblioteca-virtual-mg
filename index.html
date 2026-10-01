@@ -17,36 +17,34 @@
 <body id="topo">
     <button id="botao-menu" type="button" aria-label="Abrir menu" aria-controls="barra-lateral"
         aria-expanded="false">☰</button>
-
-    <header id="barra-lateral" class="barra-lateral">
-        <h1><img src="img/logo-biblioteca-mg.svg" alt="Biblioteca Virtual de Matilde Gomes"></h1>
-        <section class="progresso-leitura" aria-label="Progresso de leitura">
-            <p id="progresso-texto">0 de 0 livros lidos</p>
-            <progress id="progresso-barra" value="0" max="100" aria-labelledby="progresso-texto"></progress>
-        </section>
-        <nav aria-label="Secções do site">
-            <ul>
-                <li><a href="#lancamentos">Lançamentos<data id="contador-lancamentos" value="0">0</data></a></li>
-                <li><a href="#estante">Estante<data id="contador-estante" value="0">0</data></a></li>
-                <li><a href="#favoritos">Favoritos<data id="contador-favoritos" value="0">0</data></a></li>
-                <li><a href="#estatisticas">Estatísticas</a></li>
-            </ul>
-        </nav>
-        <button id="botao-adicionar-livro" type="button" aria-haspopup="dialog">+ Adicionar livro</button>
-    </header>
-
-    <main>
-        <header class="barra-superior">
-            <button id="botao-tema" type="button" aria-label="Mudar para modo escuro">⏾</button>
+    <aside id="barra-lateral" class="barra-lateral">
+        <header>
+            <h1><img src="img/logo-biblioteca-mg.svg" alt="Biblioteca Virtual de Matilde Gomes"></h1>
+            <section class="progresso-leitura" aria-label="Progresso de leitura">
+                <p id="progresso-texto">0 de 0 livros lidos</p>
+                <progress id="progresso-barra" value="0" max="100" aria-labelledby="progresso-texto"></progress>
+            </section>
+            <nav aria-label="Secções do site">
+                <ul>
+                    <li><a href="#lancamentos">Lançamentos<data id="contador-lancamentos" value="0">0</data></a></li>
+                    <li><a href="#estante">Estante<data id="contador-estante" value="0">0</data></a></li>
+                    <li><a href="#favoritos">Favoritos<data id="contador-favoritos" value="0">0</data></a></li>
+                    <li><a href="#estatisticas">Estatísticas</a></li>
+                </ul>
+            </nav>
         </header>
-
+        <div class="botoes-barra-lateral">
+            <button id="botao-tema" type="button" aria-label="Mudar para modo escuro">⏾</button>
+            <button id="botao-adicionar-livro" type="button" aria-haspopup="dialog">+ Adicionar livro</button>
+        </div>
+    </aside>
+    <main>
         <section id="lancamentos" aria-labelledby="titulo-lancamentos">
-            <h2 id="titulo-lancamentos">Próximos lançamentos</h2>
+            <h2 id="titulo-lancamentos">Próximos Lançamentos</h2>
             <ul id="lista-lancamentos"></ul>
         </section>
-
         <section id="estante" aria-labelledby="titulo-estante">
-            <h2 id="titulo-estante">A minha estante</h2>
+            <h2 id="titulo-estante">Estante</h2>
             <search aria-label="Filtrar livros">
                 <label>Pesquisar
                     <input id="filtro-pesquisa" type="search" placeholder="Título ou autor...">
@@ -77,31 +75,26 @@
             </search>
             <ul id="lista-livros"></ul>
         </section>
-
         <section id="favoritos" aria-labelledby="titulo-favoritos">
             <h2 id="titulo-favoritos">Favoritos</h2>
             <ul id="lista-favoritos"></ul>
         </section>
-
         <section id="estatisticas" aria-labelledby="titulo-estatisticas">
             <h2 id="titulo-estatisticas">Estatísticas</h2>
             <dl id="lista-estatisticas"></dl>
         </section>
     </main>
-
     <footer>
         <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
         <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
     </footer>
-
     <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
-
     <dialog id="dialogo-formulario-livro" aria-labelledby="titulo-formulario">
         <form id="formulario-livro" novalidate>
-            <header class="cabecalho-dialogo">
+            <div class="cabecalho-dialogo">
                 <h2 id="titulo-formulario">Adicionar livro</h2>
                 <button id="fechar-formulario" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
-            </header>
+            </div>
             <label class="campo-metade">Título
                 <input id="titulo-livro" type="text">
             </label>
@@ -159,45 +152,41 @@
                 <input id="data-lancamento" type="date">
             </label>
             <p id="mensagem-erro-formulario" role="alert"></p>
-            <footer class="botoes-dialogo">
+            <div class="botoes-dialogo">
                 <button id="cancelar-formulario" type="button">Cancelar</button>
                 <button id="guardar-formulario" class="botao-confirmar" type="submit">Adicionar</button>
-            </footer>
+            </div>
         </form>
     </dialog>
-
     <dialog id="dialogo-confirmar-remocao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-remocao">
         <form method="dialog">
             <h2 id="titulo-confirmar-remocao">Remover livro</h2>
             <p id="mensagem-confirmar-remocao"></p>
-            <footer class="botoes-dialogo">
+            <div class="botoes-dialogo">
                 <button value="cancelar">Cancelar</button>
                 <button value="remover" class="botao-confirmar">Remover</button>
-            </footer>
+            </div>
         </form>
     </dialog>
-
-    <dialog id="dialogo-confirmar-lancamento" class="dialogo-confirmar"
-        aria-labelledby="titulo-confirmar-lancamento">
+    <dialog id="dialogo-confirmar-lancamento" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-lancamento">
         <form method="dialog">
             <h2 id="titulo-confirmar-lancamento">Já saiu</h2>
             <p id="mensagem-confirmar-lancamento"></p>
-            <footer class="botoes-dialogo">
+            <div class="botoes-dialogo">
                 <button value="nao">Não</button>
                 <button value="sim" class="botao-confirmar">Sim</button>
-            </footer>
+            </div>
         </form>
     </dialog>
-
     <dialog id="dialogo-detalhes" aria-labelledby="titulo-detalhes">
-        <header class="cabecalho-dialogo">
+        <div class="cabecalho-dialogo">
             <h2 id="titulo-detalhes"></h2>
             <button id="fechar-detalhes" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
-        </header>
+        </div>
         <div id="conteudo-detalhes"></div>
-        <footer class="botoes-dialogo">
+        <div class="botoes-dialogo">
             <button id="editar-detalhes" type="button">Editar</button>
-        </footer>
+        </div>
     </dialog>
 </body>
 
