@@ -42,28 +42,28 @@ function criarCapa(livro) {
     return capa;
 };
 
-function criarClassificacao(nota) {
-    const estrelas = criarElemento("p", "★".repeat(nota) + "☆".repeat(5 - nota));
-    estrelas.setAttribute("aria-label", `${nota} de 5 estrelas`);
-    return estrelas;
+function criarTitulo(livro) {
+    const titulo = criarElemento("h3");
+    const botao = criarElemento("button", livro.titulo);
+    botao.type = "button";
+    botao.className = "abrir-detalhes";
+    botao.setAttribute("aria-haspopup", "dialog");
+    titulo.append(botao);
+    return titulo;
+};
+
+function criarParagrafoGoodreads(livro) {
+    const paragrafo = criarElemento("p");
+    paragrafo.append(criarLinkGoodreads(livro));
+    return paragrafo;
 };
 
 function criarTextos(livro) {
-    const textos = [
-        criarElemento("h3", livro.titulo),
+    return [
+        criarTitulo(livro),
         criarElemento("p", livro.autor),
-        criarElemento("p", `${livro.generos.join(", ")} · ${livro.idioma}`),
+        criarParagrafoGoodreads(livro),
     ];
-    if (livro.saga) {
-        textos.push(criarElemento("p", `Saga: ${livro.saga}`));
-    }
-    if (livro.dataLancamento) {
-        textos.push(criarElemento("p", `Lançamento: ${formatarData(livro.dataLancamento)}`));
-    }
-    if (livro.estado === "lido" && livro.classificacao > 0) {
-        textos.push(criarClassificacao(livro.classificacao));
-    }
-    return textos;
 };
 
 function criarBotaoEstado(livro) {
@@ -127,10 +127,16 @@ function criarLinkGoodreads(livro) {
 
 function criarFigura(livro) {
     const figura = criarElemento("figure");
+    figura.append(criarCapa(livro));
+    return figura;
+};
+
+function criarFiguraComLink(livro) {
+    const figura = criarFigura(livro);
     const legenda = criarElemento("figcaption");
 
     legenda.append(criarLinkGoodreads(livro));
-    figura.append(criarCapa(livro), legenda);
+    figura.append(legenda);
     return figura;
 };
 
@@ -186,4 +192,37 @@ export function mostrarLivros(livros, contentor, mensagemVazia = "Nenhum livro e
     }
 
     contentor.replaceChildren(...livros.map(criarCartaoLivro));
+};
+
+function listarDetalhes(livro) {
+    const detalhes = [
+        ["Autor", livro.autor],
+        ["Géneros", livro.generos.join(", ")],
+        ["Idioma", livro.idioma],
+        ["Páginas", livro.paginas],
+        ["Saga", livro.saga],
+        ["Volume", livro.volume],
+        ["Estado", textoEstado(livro.estado)],
+        ["Classificação", livro.classificacao > 0
+            ? `★ ${livro.classificacao.toLocaleString("pt-PT")} / 5`
+            : "Sem classificação"],
+        ["Lançamento", livro.dataLancamento ? formatarData(livro.dataLancamento) : ""],
+    ];
+
+    return detalhes.filter(([, valor]) => valor);
+};
+
+function criarListaDetalhes(livro) {
+    const lista = criarElemento("dl");
+
+    for (const [nome, valor] of listarDetalhes(livro)) {
+        lista.append(criarElemento("dt", nome), criarElemento("dd", String(valor)));
+    }
+
+    return lista;
+};
+
+export function mostrarDetalhes(livro, titulo, conteudo) {
+    titulo.textContent = livro.titulo;
+        conteudo.replaceChildren(criarFiguraComLink(livro), criarListaDetalhes(livro));
 };
