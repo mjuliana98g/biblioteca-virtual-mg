@@ -8,6 +8,7 @@ const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_ESTADOS = "estados";
 const CHAVE_REMOVIDOS = "livros-removidos";
 const CHAVE_ADICIONADOS = "livros-adicionados";
+const CHAVE_ORDENACAO = "ordenacao";
 
 const listaLivros = document.querySelector("#lista-livros");
 const listaFavoritos = document.querySelector("#lista-favoritos");
@@ -19,6 +20,7 @@ const campoPesquisa = document.querySelector("#filtro-pesquisa");
 const filtroGenero = document.querySelector("#filtro-genero");
 const filtroSaga = document.querySelector("#filtro-saga");
 const filtrosEstado = document.querySelector("#filtros-estado");
+const campoOrdenar = document.querySelector("#ordenar");
 
 let livros = [];
 let idParaRemover = null;
@@ -98,6 +100,25 @@ function aplicarFiltros(lista) {
   );
 };
 
+function ordenar(lista) {
+  const criterio = campoOrdenar.value;
+
+  return [...lista].sort((a, b) => a[criterio].localeCompare(b[criterio], "pt"));
+};
+
+function restaurarOrdenacao() {
+  campoOrdenar.value = ler(sessionStorage, CHAVE_ORDENACAO, "titulo");
+
+  if (!campoOrdenar.value) {
+    campoOrdenar.value = "titulo";
+  }
+};
+
+function aoMudarOrdenacao() {
+  guardar(sessionStorage, CHAVE_ORDENACAO, campoOrdenar.value);
+  atualizarPagina();
+};
+
 function limparFiltros() {
   campoPesquisa.value = "";
   filtroGenero.value = "todos";
@@ -112,8 +133,7 @@ function atualizarPagina() {
   preencherFiltro(filtroSaga, listarSagas(), "todas", "Todas");
 
   mostrarLivros(aplicarFiltros(livros), listaLivros);
-  mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
-
+  mostrarLivros(ordenar(aplicarFiltros(livros)), listaLivros);
   atualizarContador(contadorEstante, livros.length);
   atualizarContador(contadorFavoritos, favoritos.length);
 };
@@ -236,6 +256,8 @@ async function iniciar() {
   filtroSaga.addEventListener("change", atualizarPagina);
   filtrosEstado.addEventListener("change", atualizarPagina);
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
+  campoOrdenar.addEventListener("change", aoMudarOrdenacao);
+  restaurarOrdenacao();
 
   const livrosDoFicheiro = await carregarLivros();
   const adicionados = ler(localStorage, CHAVE_ADICIONADOS, []);
