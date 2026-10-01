@@ -400,6 +400,15 @@ search select {
     background: var(--superficie);
     border: 1px solid var(--borda);
     border-radius: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#lista-lancamentos article:hover,
+#lista-livros article:hover,
+#lista-favoritos article:hover {
+    border-color: var(--destaque-2);
+    box-shadow: var(--sombra);
 }
 
 article figure {
@@ -417,11 +426,7 @@ article img {
     box-shadow: var(--sombra);
 }
 
-article figcaption {
-    margin-top: 8px;
-}
-
-article figcaption a {
+.info-livro a {
     font-size: 0.85rem;
     font-weight: 700;
 }
@@ -444,19 +449,13 @@ article figcaption a {
     color: var(--texto-suave);
 }
 
-.info-livro p[aria-label$="estrelas"] {
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    color: var(--destaque-2);
-}
-
 .acoes-livro {
     margin-top: auto;
     padding-top: 12px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 8px;
 }
 
@@ -562,11 +561,23 @@ article figcaption a {
     cursor: pointer;
 }
 
+.acoes-livro button[aria-pressed]:hover {
+    border-color: var(--destaque);
+    background: var(--etiqueta);
+    color: var(--destaque);
+}
+
 .acoes-livro button[aria-pressed="true"] {
     background: var(--realce);
     border-color: var(--realce);
     color: #2A0F16;
     box-shadow: 0 0 0 3px rgba(217, 139, 155, 0.35);
+}
+
+.acoes-livro button[aria-pressed="true"]:hover {
+    border-color: var(--destaque);
+    background: var(--destaque);
+    color: var(--sobre-destaque);
 }
 
 .botao-remover {
@@ -836,4 +847,67 @@ select option:focus {
 select option:checked {
     font-weight: 700;
     color: var(--destaque);
+}
+
+.abrir-detalhes {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dialogo-detalhes {
+    width: min(640px, calc(100% - 32px));
+}
+
+#conteudo-detalhes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+#conteudo-detalhes figure {
+    flex: none;
+    width: 140px;
+    text-align: center;
+}
+
+#conteudo-detalhes img {
+    display: block;
+    width: 140px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: var(--sombra);
+}
+
+#conteudo-detalhes figcaption {
+    margin-top: 8px;
+}
+
+#conteudo-detalhes figcaption a {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+#conteudo-detalhes dl {
+    flex: 1 1 240px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 16px;
+    align-content: start;
+}
+
+#conteudo-detalhes dt {
+    font-weight: 700;
+    color: var(--titulo);
+}
+
+#conteudo-detalhes dd {
+    margin: 0;
+    color: var(--texto-suave);
 }

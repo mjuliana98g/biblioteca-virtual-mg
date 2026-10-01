@@ -1,9 +1,9 @@
 import { carregarLivros } from "./api.js";
-import { mostrarLivros } from "./render.js";
-import { iniciarDialogo } from "./dialogo.js";
+import { iniciarDialogo, abrirParaEditar } from "./dialogo.js";
 import { guardar, ler } from "./storage.js";
 import { iniciarTema } from "./theme.js";
 import { ePorLancar } from "./lancamentos.js";
+import { mostrarLivros, mostrarDetalhes } from "./render.js";
 
 const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_ESTADOS = "estados";
@@ -11,6 +11,7 @@ const CHAVE_REMOVIDOS = "livros-removidos";
 const CHAVE_ADICIONADOS = "livros-adicionados";
 const CHAVE_ORDENACAO = "ordenacao";
 const CHAVE_LANCADOS = "livros-lancados";
+const CHAVE_EDITADOS = "livros-editados";
 
 const listaLivros = document.querySelector("#lista-livros");
 const listaFavoritos = document.querySelector("#lista-favoritos");
@@ -29,10 +30,16 @@ const listaLancamentos = document.querySelector("#lista-lancamentos");
 const contadorLancamentos = document.querySelector("#contador-lancamentos");
 const dialogoLancado = document.querySelector("#dialogo-lancado");
 const mensagemLancado = document.querySelector("#mensagem-lancado");
+const dialogoDetalhes = document.querySelector("#dialogo-detalhes");
+const tituloDetalhes = document.querySelector("#titulo-detalhes");
+const conteudoDetalhes = document.querySelector("#conteudo-detalhes");
+const botaoFecharDetalhes = document.querySelector("#fechar-detalhes");
+const botaoEditarDetalhes = document.querySelector("#editar-detalhes");
 
 let livros = [];
 let idParaRemover = null;
 let idParaLancar = null;
+let idEmDetalhe = null;
 
 function livrosLancados() {
   return livros.filter((livro) => !ePorLancar(livro));
@@ -240,6 +247,46 @@ function aoFecharConfirmacaoLancado() {
   idParaLancar = null;
 };
 
+function abrirDetalhes(id) {
+  const livro = livros.find((livro) => livro.id === id);
+
+  idEmDetalhe = id;
+  mostrarDetalhes(livro, tituloDetalhes, conteudoDetalhes);
+  dialogoDetalhes.showModal();
+};
+
+function aoClicarNoDialogoDetalhes(evento) {
+  if (evento.target === dialogoDetalhes) {
+    dialogoDetalhes.close();
+  }
+};
+
+function aoEditarDetalhes() {
+  const livro = livros.find((livro) => livro.id === idEmDetalhe);
+
+  dialogoDetalhes.close();
+  abrirParaEditar(livro);
+};
+
+function editarLivro(id, campos) {
+  const editados = ler(localStorage, CHAVE_EDITADOS, {});
+  guardar(localStorage, CHAVE_EDITADOS, { ...editados, [id]: campos });
+
+  const estados = ler(localStorage, CHAVE_ESTADOS, {});
+  guardar(localStorage, CHAVE_ESTADOS, { ...estados, [id]: campos.estado });
+
+  if (campos.dataLancamento !== "") {
+    const lancados = ler(localStorage, CHAVE_LANCADOS, []);
+    guardar(localStorage, CHAVE_LANCADOS, lancados.filter((idLancado) => idLancado !== id));
+  }
+
+  livros = livros.map((livro) =>
+    livro.id === id ? { ...livro, ...campos } : livro
+  );
+
+  atualizarPagina();
+};
+
 function removerLivro(id) {
   const removidos = ler(localStorage, CHAVE_REMOVIDOS, []);
   guardar(localStorage, CHAVE_REMOVIDOS, [...removidos, id]);
@@ -295,6 +342,8 @@ function aoClicarNaLista(evento) {
     pedirConfirmacaoParaRemover(idDoCartao(botaoRemover));
   } else if (botaoLancado) {
     pedirConfirmacaoParaLancar(idDoCartao(botaoLancado));
+  } else if (evento.target.closest("article") && !evento.target.closest("a, .seletor-estado")) {
+    abrirDetalhes(idDoCartao(evento.target));
   }
 };
 
@@ -311,7 +360,7 @@ function aoPrimirTecla(evento) {
 };
 
 async function iniciar() {
-  iniciarDialogo(adicionarLivro);
+  iniciarDialogo(adicionarLivro, editarLivro);
   iniciarTema();
   listaLivros.addEventListener("click", aoClicarNaLista);
   listaFavoritos.addEventListener("click", aoClicarNaLista);
@@ -324,7 +373,10 @@ async function iniciar() {
   filtrosEstado.addEventListener("change", atualizarPagina);
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
   dialogoLancado.addEventListener("close", aoFecharConfirmacaoLancado);
+  botaoFecharDetalhes.addEventListener("click", () => dialogoDetalhes.close());
+  dialogoDetalhes.addEventListener("click", aoClicarNoDialogoDetalhes);
   campoOrdenar.addEventListener("change", aoMudarOrdenacao);
+  botaoEditarDetalhes.addEventListener("click", aoEditarDetalhes);
   restaurarOrdenacao();
 
   const livrosDoFicheiro = await carregarLivros();
@@ -333,11 +385,13 @@ async function iniciar() {
   const estados = ler(localStorage, CHAVE_ESTADOS, {});
   const removidos = ler(localStorage, CHAVE_REMOVIDOS, []);
   const idsLancados = ler(localStorage, CHAVE_LANCADOS, []);
+  const editados = ler(localStorage, CHAVE_EDITADOS, {});
 
   livros = [...livrosDoFicheiro, ...adicionados]
     .filter((livro) => !removidos.includes(livro.id))
     .map((livro) => ({
       ...livro,
+      ...editados[livro.id],
       favorito: idsFavoritos.includes(livro.id),
       estado: estados[livro.id] || livro.estado,
       dataLancamento: idsLancados.includes(livro.id) ? "" : livro.dataLancamento,

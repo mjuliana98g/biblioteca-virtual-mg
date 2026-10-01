@@ -23,13 +23,13 @@
     "idioma": "Inglês",
     "ano": 2017,
     "paginas": 544,
-    "capa": "img/capas/strange_the_dreamer_capa.jpg",
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1519915549i/28449207.jpg",
     "estado": "a-ler",
     "favorito": false,
-    "classificacao": 0,
+    "classificacao": 5,
     "saga": "Strange the Dreamer",
     "volume": 1,
-    "goodreads": ""
+    "goodreads": "https://www.goodreads.com/book/show/28449207"
   },
   {
     "id": 3,

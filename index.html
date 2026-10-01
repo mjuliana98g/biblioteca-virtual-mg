@@ -119,7 +119,7 @@
             <label>Páginas
                 <input id="paginas" type="number" min="1">
             </label>
-            <label>Saga (opcional)
+            <label>Saga
                 <input id="saga" type="text" list="lista-sagas">
             </label>
             <datalist id="lista-sagas"></datalist>
@@ -130,8 +130,17 @@
                     <option value="lido">Lido</option>
                 </select>
             </label>
+            <label>Volume
+                <input id="volume" type="number" min="1">
+            </label>
+            <label>Classificação
+                <input id="classificacao" type="number" min="0" max="5" step="0.25" placeholder="0 a 5">
+            </label>
             <label class="campo-largo">Link do Goodreads
                 <input id="goodreads" type="url" placeholder="https://www.goodreads.com/book/show/...">
+            </label>
+            <label class="campo-largo">Link da imagem da capa
+                <input id="capa" type="url" placeholder="https://...">
             </label>
             <label class="campo-largo campo-caixa">
                 <input id="eh-lancamento" type="checkbox">
@@ -166,6 +175,16 @@
                 <button value="sim" class="botao-confirmar">Sim</button>
             </div>
         </form>
+    </dialog>
+    <dialog id="dialogo-detalhes" class="dialogo-detalhes" aria-labelledby="titulo-detalhes">
+        <header class="dialogo-cabecalho">
+            <h2 id="titulo-detalhes"></h2>
+            <button id="fechar-detalhes" type="button" aria-label="Fechar">✕</button>
+        </header>
+        <div id="conteudo-detalhes"></div>
+        <div class="dialogo-botoes">
+            <button id="editar-detalhes" type="button">Editar</button>
+        </div>
     </dialog>
     <footer>
         <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>

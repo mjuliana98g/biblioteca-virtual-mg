@@ -10,6 +10,10 @@ const botaoCancelar = document.querySelector("#cancelar-formulario");
 const caixaLancamento = document.querySelector("#eh-lancamento");
 const campoData = document.querySelector("#campo-data");
 const erroFormulario = document.querySelector("#erro-formulario");
+const tituloFormulario = document.querySelector("#titulo-adicionar");
+const botaoSubmeter = formulario.querySelector('button[type="submit"]');
+
+let idEmEdicao = null;
 
 function camposDoFormulario() {
   return formulario.querySelectorAll("input, select");
@@ -47,6 +51,10 @@ function preencherValores(valores) {
 };
 
 function guardarRascunho() {
+  if (idEmEdicao !== null) {
+    return;
+  }
+
   guardar(sessionStorage, CHAVE_RASCUNHO, {
     aberto: dialogo.open,
     valores: lerValores(),
@@ -81,7 +89,45 @@ function fecharDialogo() {
   dialogo.close();
 };
 
+function definirModo(id) {
+  idEmEdicao = id;
+  tituloFormulario.textContent = id === null ? "Adicionar livro" : "Editar livro";
+  botaoSubmeter.textContent = id === null ? "Adicionar" : "Guardar";
+};
+
+function valoresDoLivro(livro) {
+  const dataLancamento = livro.dataLancamento || "";
+  const valores = {
+    "titulo": livro.titulo,
+    "autor": livro.autor,
+    "idioma": livro.idioma,
+    "paginas": livro.paginas ?? "",
+    "saga": livro.saga || "",
+    "estado-livro": livro.estado,
+    "volume": livro.volume ?? "",
+    "classificacao": livro.classificacao > 0 ? livro.classificacao : "",
+    "goodreads": livro.goodreads || "",
+    "capa": livro.capa || "",
+    "eh-lancamento": dataLancamento !== "",
+    "data-lancamento": dataLancamento,
+  };
+
+  for (const genero of livro.generos) {
+    valores[`genero-${genero}`] = true;
+  }
+
+  return valores;
+};
+
+export function abrirParaEditar(livro) {
+  definirModo(livro.id);
+  preencherValores(valoresDoLivro(livro));
+  atualizarCampoData();
+  dialogo.showModal();
+};
+
 function aoFechar() {
+  definirModo(null);
   formulario.reset();
   atualizarCampoData();
   assinalarCampos([]);
@@ -102,7 +148,10 @@ function lerDadosDoFormulario() {
     paginas: Number(formulario.querySelector("#paginas").value),
     saga: formulario.querySelector("#saga").value.trim(),
     estado: formulario.querySelector("#estado-livro").value,
+    volume: Number(formulario.querySelector("#volume").value),
+    classificacao: Number(formulario.querySelector("#classificacao").value),
     goodreads: formulario.querySelector("#goodreads").value.trim(),
+    capa: formulario.querySelector("#capa").value.trim(),
     porLancar: caixaLancamento.checked,
     dataLancamento: formulario.querySelector("#data-lancamento").value,
   };
@@ -136,6 +185,42 @@ function linkValido(texto) {
   return texto === "" || /^https?:\/\/\S+$/.test(texto);
 };
 
+function classificacaoValida(nota) {
+  return nota >= 0 && nota <= 5 && Number.isInteger(nota * 4);
+};
+
+function primeiroErro(dados) {
+  const regras = [
+    {
+      campo: "#estado-livro",
+      falha: dados.porLancar && dados.estado !== "quero-ler",
+      mensagem: "Um livro que ainda não foi lançado só pode estar em «Quero ler».",
+    },
+    {
+      campo: "#classificacao",
+      falha: !classificacaoValida(dados.classificacao),
+      mensagem: "A classificação tem de estar entre 0 e 5, de 0,25 em 0,25.",
+    },
+    {
+      campo: "#classificacao",
+      falha: dados.classificacao > 0 && dados.estado !== "lido",
+      mensagem: "Só podes classificar livros que já leste (estado «Lido»).",
+    },
+    {
+      campo: "#goodreads",
+      falha: !linkValido(dados.goodreads),
+      mensagem: "O link do Goodreads tem de começar por http:// ou https://.",
+    },
+    {
+      campo: "#capa",
+      falha: !linkValido(dados.capa),
+      mensagem: "O link da capa tem de começar por http:// ou https://.",
+    },
+  ];
+
+  return regras.find((regra) => regra.falha);
+};
+
 function limparAssinalado(evento) {
   const assinalado = evento.target.closest("[aria-invalid]");
 
@@ -144,26 +229,28 @@ function limparAssinalado(evento) {
   }
 };
 
-function criarLivro(dados) {
+function camposDoLivro(dados) {
   return {
-    id: Date.now(),
     titulo: dados.titulo,
     autor: dados.autor,
     generos: dados.generos,
     idioma: dados.idioma,
     paginas: dados.paginas > 0 ? dados.paginas : null,
-    capa: "",
+    capa: dados.capa,
     estado: dados.estado,
-    favorito: false,
-    classificacao: 0,
+    classificacao: dados.classificacao,
     saga: dados.saga,
-    volume: null,
+    volume: dados.volume > 0 ? dados.volume : null,
     goodreads: dados.goodreads,
     dataLancamento: dados.porLancar ? dados.dataLancamento : "",
   };
 };
 
-function aoSubmeter(evento, aoAdicionar) {
+function criarLivro(dados) {
+  return { id: Date.now(), favorito: false, ...camposDoLivro(dados) };
+};
+
+function aoSubmeter(evento, aoAdicionar, aoEditar) {
   evento.preventDefault();
 
   const dados = lerDadosDoFormulario();
@@ -176,30 +263,29 @@ function aoSubmeter(evento, aoAdicionar) {
     return;
   }
 
-  if (dados.porLancar && dados.estado !== "quero-ler") {
-    assinalarCampos([formulario.querySelector("#estado-livro")]);
-    erroFormulario.textContent =
-      "Um livro que ainda não foi lançado só pode estar em «Quero ler».";
+  const erro = primeiroErro(dados);
+
+  if (erro) {
+    assinalarCampos([formulario.querySelector(erro.campo)]);
+    erroFormulario.textContent = erro.mensagem;
     return;
   }
 
-  if (!linkValido(dados.goodreads)) {
-    assinalarCampos([formulario.querySelector("#goodreads")]);
-    erroFormulario.textContent =
-      "O link do Goodreads tem de começar por http:// ou https://.";
-    return;
+  if (idEmEdicao === null) {
+    aoAdicionar(criarLivro(dados));
+  } else {
+    aoEditar(idEmEdicao, camposDoLivro(dados));
   }
 
-  aoAdicionar(criarLivro(dados));
   dialogo.close();
 };
 
-export function iniciarDialogo(aoAdicionar) {
+export function iniciarDialogo(aoAdicionar, aoEditar) {
   botaoAbrir.addEventListener("click", abrirDialogo);
   botaoFechar.addEventListener("click", fecharDialogo);
   botaoCancelar.addEventListener("click", fecharDialogo);
   dialogo.addEventListener("close", aoFechar);
-  formulario.addEventListener("input", guardarRascunho);
+  formulario.addEventListener("submit", (evento) => aoSubmeter(evento, aoAdicionar, aoEditar));
   caixaLancamento.addEventListener("change", atualizarCampoData);
   formulario.addEventListener("submit", (evento) => aoSubmeter(evento, aoAdicionar));
   formulario.addEventListener("input", limparAssinalado);
