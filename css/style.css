@@ -461,6 +461,51 @@ article figcaption a {
     border-color: var(--quero-borda);
 }
 
+.seletor-estado {
+    position: relative;
+}
+
+.menu-estado {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    z-index: 5;
+    min-width: 150px;
+    list-style: none;
+    padding: 6px;
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+}
+
+.menu-estado button {
+    width: 100%;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--texto);
+    font: inherit;
+    font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu-estado button:hover {
+    background: var(--etiqueta);
+}
+
+.menu-estado button[aria-current="true"] {
+    font-weight: 700;
+    color: var(--destaque);
+}
+
+.menu-estado button[aria-current="true"]::after {
+    content: " ✓";
+}
+
 .acoes-livro button[aria-pressed] {
     width: 44px;
     height: 44px;
@@ -522,11 +567,11 @@ dialog::backdrop {
     gap: 16px;
 }
 
-#form-livro > * {
+#form-livro>* {
     grid-column: 1 / -1;
 }
 
-#form-livro > label:not(.campo-largo) {
+#form-livro>label:not(.campo-largo) {
     grid-column: auto;
 }
 
