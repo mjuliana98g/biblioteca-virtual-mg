@@ -3,12 +3,14 @@ import { mostrarLivros } from "./render.js";
 import { iniciarDialogo } from "./dialogo.js";
 import { guardar, ler } from "./storage.js";
 import { iniciarTema } from "./theme.js";
+import { ePorLancar } from "./lancamentos.js";
 
 const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_ESTADOS = "estados";
 const CHAVE_REMOVIDOS = "livros-removidos";
 const CHAVE_ADICIONADOS = "livros-adicionados";
 const CHAVE_ORDENACAO = "ordenacao";
+const CHAVE_LANCADOS = "livros-lancados";
 
 const listaLivros = document.querySelector("#lista-livros");
 const listaFavoritos = document.querySelector("#lista-favoritos");
@@ -23,9 +25,22 @@ const filtrosEstado = document.querySelector("#filtros-estado");
 const campoOrdenar = document.querySelector("#ordenar");
 const progressoTexto = document.querySelector("#progresso-texto");
 const progressoBarra = document.querySelector("#progresso-barra");
+const listaLancamentos = document.querySelector("#lista-lancamentos");
+const contadorLancamentos = document.querySelector("#contador-lancamentos");
+const dialogoLancado = document.querySelector("#dialogo-lancado");
+const mensagemLancado = document.querySelector("#mensagem-lancado");
 
 let livros = [];
 let idParaRemover = null;
+let idParaLancar = null;
+
+function livrosLancados() {
+  return livros.filter((livro) => !ePorLancar(livro));
+};
+
+function livrosPorLancar() {
+  return livros.filter(ePorLancar);
+};
 
 function atualizarContador(contador, total) {
   contador.textContent = total;
@@ -52,12 +67,12 @@ function unicosOrdenados(lista) {
 };
 
 function listarGeneros() {
-  return unicosOrdenados(livros.flatMap((livro) => livro.generos));
+  return unicosOrdenados(livrosLancados().flatMap((livro) => livro.generos));
 };
 
 function listarSagas() {
   return unicosOrdenados(
-    livros.filter((livro) => livro.saga).map((livro) => livro.saga)
+    livrosLancados().filter((livro) => livro.saga).map((livro) => livro.saga)
   );
 };
 
@@ -129,8 +144,9 @@ function limparFiltros() {
 };
 
 function atualizarProgresso() {
-  const total = livros.length;
-  const lidos = livros.reduce(
+  const lancados = livrosLancados();
+  const total = lancados.length;
+  const lidos = lancados.reduce(
     (soma, livro) => (livro.estado === "lido" ? soma + 1 : soma),
     0
   );
@@ -140,15 +156,21 @@ function atualizarProgresso() {
 };
 
 function atualizarPagina() {
-  const favoritos = livros.filter((livro) => livro.favorito);
+  const lancados = livrosLancados();
+  const porLancar = [...livrosPorLancar()].sort((a, b) =>
+    a.dataLancamento.localeCompare(b.dataLancamento)
+  );
+  const favoritos = lancados.filter((livro) => livro.favorito);
 
   preencherFiltro(filtroGenero, listarGeneros(), "todos", "Todos");
   preencherFiltro(filtroSaga, listarSagas(), "todas", "Todas");
 
-  mostrarLivros(ordenar(aplicarFiltros(livros)), listaLivros);
+  mostrarLivros(porLancar, listaLancamentos, "Ainda não há lançamentos à espera.");
+  mostrarLivros(ordenar(aplicarFiltros(lancados)), listaLivros);
   mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
 
-  atualizarContador(contadorEstante, livros.length);
+  atualizarContador(contadorLancamentos, porLancar.length);
+  atualizarContador(contadorEstante, lancados.length);
   atualizarContador(contadorFavoritos, favoritos.length);
   atualizarProgresso();
 };
@@ -190,6 +212,32 @@ function alternarMenu(botao) {
   fecharMenus();
   menu.hidden = !vaiAbrir;
   botao.setAttribute("aria-expanded", vaiAbrir);
+};
+
+function marcarComoLancado(id) {
+  const lancados = ler(localStorage, CHAVE_LANCADOS, []);
+  guardar(localStorage, CHAVE_LANCADOS, [...lancados, id]);
+
+  livros = livros.map((livro) =>
+    livro.id === id ? { ...livro, dataLancamento: "" } : livro
+  );
+  atualizarPagina();
+};
+
+function pedirConfirmacaoParaLancar(id) {
+  const livro = livros.find((livro) => livro.id === id);
+
+  idParaLancar = id;
+  mensagemLancado.textContent = `Queres adicionar "${livro.titulo}" à tua estante?`;
+  dialogoLancado.returnValue = "";
+  dialogoLancado.showModal();
+};
+
+function aoFecharConfirmacaoLancado() {
+  if (dialogoLancado.returnValue === "sim") {
+    marcarComoLancado(idParaLancar);
+  }
+  idParaLancar = null;
 };
 
 function removerLivro(id) {
@@ -235,6 +283,7 @@ function aoClicarNaLista(evento) {
   const botaoEstado = evento.target.closest("button[data-estado]");
   const opcaoEstado = evento.target.closest("[data-novo-estado]");
   const botaoRemover = evento.target.closest(".botao-remover");
+  const botaoLancado = evento.target.closest(".botao-lancado");
 
   if (botaoFavorito) {
     alternarFavorito(idDoCartao(botaoFavorito));
@@ -244,6 +293,8 @@ function aoClicarNaLista(evento) {
     mudarEstado(idDoCartao(opcaoEstado), opcaoEstado.dataset.novoEstado);
   } else if (botaoRemover) {
     pedirConfirmacaoParaRemover(idDoCartao(botaoRemover));
+  } else if (botaoLancado) {
+    pedirConfirmacaoParaLancar(idDoCartao(botaoLancado));
   }
 };
 
@@ -266,11 +317,13 @@ async function iniciar() {
   listaFavoritos.addEventListener("click", aoClicarNaLista);
   document.addEventListener("click", aoClicarNoDocumento);
   document.addEventListener("keydown", aoPrimirTecla);
+  listaLancamentos.addEventListener("click", aoClicarNaLista);
   campoPesquisa.addEventListener("input", atualizarPagina);
   filtroGenero.addEventListener("change", atualizarPagina);
   filtroSaga.addEventListener("change", atualizarPagina);
   filtrosEstado.addEventListener("change", atualizarPagina);
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
+  dialogoLancado.addEventListener("close", aoFecharConfirmacaoLancado);
   campoOrdenar.addEventListener("change", aoMudarOrdenacao);
   restaurarOrdenacao();
 
@@ -279,6 +332,7 @@ async function iniciar() {
   const idsFavoritos = ler(localStorage, CHAVE_FAVORITOS, []);
   const estados = ler(localStorage, CHAVE_ESTADOS, {});
   const removidos = ler(localStorage, CHAVE_REMOVIDOS, []);
+  const idsLancados = ler(localStorage, CHAVE_LANCADOS, []);
 
   livros = [...livrosDoFicheiro, ...adicionados]
     .filter((livro) => !removidos.includes(livro.id))
@@ -286,6 +340,7 @@ async function iniciar() {
       ...livro,
       favorito: idsFavoritos.includes(livro.id),
       estado: estados[livro.id] || livro.estado,
+      dataLancamento: idsLancados.includes(livro.id) ? "" : livro.dataLancamento,
     }));
 
   atualizarPagina();

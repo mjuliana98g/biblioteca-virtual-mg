@@ -389,6 +389,7 @@ search select {
     gap: 20px;
 }
 
+#lista-lancamentos article,
 #lista-livros article,
 #lista-favoritos article {
     position: relative;
@@ -484,6 +485,24 @@ article figcaption a {
     background: var(--quero-fundo);
     color: var(--quero-texto);
     border-color: var(--quero-borda);
+}
+
+.botao-lancado {
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1.5px solid var(--destaque);
+    border-radius: 22px;
+    background: transparent;
+    color: var(--destaque);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.botao-lancado:hover {
+    background: var(--destaque);
+    color: var(--sobre-destaque);
 }
 
 .seletor-estado {
@@ -735,6 +754,7 @@ dialog::backdrop {
     width: min(420px, calc(100% - 32px));
 }
 
+#mensagem-lancado,
 #mensagem-remover {
     margin-bottom: 24px;
     color: var(--texto-suave);
