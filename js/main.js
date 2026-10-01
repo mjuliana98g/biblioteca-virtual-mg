@@ -18,6 +18,7 @@ const contadorEstante = document.querySelector("#contador-estante");
 const campoPesquisa = document.querySelector("#filtro-pesquisa");
 const filtroGenero = document.querySelector("#filtro-genero");
 const filtroSaga = document.querySelector("#filtro-saga");
+const filtrosEstado = document.querySelector("#filtros-estado");
 
 let livros = [];
 let idParaRemover = null;
@@ -83,8 +84,25 @@ function filtrarPorSaga(lista) {
     : lista.filter((livro) => livro.saga === saga);
 };
 
+function filtrarPorEstado(lista) {
+  const estado = filtrosEstado.querySelector('input[name="estado"]:checked').value;
+
+  return estado === "todos"
+    ? lista
+    : lista.filter((livro) => livro.estado === estado);
+};
+
 function aplicarFiltros(lista) {
-  return filtrarPorSaga(filtrarPorGenero(filtrarPorPesquisa(lista)));
+  return filtrarPorEstado(
+    filtrarPorSaga(filtrarPorGenero(filtrarPorPesquisa(lista)))
+  );
+};
+
+function limparFiltros() {
+  campoPesquisa.value = "";
+  filtroGenero.value = "todos";
+  filtroSaga.value = "todas";
+  filtrosEstado.querySelector('input[value="todos"]').checked = true;
 };
 
 function atualizarPagina() {
@@ -153,9 +171,7 @@ function adicionarLivro(novoLivro) {
 
   livros = [...livros, novoLivro];
 
-  campoPesquisa.value = "";
-  filtroGenero.value = "todos";
-  filtroSaga.value = "todas";
+  limparFiltros();
   atualizarPagina();
 };
 
@@ -218,6 +234,7 @@ async function iniciar() {
   campoPesquisa.addEventListener("input", atualizarPagina);
   filtroGenero.addEventListener("change", atualizarPagina);
   filtroSaga.addEventListener("change", atualizarPagina);
+  filtrosEstado.addEventListener("change", atualizarPagina);
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
 
   const livrosDoFicheiro = await carregarLivros();
