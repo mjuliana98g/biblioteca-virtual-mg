@@ -69,6 +69,7 @@ body {
     background: var(--fundo);
     color: var(--texto);
     font-family: "DM Sans", system-ui, sans-serif;
+    min-height: 100vh;
 }
 
 h2,
@@ -112,10 +113,6 @@ a {
 
 [hidden] {
     display: none !important;
-}
-
-body {
-    min-height: 100vh;
 }
 
 main {
@@ -689,6 +686,18 @@ dialog::backdrop {
 #erro-formulario {
     color: #B3261E;
     font-size: 0.9rem;
+}
+
+#form-livro input[aria-invalid="true"],
+#form-livro select[aria-invalid="true"],
+#form-livro fieldset[aria-invalid="true"] {
+    background-color: #FBE3E1;
+}
+
+[data-tema="escuro"] #form-livro input[aria-invalid="true"],
+[data-tema="escuro"] #form-livro select[aria-invalid="true"],
+[data-tema="escuro"] #form-livro fieldset[aria-invalid="true"] {
+    background-color: #4A2326;
 }
 
 [data-tema="escuro"] #erro-formulario {
