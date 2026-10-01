@@ -121,10 +121,11 @@ export function criarCartaoLivro(livro) {
     return item;
 };
 
-export function mostrarLivros(livros, contentor) {
+export function mostrarLivros(livros, contentor, mensagemVazia = "Nenhum livro encontrado.") {
     if (livros.length === 0) {
-        contentor.replaceChildren(criarElemento("li", "Nenhum livro encontrado."));
+        contentor.replaceChildren(criarElemento("li", mensagemVazia));
         return;
     }
+
     contentor.replaceChildren(...livros.map(criarCartaoLivro));
 };
