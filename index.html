@@ -124,8 +124,16 @@
             <label>Páginas
                 <input id="paginas" type="number" min="1">
             </label>
-            <label class="campo-largo">Saga (opcional)
+            <label>Saga (opcional)
                 <input id="saga" type="text" list="lista-sagas">
+            </label>
+            <datalist id="lista-sagas"></datalist>
+            <label>Estado
+                <select id="estado-livro">
+                    <option value="quero-ler">Quero ler</option>
+                    <option value="a-ler">A ler</option>
+                    <option value="lido">Lido</option>
+                </select>
             </label>
             <datalist id="lista-sagas"></datalist>
             <label class="campo-largo campo-caixa">
