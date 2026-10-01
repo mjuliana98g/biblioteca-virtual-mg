@@ -694,6 +694,20 @@ dialog::backdrop {
     color: var(--sobre-destaque);
 }
 
+.dialogo-confirmar {
+    width: min(420px, calc(100% - 32px));
+}
+
+#mensagem-remover {
+    margin-bottom: 24px;
+    color: var(--texto-suave);
+}
+
+.dialogo-botoes .botao-confirmar {
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+}
+
 #estatisticas-conteudo {
     margin: 0;
     display: grid;
