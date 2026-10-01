@@ -2,6 +2,7 @@ import { carregarLivros } from "./api.js";
 import { mostrarLivros } from "./render.js";
 import { iniciarDialogo } from "./dialogo.js";
 import { guardar, ler } from "./storage.js";
+import { iniciarTema } from "./theme.js";
 
 const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_ESTADOS = "estados";
@@ -124,6 +125,7 @@ function aoPrimirTecla(evento) {
 
 async function iniciar() {
   iniciarDialogo();
+  iniciarTema();
   listaLivros.addEventListener("click", aoClicarNaLista);
   listaFavoritos.addEventListener("click", aoClicarNaLista);
   document.addEventListener("click", aoClicarNoDocumento);

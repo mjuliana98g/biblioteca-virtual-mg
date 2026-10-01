@@ -27,6 +27,34 @@
     --largura-lateral: 280px;
 }
 
+[data-tema="escuro"] {
+    --fundo: #1B1A1F;
+    --superficie: #26252B;
+    --texto: #EDE8E6;
+    --texto-suave: #B8B0AE;
+    --titulo: #F2D9D3;
+    --destaque: #D98B8F;
+    --sobre-destaque: #1B1A1F;
+
+    --realce: #C27A7F;
+    --etiqueta: #38363D;
+    --borda: rgba(237, 232, 230, 0.15);
+    --link: #E8A6AA;
+    --foco: #F2B8BB;
+
+    --lido-fundo: #D98B8F;
+    --lido-texto: #1B1A1F;
+    --ler-fundo: #9C3A41;
+    --ler-texto: #FFFFFF;
+    --quero-fundo: #38363D;
+    --quero-texto: #EDE8E6;
+    --quero-borda: #C27A7F;
+
+    --lateral-inicio: #9c3a41;
+    --lateral-fim: #26252B;
+    --sombra: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
