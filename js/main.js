@@ -7,15 +7,22 @@ import { iniciarTema } from "./theme.js";
 const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_ESTADOS = "estados";
 const CHAVE_REMOVIDOS = "livros-removidos";
+const CHAVE_ADICIONADOS = "livros-adicionados";
 
 const listaLivros = document.querySelector("#lista-livros");
 const listaFavoritos = document.querySelector("#lista-favoritos");
 const contadorFavoritos = document.querySelector("#contador-favoritos");
 const dialogoRemover = document.querySelector("#dialogo-remover");
 const mensagemRemover = document.querySelector("#mensagem-remover");
+const contadorEstante = document.querySelector("#contador-estante");
 
 let livros = [];
 let idParaRemover = null;
+
+function atualizarContador(contador, total) {
+  contador.textContent = total;
+  contador.value = total;
+};
 
 function atualizarPagina() {
   const favoritos = livros.filter((livro) => livro.favorito);
@@ -23,8 +30,8 @@ function atualizarPagina() {
   mostrarLivros(livros, listaLivros);
   mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
 
-  contadorFavoritos.textContent = favoritos.length;
-  contadorFavoritos.value = favoritos.length;
+  atualizarContador(contadorEstante, livros.length);
+  atualizarContador(contadorFavoritos, favoritos.length);
 };
 
 function alternarFavorito(id) {
@@ -71,6 +78,14 @@ function removerLivro(id) {
   guardar(localStorage, CHAVE_REMOVIDOS, [...removidos, id]);
 
   livros = livros.filter((livro) => livro.id !== id);
+  atualizarPagina();
+};
+
+function adicionarLivro(novoLivro) {
+  const adicionados = ler(localStorage, CHAVE_ADICIONADOS, []);
+  guardar(localStorage, CHAVE_ADICIONADOS, [...adicionados, novoLivro]);
+
+  livros = [...livros, novoLivro];
   atualizarPagina();
 };
 
@@ -124,7 +139,7 @@ function aoPrimirTecla(evento) {
 };
 
 async function iniciar() {
-  iniciarDialogo();
+  iniciarDialogo(adicionarLivro);
   iniciarTema();
   listaLivros.addEventListener("click", aoClicarNaLista);
   listaFavoritos.addEventListener("click", aoClicarNaLista);
@@ -134,11 +149,12 @@ async function iniciar() {
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
 
   const livrosDoFicheiro = await carregarLivros();
+  const adicionados = ler(localStorage, CHAVE_ADICIONADOS, []);
   const idsFavoritos = ler(localStorage, CHAVE_FAVORITOS, []);
   const estados = ler(localStorage, CHAVE_ESTADOS, {});
   const removidos = ler(localStorage, CHAVE_REMOVIDOS, []);
 
-  livros = livrosDoFicheiro
+  livros = [...livrosDoFicheiro, ...adicionados]
     .filter((livro) => !removidos.includes(livro.id))
     .map((livro) => ({
       ...livro,

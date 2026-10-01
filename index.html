@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Shadows+Into+Light&family=Poppins:wght@600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/main.js"></script>
@@ -66,7 +66,6 @@
                     <select id="ordenar">
                         <option value="titulo">Título (A-Z)</option>
                         <option value="autor">Autor (A-Z)</option>
-                        <option value="ano">Ano (mais recente)</option>
                     </select>
                 </label>
                 <fieldset id="filtros-estado">
@@ -95,10 +94,10 @@
                 <button id="fechar-formulario" type="button" aria-label="Fechar">✕</button>
             </header>
             <label>Título
-                <input id="titulo" type="text">
+                <input id="titulo" type="text" required>
             </label>
             <label>Autor
-                <input id="autor" type="text">
+                <input id="autor" type="text" required>
             </label>
             <fieldset id="generos">
                 <legend>Géneros</legend>
@@ -131,7 +130,9 @@
                     <option value="lido">Lido</option>
                 </select>
             </label>
-            <datalist id="lista-sagas"></datalist>
+            <label class="campo-largo">Link do Goodreads
+                <input id="goodreads" type="url" placeholder="https://www.goodreads.com/book/show/...">
+            </label>
             <label class="campo-largo campo-caixa">
                 <input id="eh-lancamento" type="checkbox">
                 Ainda não foi lançado?
