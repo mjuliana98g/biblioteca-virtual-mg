@@ -781,3 +781,39 @@ dialog::backdrop {
     text-decoration: none;
     box-shadow: var(--sombra);
 }
+
+select,
+::picker(select) {
+    appearance: base-select;
+}
+
+select {
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+::picker(select) {
+    padding: 6px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--superficie);
+    box-shadow: var(--sombra);
+}
+
+select option {
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--texto);
+    cursor: pointer;
+}
+
+select option:hover,
+select option:focus {
+    background: var(--etiqueta);
+}
+
+select option:checked {
+    font-weight: 700;
+    color: var(--destaque);
+}
