@@ -78,22 +78,48 @@ function criarLinkGoodreads(livro) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     return link;
+};
+
+function criarFigura(livro) {
+    const figura = criarElemento("figure");
+    const legenda = criarElemento("figcaption");
+
+    legenda.append(criarLinkGoodreads(livro));
+    figura.append(criarCapa(livro), legenda);
+    return figura;
 }
+
+function criarAcoes(livro) {
+    const acoes = criarElemento("div");
+    acoes.className = "acoes-livro";
+    acoes.append(criarBotaoEstado(livro), criarBotaoFavorito(livro));
+    return acoes;
+};
+
+function criarInfo(livro) {
+    const info = criarElemento("div");
+    info.className = "info-livro";
+    info.append(...criarTextos(livro), criarAcoes(livro));
+    return info;
+};
+
+function criarBotaoRemover(livro) {
+    const botao = criarElemento("button", "✕");
+    botao.type = "button";
+    botao.className = "botao-remover";
+    botao.setAttribute("aria-label", `Remover ${livro.titulo}`);
+    botao.title = "Remover livro";
+    return botao;
+};
 
 export function criarCartaoLivro(livro) {
     const item = criarElemento("li");
     const cartao = criarElemento("article");
     cartao.dataset.id = livro.id;
-    cartao.append(
-        criarCapa(livro),
-        ...criarTextos(livro),
-        criarBotaoEstado(livro),
-        criarBotaoFavorito(livro),
-        criarLinkGoodreads(livro)
-    );
+    cartao.append(criarFigura(livro), criarInfo(livro), criarBotaoRemover(livro));
     item.append(cartao);
     return item;
-}
+};
 
 export function mostrarLivros(livros, contentor) {
     if (livros.length === 0) {
@@ -101,4 +127,4 @@ export function mostrarLivros(livros, contentor) {
         return;
     }
     contentor.replaceChildren(...livros.map(criarCartaoLivro));
-}
+};
