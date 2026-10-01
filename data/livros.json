@@ -3,48 +3,251 @@
     "id": 1,
     "titulo": "Casa da Chama e Sombra",
     "autor": "Sarah J. Maas",
-    "generos": ["Fantasia", "Romance"],
+    "generos": [
+      "Fantasia",
+      "Ficção Científica",
+      "Thriller"
+    ],
     "idioma": "Português",
-    "ano": 2024,
     "paginas": 816,
-    "capa": "img/capas/casa_de_chama_e_sombra_capa.jpg",
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1699972316i/202122069.jpg",
     "estado": "lido",
     "favorito": false,
-    "classificacao": 0,
+    "classificacao": 4.25,
     "saga": "Cidade da Lua Crescente",
     "volume": 3,
-    "goodreads": ""
+    "goodreads": "https://www.goodreads.com/book/show/202122069-casa-de-chama-e-sombra"
   },
   {
     "id": 2,
     "titulo": "Strange the Dreamer",
     "autor": "Laini Taylor",
-    "generos": ["Fantasia"],
+    "generos": [
+      "Fantasia"
+    ],
     "idioma": "Inglês",
-    "ano": 2017,
     "paginas": 544,
     "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1519915549i/28449207.jpg",
     "estado": "a-ler",
     "favorito": false,
-    "classificacao": 5,
+    "classificacao": 0,
     "saga": "Strange the Dreamer",
     "volume": 1,
-    "goodreads": "https://www.goodreads.com/book/show/28449207"
+    "goodreads": "https://www.goodreads.com/book/show/28449207?ref=s_s"
   },
   {
     "id": 3,
     "titulo": "Jade City",
     "autor": "Fonda Lee",
-    "generos": ["Fantasia"],
-    "idioma": "Português",
-    "ano": 2017,
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Inglês",
     "paginas": 512,
-    "capa": "img/capas/jade_city_capa.jpg",
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1547625704i/43587154.jpg",
     "estado": "quero-ler",
     "favorito": false,
     "classificacao": 0,
     "saga": "Saga dos Ossos Verdes",
     "volume": 1,
-    "goodreads": ""
+    "goodreads": "https://www.goodreads.com/book/show/43587154?ref=s_s"
+  },
+  {
+    "id": 4,
+    "titulo": "My Husband's Wife",
+    "autor": "Alice Feeney",
+    "generos": [
+      "Thriller"
+    ],
+    "idioma": "Inglês",
+    "paginas": 310,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1747668611i/231127462.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 3.5,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/231127462-my-husband-s-wife?ref=nav_sb_ss_1_13"
+  },
+  {
+    "id": 5,
+    "titulo": "Casa de Céu e Sopro",
+    "autor": "Sarah J. Maas",
+    "generos": [
+      "Fantasia",
+      "Romance",
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 720,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1639701901i/59837782.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4.75,
+    "saga": "Cidade da Lua Crescente",
+    "volume": 2,
+    "goodreads": "https://www.goodreads.com/book/show/59837782?ref=s_s"
+  },
+  {
+    "id": 6,
+    "titulo": "Casa de Terra e Sangue",
+    "autor": "Sarah J. Maas",
+    "generos": [
+      "Fantasia",
+      "Romance",
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 896,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1609338434i/54759642.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 5,
+    "saga": "Cidade da Lua Crescente",
+    "volume": 1,
+    "goodreads": "https://www.goodreads.com/book/show/54759642?ref=s_s"
+  },
+  {
+    "id": 8,
+    "titulo": "A Verdade Sobre o Caso Harry Quebert",
+    "autor": "Joël Dicker",
+    "generos": [
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 684,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1372356745i/18134442.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 3,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/18134442-a-verdade-sobre-o-caso-harry-quebert?ref=nav_sb_ss_1_23"
+  },
+  {
+    "id": 10,
+    "titulo": "Strange Buildings",
+    "autor": "Uketsu",
+    "generos": [
+      "Terror",
+      "Thriller"
+    ],
+    "idioma": "Inglês",
+    "paginas": 382,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1770114697i/247527532.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 3.5,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/247527532-strange-buildings?ref=nav_sb_ss_1_17"
+  },
+
+  {
+    "id": 17,
+    "titulo": "Anathema",
+    "autor": "Keri Lake",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Inglês",
+    "paginas": 655,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1712326978i/209741142.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 3.5,
+    "saga": "The Eating Woods",
+    "volume": 1,
+    "goodreads": "https://www.goodreads.com/book/show/209741142?ref=s_s"
+  },
+  {
+    "id": 19,
+    "titulo": "A Última Ilusão",
+    "autor": "Pedro Miguel Ribeiro",
+    "generos": [
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 288,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1744660041i/231397145.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4.25,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/231397145?ref=s_s"
+  },
+  {
+    "id": 32,
+    "titulo": "Alchemised",
+    "autor": "SenLinYu",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Inglês",
+    "paginas": 928,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1737131981i/222490389.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 5,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/222490389-alchemised?ac=1&from_search=true&qid=GVvTsioHE3&rank=1"
+  },
+  {
+    "id": 33,
+    "titulo": "Dia da Debulha",
+    "autor": "Rebecca Yarros",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Português",
+    "paginas": 300,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1788961933i/258626667.jpg",
+    "estado": "a-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Empíreo",
+    "volume": 3.5,
+    "goodreads": "https://www.goodreads.com/book/show/258626667?ref=s_s"
+  },
+  {
+    "id": 35,
+    "titulo": "Half City",
+    "autor": "Kate Golden",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Inglês",
+    "paginas": 480,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1751423290i/233717187.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Harker Academy",
+    "volume": 1,
+    "goodreads": "https://www.goodreads.com/book/show/233717187-half-city?ref=nav_sb_ss_1_9"
+  },
+  {
+    "id": 37,
+    "titulo": "Holly",
+    "autor": "Adalyn Grace",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Inglês",
+    "paginas": 371,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1738602922i/218075240.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Belladonna",
+    "volume": 3.5,
+    "goodreads": "https://www.goodreads.com/book/show/218075240-holly?ref=nav_sb_ss_1_11"
   }
 ]
