@@ -88,10 +88,6 @@
             <dl id="estatisticas-conteudo"></dl>
         </section>
     </main>
-    <footer>
-        <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
-        <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
-    </footer>
     <dialog id="dialogo-livro" aria-labelledby="titulo-adicionar">
         <form id="form-livro" novalidate>
             <header class="dialogo-cabecalho">
@@ -150,6 +146,20 @@
             </div>
         </form>
     </dialog>
+    <dialog id="dialogo-remover" class="dialogo-confirmar" aria-labelledby="titulo-remover">
+        <form method="dialog">
+            <h2 id="titulo-remover">Remover livro</h2>
+            <p id="mensagem-remover"></p>
+            <div class="dialogo-botoes">
+                <button value="cancelar">Cancelar</button>
+                <button value="remover" class="botao-confirmar">Remover</button>
+            </div>
+        </form>
+    </dialog>
+    <footer>
+        <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
+        <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
+    </footer>
     <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
 </body>
 
