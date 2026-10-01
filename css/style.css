@@ -180,7 +180,6 @@ select option:checked {
     color: var(--destaque);
 }
 
-#botao-tema,
 .botao-ja-saiu,
 .botoes-dialogo button {
     min-height: 44px;
@@ -192,7 +191,6 @@ select option:checked {
     font-weight: 700;
 }
 
-#botao-tema:hover,
 .botao-ja-saiu:hover,
 .botoes-dialogo button:hover,
 .botoes-dialogo .botao-confirmar {
@@ -222,7 +220,6 @@ select option:checked {
     z-index: 20;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 48px;
     height: 100vh;
     overflow-y: auto;
@@ -230,6 +227,14 @@ select option:checked {
     background: linear-gradient(180deg, var(--lateral-inicio), var(--lateral-fim));
     color: var(--texto-lateral);
     color-scheme: dark;
+}
+
+.barra-lateral header {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 48px;
 }
 
 .barra-lateral img {
@@ -303,7 +308,28 @@ select option:checked {
     font-weight: 700;
 }
 
+.botoes-barra-lateral {
+    display: flex;
+    gap: 12px;
+}
+
+#botao-tema {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid var(--realce);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--texto-lateral);
+    font-size: 1.2rem;
+}
+
+#botao-tema:hover {
+    background: rgba(217, 139, 155, 0.2);
+}
+
 #botao-adicionar-livro {
+    flex: 1;
     min-height: 48px;
     border: 0;
     border-radius: 10px;
@@ -335,25 +361,11 @@ main {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 80px;
     padding: 32px;
 }
 
-.barra-superior {
-    display: flex;
-    justify-content: flex-end;
-}
-
-#botao-tema {
-    background: var(--superficie);
-    box-shadow: var(--sombra);
-}
-
-#botao-tema:hover {
-    background: var(--destaque);
-}
-
-footer:not(.botoes-dialogo) {
+footer {
     grid-column: 2;
     padding: 24px 32px;
     border-top: 1px solid var(--borda);
