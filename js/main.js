@@ -16,6 +16,8 @@ const dialogoRemover = document.querySelector("#dialogo-remover");
 const mensagemRemover = document.querySelector("#mensagem-remover");
 const contadorEstante = document.querySelector("#contador-estante");
 const campoPesquisa = document.querySelector("#filtro-pesquisa");
+const filtroGenero = document.querySelector("#filtro-genero");
+const filtroSaga = document.querySelector("#filtro-saga");
 
 let livros = [];
 let idParaRemover = null;
@@ -40,11 +42,58 @@ function filtrarPorPesquisa(lista) {
   );
 };
 
+function unicosOrdenados(lista) {
+  return [...new Set(lista)].sort((a, b) => a.localeCompare(b, "pt"));
+};
+
+function listarGeneros() {
+  return unicosOrdenados(livros.flatMap((livro) => livro.generos));
+};
+
+function listarSagas() {
+  return unicosOrdenados(
+    livros.filter((livro) => livro.saga).map((livro) => livro.saga)
+  );
+};
+
+function preencherFiltro(filtro, opcoes, valorTodos, textoTodos) {
+  const selecionado = filtro.value;
+
+  filtro.replaceChildren(
+    new Option(textoTodos, valorTodos),
+    ...opcoes.map((opcao) => new Option(opcao, opcao))
+  );
+
+  filtro.value = opcoes.includes(selecionado) ? selecionado : valorTodos;
+};
+
+function filtrarPorGenero(lista) {
+  const genero = filtroGenero.value;
+
+  return genero === "todos"
+    ? lista
+    : lista.filter((livro) => livro.generos.includes(genero));
+};
+
+function filtrarPorSaga(lista) {
+  const saga = filtroSaga.value;
+
+  return saga === "todas"
+    ? lista
+    : lista.filter((livro) => livro.saga === saga);
+};
+
+function aplicarFiltros(lista) {
+  return filtrarPorSaga(filtrarPorGenero(filtrarPorPesquisa(lista)));
+};
+
 function atualizarPagina() {
   const favoritos = livros.filter((livro) => livro.favorito);
-  const livrosVisiveis = filtrarPorPesquisa(livros);
 
-  mostrarLivros(livrosVisiveis, listaLivros);
+  preencherFiltro(filtroGenero, listarGeneros(), "todos", "Todos");
+  preencherFiltro(filtroSaga, listarSagas(), "todas", "Todas");
+
+  mostrarLivros(aplicarFiltros(livros), listaLivros);
   mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
 
   atualizarContador(contadorEstante, livros.length);
@@ -103,6 +152,10 @@ function adicionarLivro(novoLivro) {
   guardar(localStorage, CHAVE_ADICIONADOS, [...adicionados, novoLivro]);
 
   livros = [...livros, novoLivro];
+
+  campoPesquisa.value = "";
+  filtroGenero.value = "todos";
+  filtroSaga.value = "todas";
   atualizarPagina();
 };
 
@@ -162,8 +215,9 @@ async function iniciar() {
   listaFavoritos.addEventListener("click", aoClicarNaLista);
   document.addEventListener("click", aoClicarNoDocumento);
   document.addEventListener("keydown", aoPrimirTecla);
-    campoPesquisa.addEventListener("input", atualizarPagina);
-
+  campoPesquisa.addEventListener("input", atualizarPagina);
+  filtroGenero.addEventListener("change", atualizarPagina);
+  filtroSaga.addEventListener("change", atualizarPagina);
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
 
   const livrosDoFicheiro = await carregarLivros();
