@@ -21,6 +21,8 @@ const filtroGenero = document.querySelector("#filtro-genero");
 const filtroSaga = document.querySelector("#filtro-saga");
 const filtrosEstado = document.querySelector("#filtros-estado");
 const campoOrdenar = document.querySelector("#ordenar");
+const progressoTexto = document.querySelector("#progresso-texto");
+const progressoBarra = document.querySelector("#progresso-barra");
 
 let livros = [];
 let idParaRemover = null;
@@ -126,16 +128,29 @@ function limparFiltros() {
   filtrosEstado.querySelector('input[value="todos"]').checked = true;
 };
 
+function atualizarProgresso() {
+  const total = livros.length;
+  const lidos = livros.reduce(
+    (soma, livro) => (livro.estado === "lido" ? soma + 1 : soma),
+    0
+  );
+
+  progressoTexto.textContent = `${lidos} de ${total} ${total === 1 ? "livro lido" : "livros lidos"}`;
+  progressoBarra.value = total === 0 ? 0 : Math.round((lidos / total) * 100);
+};
+
 function atualizarPagina() {
   const favoritos = livros.filter((livro) => livro.favorito);
 
   preencherFiltro(filtroGenero, listarGeneros(), "todos", "Todos");
   preencherFiltro(filtroSaga, listarSagas(), "todas", "Todas");
 
-  mostrarLivros(aplicarFiltros(livros), listaLivros);
   mostrarLivros(ordenar(aplicarFiltros(livros)), listaLivros);
+  mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
+
   atualizarContador(contadorEstante, livros.length);
   atualizarContador(contadorFavoritos, favoritos.length);
+  atualizarProgresso();
 };
 
 function alternarFavorito(id) {
