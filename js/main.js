@@ -15,6 +15,7 @@ const contadorFavoritos = document.querySelector("#contador-favoritos");
 const dialogoRemover = document.querySelector("#dialogo-remover");
 const mensagemRemover = document.querySelector("#mensagem-remover");
 const contadorEstante = document.querySelector("#contador-estante");
+const campoPesquisa = document.querySelector("#filtro-pesquisa");
 
 let livros = [];
 let idParaRemover = null;
@@ -24,10 +25,26 @@ function atualizarContador(contador, total) {
   contador.value = total;
 };
 
+function normalizar(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+};
+
+function filtrarPorPesquisa(lista) {
+  const termo = normalizar(campoPesquisa.value.trim());
+
+  return lista.filter((livro) =>
+    normalizar(`${livro.titulo} ${livro.autor}`).includes(termo)
+  );
+};
+
 function atualizarPagina() {
   const favoritos = livros.filter((livro) => livro.favorito);
+  const livrosVisiveis = filtrarPorPesquisa(livros);
 
-  mostrarLivros(livros, listaLivros);
+  mostrarLivros(livrosVisiveis, listaLivros);
   mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
 
   atualizarContador(contadorEstante, livros.length);
@@ -145,6 +162,7 @@ async function iniciar() {
   listaFavoritos.addEventListener("click", aoClicarNaLista);
   document.addEventListener("click", aoClicarNoDocumento);
   document.addEventListener("keydown", aoPrimirTecla);
+    campoPesquisa.addEventListener("input", atualizarPagina);
 
   dialogoRemover.addEventListener("close", aoFecharConfirmacao);
 
