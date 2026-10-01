@@ -1,3 +1,5 @@
+import { ePorLancar } from "./lancamentos.js";
+
 const CAPA_POR_DEFEITO = "img/sem-capa.svg";
 
 function criarElemento(etiqueta, texto) {
@@ -9,16 +11,24 @@ function criarElemento(etiqueta, texto) {
 };
 
 function textoEstado(estado) {
-  switch (estado) {
-    case "lido":
-      return "Lido";
-    case "a-ler":
-      return "A ler";
-    case "quero-ler":
-      return "Quero ler";
-    default:
-      return "Sem estado";
-  }
+    switch (estado) {
+        case "lido":
+            return "Lido";
+        case "a-ler":
+            return "A ler";
+        case "quero-ler":
+            return "Quero ler";
+        default:
+            return "Sem estado";
+    }
+};
+
+function formatarData(data) {
+    return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
 };
 
 function criarCapa(livro) {
@@ -46,6 +56,9 @@ function criarTextos(livro) {
     ];
     if (livro.saga) {
         textos.push(criarElemento("p", `Saga: ${livro.saga}`));
+    }
+    if (livro.dataLancamento) {
+        textos.push(criarElemento("p", `Lançamento: ${formatarData(livro.dataLancamento)}`));
     }
     if (livro.estado === "lido" && livro.classificacao > 0) {
         textos.push(criarClassificacao(livro.classificacao));
@@ -121,10 +134,23 @@ function criarFigura(livro) {
     return figura;
 };
 
+function criarBotaoLancado() {
+    const botao = criarElemento("button", "Já saiu");
+    botao.type = "button";
+    botao.className = "botao-lancado";
+    return botao;
+};
+
 function criarAcoes(livro) {
     const acoes = criarElemento("div");
     acoes.className = "acoes-livro";
-    acoes.append(criarSeletorEstado(livro), criarBotaoFavorito(livro));
+
+    if (ePorLancar(livro)) {
+        acoes.append(criarBotaoLancado());
+    } else {
+        acoes.append(criarSeletorEstado(livro), criarBotaoFavorito(livro));
+    }
+
     return acoes;
 };
 
