@@ -1,4 +1,5 @@
 import {
+    formatarData,
     criarCapa,
     criarElemento,
     criarLinkGoodreads,
@@ -16,14 +17,6 @@ const dialogoLancamento = document.querySelector("#dialogo-confirmar-lancamento"
 const mensagemLancamento = document.querySelector("#mensagem-confirmar-lancamento");
 
 let livroAberto = null;
-
-function formatarData(data) {
-    return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    });
-};
 
 function formatarClassificacao(classificacao) {
     return classificacao > 0

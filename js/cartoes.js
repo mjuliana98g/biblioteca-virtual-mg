@@ -3,6 +3,14 @@ import { verificarLancamentoChegou, verificarPorLancar } from "./biblioteca.js";
 const CAPA_POR_DEFEITO = "img/sem-capa.svg";
 const ESTADOS = ["quero-ler", "a-ler", "lido"];
 
+export function formatarData(data) {
+    return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
+};
+
 export function criarElemento(etiqueta, { texto, classe } = {}) {
     const elemento = document.createElement(etiqueta);
 
@@ -83,6 +91,15 @@ function criarParagrafoEditora(livro) {
     return paragrafo;
 };
 
+function criarDataLancamento(livro) {
+    const data = criarElemento("time", { texto: formatarData(livro.dataLancamento) });
+
+    data.dateTime = livro.dataLancamento;
+    data.hidden = !verificarPorLancar(livro);
+
+    return data;
+};
+
 function criarParagrafoGoodreads(livro) {
     const paragrafo = criarElemento("p");
     paragrafo.append(criarLinkGoodreads(livro));
@@ -159,6 +176,7 @@ function criarInformacao(livro) {
         criarTitulo(livro),
         criarElemento("p", { texto: livro.autor }),
         criarParagrafoEditora(livro),
+        criarDataLancamento(livro),
         criarParagrafoGoodreads(livro),
         criarAcoes(livro)
     );
