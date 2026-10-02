@@ -513,10 +513,24 @@ figure img {
     font-size: 0.9rem;
 }
 
+.informacao-livro time {
+    color: var(--destaque-2);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
 .informacao-livro a,
 figcaption a {
+    display: inline-block;
     font-size: 0.85rem;
     font-weight: 700;
+    transition: transform 0.15s, color 0.15s;
+}
+
+.informacao-livro a:hover,
+figcaption a:hover {
+    color: var(--titulo);
+    transform: translateX(4px);
 }
 
 .abrir-detalhes {
