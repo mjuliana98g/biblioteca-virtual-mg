@@ -1,4 +1,4 @@
-import { verificarPorLancar } from "./biblioteca.js";
+import { verificarLancamentoChegou, verificarPorLancar } from "./biblioteca.js";
 
 const CAPA_POR_DEFEITO = "img/sem-capa.svg";
 const ESTADOS = ["quero-ler", "a-ler", "lido"];
@@ -137,9 +137,9 @@ function criarBotaoJaSaiu() {
 function criarAcoes(livro) {
     const acoes = criarElemento("div", { classe: "acoes-livro" });
 
-    if (verificarPorLancar(livro)) {
+    if (verificarLancamentoChegou(livro)) {
         acoes.append(criarBotaoJaSaiu());
-    } else {
+    } else if (!verificarPorLancar(livro)) {
         acoes.append(criarSeletorEstado(livro), criarBotaoFavorito(livro));
     }
 
