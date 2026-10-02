@@ -7,11 +7,20 @@ const CHAVE_ESTADOS = "estados";
 const CHAVE_FAVORITOS = "favoritos";
 const CHAVE_LANCADOS = "livros-lancados";
 const CHAVE_REMOVIDOS = "livros-removidos";
+const CHAVE_PROGRESSO = "progresso-leitura";
 
 let livros = [];
 
 function obterDataDeHoje() {
     return new Date().toISOString().slice(0, 10);
+};
+
+export function calcularPercentagem(paginasLidas, paginas) {
+    return paginas > 0 ? Math.round((paginasLidas / paginas) * 100) : 0;
+};
+
+export function calcularPaginas(percentagem, paginas) {
+    return Math.round((percentagem / 100) * paginas);
 };
 
 export function verificarDataFutura(data) {
@@ -48,6 +57,7 @@ function atualizarArmazenamento(chave, valorInicial, atualizar) {
 
 function lerDadosGuardados() {
     return {
+        progresso: ler(localStorage, CHAVE_PROGRESSO, {}),
         adicionados: ler(localStorage, CHAVE_ADICIONADOS, []),
         editados: ler(localStorage, CHAVE_EDITADOS, {}),
         estados: ler(localStorage, CHAVE_ESTADOS, {}),
@@ -63,6 +73,7 @@ function aplicarDadosGuardados(livro, dados) {
         ...dados.editados[livro.id],
         favorito: dados.favoritos.includes(livro.id),
         estado: dados.estados[livro.id] || livro.estado,
+        paginasLidas: dados.progresso[livro.id] ?? livro.paginasLidas,
         dataLancamento: dados.lancados.includes(livro.id) ? "" : livro.dataLancamento,
     };
 };
@@ -116,6 +127,11 @@ export function alternarFavorito(id) {
 export function alterarEstado(id, estado) {
     atualizarArmazenamento(CHAVE_ESTADOS, {}, (estados) => ({ ...estados, [id]: estado }));
     atualizarLivro(id, { estado });
+};
+
+export function guardarProgressoLeitura(id, paginasLidas) {
+    atualizarArmazenamento(CHAVE_PROGRESSO, {}, (progresso) => ({ ...progresso, [id]: paginasLidas }));
+    atualizarLivro(id, { paginasLidas });
 };
 
 export function marcarComoLancado(id) {

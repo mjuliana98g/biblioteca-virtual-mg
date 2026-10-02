@@ -1,3 +1,4 @@
+import { calcularPaginas, calcularPercentagem } from "./biblioteca.js";
 import {
     formatarData,
     criarCapa,
@@ -7,6 +8,14 @@ import {
 } from "./cartoes.js";
 
 const dialogoDetalhes = document.querySelector("#dialogo-detalhes");
+const dialogoLeitura = document.querySelector("#dialogo-atualizar-leitura");
+const livroDaLeitura = document.querySelector("#livro-atualizar-leitura");
+const campoPaginasLidas = document.querySelector("#paginas-lidas");
+const campoPercentagemLida = document.querySelector("#percentagem-lida");
+const botaoFecharLeitura = document.querySelector("#fechar-leitura");
+const botaoCancelarLeitura = document.querySelector("#cancelar-leitura");
+const dialogoConclusao = document.querySelector("#dialogo-confirmar-conclusao");
+const mensagemConclusao = document.querySelector("#mensagem-confirmar-conclusao");
 const tituloDetalhes = document.querySelector("#titulo-detalhes");
 const conteudoDetalhes = document.querySelector("#conteudo-detalhes");
 const botaoFecharDetalhes = document.querySelector("#fechar-detalhes");
@@ -17,6 +26,7 @@ const dialogoLancamento = document.querySelector("#dialogo-confirmar-lancamento"
 const mensagemLancamento = document.querySelector("#mensagem-confirmar-lancamento");
 
 let livroAberto = null;
+let totalDePaginas = 0;
 
 function formatarClassificacao(classificacao) {
     return classificacao > 0
@@ -86,18 +96,23 @@ export function iniciarDetalhes(aoEditar) {
     });
 };
 
-function perguntar(dialogo, mensagem, texto, respostaDeConfirmacao) {
-    mensagem.textContent = texto;
+function esperarFecho(dialogo, obterResultado) {
     dialogo.returnValue = "";
 
     return new Promise((resolver) => {
         dialogo.addEventListener(
             "close",
-            () => resolver(dialogo.returnValue === respostaDeConfirmacao),
+            () => resolver(obterResultado(dialogo.returnValue)),
             { once: true }
         );
         dialogo.showModal();
     });
+};
+
+function perguntar(dialogo, mensagem, texto, respostaDeConfirmacao) {
+    mensagem.textContent = texto;
+
+    return esperarFecho(dialogo, (resposta) => resposta === respostaDeConfirmacao);
 };
 
 export function confirmarRemocao(livro) {
@@ -116,4 +131,52 @@ export function confirmarLancamento(livro) {
         `Queres adicionar "${livro.titulo}" à tua estante?`,
         "sim"
     );
+};
+
+export function confirmarConclusao(livro) {
+    return perguntar(
+        dialogoConclusao,
+        mensagemConclusao,
+        `Terminaste "${livro.titulo}"? Queres marcá-lo como lido?`,
+        "sim"
+    );
+};
+
+function atualizarPercentagemLida() {
+    campoPercentagemLida.value = calcularPercentagem(
+        Number(campoPaginasLidas.value),
+        totalDePaginas
+    );
+};
+
+function atualizarPaginasLidas() {
+    campoPaginasLidas.value = calcularPaginas(
+        Number(campoPercentagemLida.value),
+        totalDePaginas
+    );
+};
+
+function preencherLeitura(livro) {
+    const paginasLidas = livro.paginasLidas ?? 0;
+
+    totalDePaginas = livro.paginas;
+    livroDaLeitura.textContent = livro.titulo;
+    campoPaginasLidas.max = livro.paginas;
+    campoPaginasLidas.value = paginasLidas;
+    campoPercentagemLida.value = calcularPercentagem(paginasLidas, livro.paginas);
+};
+
+export function pedirProgressoLeitura(livro) {
+    preencherLeitura(livro);
+
+    return esperarFecho(dialogoLeitura, (resposta) =>
+        resposta === "guardar" ? Number(campoPaginasLidas.value) : null
+    );
+};
+
+export function iniciarLeitura() {
+    campoPaginasLidas.addEventListener("input", atualizarPercentagemLida);
+    campoPercentagemLida.addEventListener("input", atualizarPaginasLidas);
+    botaoFecharLeitura.addEventListener("click", () => dialogoLeitura.close());
+    botaoCancelarLeitura.addEventListener("click", () => dialogoLeitura.close());
 };

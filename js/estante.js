@@ -3,16 +3,25 @@ import {
     alterarEstado,
     alternarFavorito,
     encontrarLivro,
+    guardarProgressoLeitura,
     marcarComoLancado,
     obterLivrosLancados,
     obterLivrosPorLancar,
     removerLivro,
 } from "./biblioteca.js";
-import { mostrarLivros } from "./cartoes.js";
-import { abrirDetalhes, confirmarLancamento, confirmarRemocao } from "./dialogos.js";
+import { mostrarLeituras, mostrarLivros } from "./cartoes.js";
+import {
+    abrirDetalhes,
+    confirmarConclusao,
+    confirmarLancamento,
+    confirmarRemocao,
+    pedirProgressoLeitura,
+} from "./dialogos.js";
 
 const CHAVE_ORDENACAO = "ordenacao";
 
+const contadorLeituras = document.querySelector("#contador-leituras");
+const listaLeituras = document.querySelector("#lista-leituras");
 const campoPesquisa = document.querySelector("#filtro-pesquisa");
 const filtroGenero = document.querySelector("#filtro-genero");
 const filtroSaga = document.querySelector("#filtro-saga");
@@ -181,7 +190,8 @@ function atualizarProgresso(livros) {
     progressoBarra.value = total === 0 ? 0 : Math.round((lidos / total) * 100);
 };
 
-function atualizarBarraLateral({ lancados, porLancar, favoritos }) {
+function atualizarBarraLateral({ emLeitura, lancados, porLancar, favoritos }) {
+    atualizarContador(contadorLeituras, emLeitura.length);
     atualizarContador(contadorLancamentos, porLancar.length);
     atualizarContador(contadorEstante, lancados.length);
     atualizarContador(contadorFavoritos, favoritos.length);
@@ -208,12 +218,14 @@ export function atualizarPagina() {
     const lancados = obterLivrosLancados();
     const porLancar = obterLivrosPorLancar();
     const favoritos = lancados.filter((livro) => livro.favorito);
+    const emLeitura = lancados.filter((livro) => livro.estado === "a-ler");
 
     preencherFiltros(lancados);
+    mostrarLeituras(emLeitura, listaLeituras);
     mostrarLivros(porLancar, listaLancamentos, "Ainda não há lançamentos à espera.");
     mostrarLivros(ordenarLivros(filtrarLivros(lancados)), listaLivros);
     mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
-    atualizarBarraLateral({ lancados, porLancar, favoritos });
+    atualizarBarraLateral({ emLeitura, lancados, porLancar, favoritos });
 };
 
 function obterIdDoCartao(elemento) {
@@ -252,6 +264,23 @@ async function lancarLivroDoCartao(botao) {
     }
 };
 
+async function atualizarLeituraDoCartao(botao) {
+    const livro = obterLivroDoCartao(botao);
+    const paginasLidas = await pedirProgressoLeitura(livro);
+
+    if (paginasLidas === null) {
+        return;
+    }
+
+    guardarProgressoLeitura(livro.id, paginasLidas);
+
+    if (paginasLidas === livro.paginas && (await confirmarConclusao(livro))) {
+        alterarEstado(livro.id, "lido");
+    }
+
+    atualizarPagina();
+};
+
 function abrirDetalhesDoCartao(cartao) {
     abrirDetalhes(obterLivroDoCartao(cartao));
 };
@@ -264,6 +293,7 @@ const ACOES_DOS_CARTOES = [
     { seletor: "[data-novo-estado]", executar: alterarEstadoDoCartao },
     { seletor: ".botao-remover", executar: removerLivroDoCartao },
     { seletor: ".botao-ja-saiu", executar: lancarLivroDoCartao },
+    { seletor: ".botao-atualizar-leitura", executar: atualizarLeituraDoCartao },
     { seletor: "a, .seletor-estado", executar: ignorarClique },
     { seletor: "article", executar: abrirDetalhesDoCartao },
 ];
@@ -289,7 +319,7 @@ function fecharMenusAoPrimirEscape(evento) {
 };
 
 function registarEventos() {
-    for (const lista of [listaLancamentos, listaLivros, listaFavoritos]) {
+    for (const lista of [listaLeituras, listaLancamentos, listaLivros, listaFavoritos]) {
         lista.addEventListener("click", tratarCliqueNaLista);
     }
 

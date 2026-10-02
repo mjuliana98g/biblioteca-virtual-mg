@@ -193,6 +193,33 @@ function criarBotaoRemover(livro) {
     return botao;
 };
 
+function calcularPercentagem(paginasLidas, paginas) {
+    return paginas > 0 ? Math.round((paginasLidas / paginas) * 100) : 0;
+};
+
+function criarBarraDeProgresso(livro, percentagem) {
+    const barra = criarElemento("progress");
+
+    barra.max = 100;
+    barra.value = percentagem;
+    barra.setAttribute("aria-label", `Progresso de leitura de ${livro.titulo}`);
+
+    return barra;
+};
+
+function criarProgressoLeitura(livro) {
+    const paginasLidas = livro.paginasLidas ?? 0;
+    const percentagem = calcularPercentagem(paginasLidas, livro.paginas);
+    const texto = livro.paginas
+        ? `${paginasLidas} de ${livro.paginas} páginas · ${percentagem}%`
+        : `${percentagem}%`;
+    const progresso = criarElemento("div", { classe: "progresso-livro" });
+
+    progresso.append(criarBarraDeProgresso(livro, percentagem), criarElemento("p", { texto }));
+
+    return progresso;
+};
+
 function criarCartao(livro) {
     const item = criarElemento("li");
     const cartao = criarElemento("article");
@@ -204,11 +231,36 @@ function criarCartao(livro) {
     return item;
 };
 
-export function mostrarLivros(livros, lista, mensagemVazia = "Nenhum livro encontrado.") {
+function criarCartaoLeitura(livro) {
+    const item = criarCartao(livro);
+    const acoes = item.querySelector(".acoes-livro");
+
+    item.querySelector("article").classList.add("cartao-leitura");
+    item.querySelector(".informacao-livro").insertBefore(criarProgressoLeitura(livro), acoes);
+
+    acoes.replaceChildren();
+
+    if (livro.paginas) {
+        acoes.append(criarBotao("Atualizar leitura", "botao-atualizar-leitura"));
+    }
+
+    return item;
+};
+
+export function mostrarLeituras(livros, lista) {
+    mostrarLivros(livros, lista, "Não estás a ler nenhum livro de momento.", criarCartaoLeitura);
+};
+
+export function mostrarLivros(
+    livros,
+    lista,
+    mensagemVazia = "Nenhum livro encontrado.",
+    criarItem = criarCartao
+) {
     if (livros.length === 0) {
         lista.replaceChildren(criarElemento("li", { texto: mensagemVazia }));
         return;
     }
 
-    lista.replaceChildren(...livros.map(criarCartao));
+    lista.replaceChildren(...livros.map((livro) => criarItem(livro)));
 };

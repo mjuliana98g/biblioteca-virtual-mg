@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "titulo": "Casa da Chama e Sombra",
+    "titulo": "House of Flame and Shadow",
     "autor": "Sarah J. Maas",
     "editora": "Editorial Presença",
     "generos": [
@@ -15,7 +15,7 @@
     "estado": "lido",
     "favorito": false,
     "classificacao": 4.25,
-    "saga": "Cidade da Lua Crescente",
+    "saga": "Crescent City",
     "volume": 3,
     "goodreads": "https://www.goodreads.com/book/show/202122069-casa-de-chama-e-sombra"
   },
@@ -23,7 +23,7 @@
     "id": 2,
     "titulo": "Strange the Dreamer",
     "autor": "Laini Taylor",
-    "editora": "Hodder Children's Books",
+    "editora": "Edições ASA",
     "generos": [
       "Fantasia"
     ],
@@ -41,7 +41,7 @@
     "id": 3,
     "titulo": "Jade City",
     "autor": "Fonda Lee",
-    "editora": "Orbit",
+    "editora": "Kathartika",
     "generos": [
       "Fantasia"
     ],
@@ -51,7 +51,7 @@
     "estado": "quero-ler",
     "favorito": false,
     "classificacao": 0,
-    "saga": "Saga dos Ossos Verdes",
+    "saga": "The Green Bone Saga",
     "volume": 1,
     "goodreads": "https://www.goodreads.com/book/show/43587154?ref=s_s"
   },
@@ -59,7 +59,7 @@
     "id": 4,
     "titulo": "My Husband's Wife",
     "autor": "Alice Feeney",
-    "editora": "Macmillan",
+    "editora": "Cultura Editora",
     "generos": [
       "Thriller"
     ],
@@ -75,7 +75,7 @@
   },
   {
     "id": 5,
-    "titulo": "Casa de Céu e Sopro",
+    "titulo": "House of Sky and Breath",
     "autor": "Sarah J. Maas",
     "editora": "Editorial Presença",
     "generos": [
@@ -89,13 +89,13 @@
     "estado": "lido",
     "favorito": false,
     "classificacao": 4.75,
-    "saga": "Cidade da Lua Crescente",
+    "saga": "Crescent City",
     "volume": 2,
     "goodreads": "https://www.goodreads.com/book/show/59837782?ref=s_s"
   },
   {
     "id": 6,
-    "titulo": "Casa de Terra e Sangue",
+    "titulo": "House of Earth and Blood",
     "autor": "Sarah J. Maas",
     "editora": "Editorial Presença",
     "generos": [
@@ -109,13 +109,13 @@
     "estado": "lido",
     "favorito": false,
     "classificacao": 5,
-    "saga": "Cidade da Lua Crescente",
+    "saga": "Crescent City",
     "volume": 1,
     "goodreads": "https://www.goodreads.com/book/show/54759642?ref=s_s"
   },
   {
     "id": 8,
-    "titulo": "A Verdade Sobre o Caso Harry Quebert",
+    "titulo": "The Truth About the Harry Quebert Affair",
     "autor": "Joël Dicker",
     "editora": "Alfaguara",
     "generos": [
@@ -135,7 +135,7 @@
     "id": 10,
     "titulo": "Strange Buildings",
     "autor": "Uketsu",
-    "editora": "Pushkin Vertigo",
+    "editora": "",
     "generos": [
       "Terror",
       "Thriller"
@@ -154,7 +154,7 @@
     "id": 17,
     "titulo": "Anathema",
     "autor": "Keri Lake",
-    "editora": "Publicação independente",
+    "editora": "TopSeller",
     "generos": [
       "Fantasia",
       "Romance"
@@ -191,7 +191,7 @@
     "id": 32,
     "titulo": "Alchemised",
     "autor": "SenLinYu",
-    "editora": "Michael Joseph",
+    "editora": "Planeta",
     "generos": [
       "Fantasia",
       "Romance"
@@ -208,7 +208,7 @@
   },
   {
     "id": 33,
-    "titulo": "Dia da Debulha",
+    "titulo": "Threshing Day",
     "autor": "Rebecca Yarros",
     "editora": "Planeta",
     "generos": [
@@ -221,7 +221,7 @@
     "estado": "a-ler",
     "favorito": false,
     "classificacao": 0,
-    "saga": "Empíreo",
+    "saga": "The Empyrean",
     "volume": 3.5,
     "goodreads": "https://www.goodreads.com/book/show/258626667?ref=s_s"
   },
@@ -229,7 +229,7 @@
     "id": 35,
     "titulo": "Half City",
     "autor": "Kate Golden",
-    "editora": "Hodder & Stoughton",
+    "editora": "",
     "generos": [
       "Fantasia",
       "Romance"
@@ -248,7 +248,7 @@
     "id": 37,
     "titulo": "Holly",
     "autor": "Adalyn Grace",
-    "editora": "Gollancz",
+    "editora": "",
     "generos": [
       "Fantasia",
       "Romance"

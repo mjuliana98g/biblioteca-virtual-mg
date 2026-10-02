@@ -27,7 +27,9 @@
             </section>
             <nav aria-label="Secções do site">
                 <ul>
-                    <li><a href="#lancamentos">Lançamentos<data id="contador-lancamentos" value="0">0</data></a></li>
+                    <li><a href="#leituras-do-momento">Leituras Atuais<data id="contador-leituras"
+                                value="0">0</data></a></li>
+                    <li><a href="#lancamentos">Novidades<data id="contador-lancamentos" value="0">0</data></a></li>
                     <li><a href="#estante">Estante<data id="contador-estante" value="0">0</data></a></li>
                     <li><a href="#favoritos">Favoritos<data id="contador-favoritos" value="0">0</data></a></li>
                     <li><a href="#estatisticas">Estatísticas</a></li>
@@ -40,6 +42,10 @@
         </div>
     </aside>
     <main>
+        <section id="leituras-do-momento" aria-labelledby="titulo-leituras-do-momento">
+            <h2 id="titulo-leituras-do-momento">Leituras Atuais</h2>
+            <ul id="lista-leituras"></ul>
+        </section>
         <section id="lancamentos" aria-labelledby="titulo-lancamentos">
             <h2 id="titulo-lancamentos">Próximos Lançamentos</h2>
             <ul id="lista-lancamentos"></ul>
@@ -183,6 +189,35 @@
             <p id="mensagem-confirmar-lancamento"></p>
             <div class="botoes-dialogo">
                 <button value="nao">Não</button>
+                <button value="sim" class="botao-confirmar">Sim</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="dialogo-atualizar-leitura" aria-labelledby="titulo-atualizar-leitura">
+        <form id="formulario-leitura" method="dialog">
+            <div class="cabecalho-dialogo">
+                <h2 id="titulo-atualizar-leitura">Atualizar leitura</h2>
+                <button id="fechar-leitura" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
+            </div>
+            <p id="livro-atualizar-leitura"></p>
+            <label>Páginas lidas
+                <input id="paginas-lidas" type="number" min="0" step="1" required>
+            </label>
+            <label>Percentagem lida (%)
+                <input id="percentagem-lida" type="number" min="0" max="100" step="1" required>
+            </label>
+            <div class="botoes-dialogo">
+                <button id="cancelar-leitura" type="button">Cancelar</button>
+                <button value="guardar" class="botao-confirmar">Guardar</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="dialogo-confirmar-conclusao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-conclusao">
+        <form method="dialog">
+            <h2 id="titulo-confirmar-conclusao">Leitura concluída</h2>
+            <p id="mensagem-confirmar-conclusao"></p>
+            <div class="botoes-dialogo">
+                <button value="nao">Ainda não</button>
                 <button value="sim" class="botao-confirmar">Sim</button>
             </div>
         </form>
