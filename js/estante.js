@@ -17,6 +17,7 @@ import {
     confirmarRemocao,
     pedirProgressoLeitura,
 } from "./dialogos.js";
+import { atualizarEstatisticas } from "./estatisticas.js";
 
 const CHAVE_ORDENACAO = "ordenacao";
 
@@ -225,6 +226,7 @@ export function atualizarPagina() {
     mostrarLivros(porLancar, listaLancamentos, "Ainda não há lançamentos à espera.");
     mostrarLivros(ordenarLivros(filtrarLivros(lancados)), listaLivros);
     mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
+    atualizarEstatisticas(lancados);
     atualizarBarraLateral({ emLeitura, lancados, porLancar, favoritos });
 };
 
