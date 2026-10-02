@@ -71,6 +71,7 @@ function lerDadosDoFormulario() {
     return {
         titulo: campos["titulo-livro"].value.trim(),
         autor: campos["autor-livro"].value.trim(),
+        editora: campos["editora-livro"].value.trim(),
         generos: [...generosMarcados].map((caixa) => caixa.value),
         idioma: campos["idioma-livro"].value,
         paginas: Number(campos["paginas-livro"].value),
@@ -89,6 +90,7 @@ function criarCamposDoLivro(dados) {
     return {
         titulo: dados.titulo,
         autor: dados.autor,
+        editora: dados.editora, 
         generos: dados.generos,
         idioma: dados.idioma,
         paginas: dados.paginas > 0 ? dados.paginas : null,
@@ -111,6 +113,7 @@ function converterLivroEmValores(livro) {
     const valores = {
         "titulo-livro": livro.titulo,
         "autor-livro": livro.autor,
+        "editora-livro": livro.editora || "", 
         "idioma-livro": livro.idioma,
         "paginas-livro": livro.paginas ?? "",
         "saga-livro": livro.saga || "",
