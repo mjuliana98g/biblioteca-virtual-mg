@@ -844,17 +844,150 @@ figcaption {
 
 #lista-estatisticas {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: 20px;
 }
 
-#lista-estatisticas dt {
+.estatistica {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    background: var(--superficie);
+}
+
+.estatistica h3 {
+    color: var(--titulo);
+    font-size: 1rem;
+}
+
+.legenda-estatistica {
+    margin-top: auto;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+.media {
+    color: var(--titulo);
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.media small {
+    color: var(--texto-suave);
+    font-size: 1.2rem;
+}
+
+#grafico-classificacoes {
+    display: flex;
+    gap: 6px;
+    height: 150px;
+}
+
+#grafico-classificacoes > li {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+}
+
+#grafico-classificacoes .barra {
+    width: 100%;
+    min-height: 4px;
+    border-radius: 8px 8px 0 0;
+    background: var(--destaque);
+}
+
+.livros-da-barra {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: 1;
+    width: max-content;
+    max-width: 220px;
+    padding: 10px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    background: var(--superficie);
+    box-shadow: var(--sombra);
+    color: var(--texto);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+#grafico-classificacoes > li:hover .livros-da-barra,
+#grafico-classificacoes > li:focus .livros-da-barra {
+    display: block;
+}
+
+#grafico-classificacoes .total {
+    color: var(--titulo);
     font-weight: 700;
 }
 
-#lista-estatisticas dd {
-    color: var(--titulo);
-    font-family: "Poppins", system-ui, sans-serif;
-    font-size: 3rem;
-    line-height: 1;
+#grafico-classificacoes .nota {
+    color: var(--texto-suave);
+    font-size: 0.8rem;
+}
+
+#lista-generos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#lista-generos p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+#lista-generos progress {
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--etiqueta);
+}
+
+#lista-generos progress::-webkit-progress-bar {
+    background: var(--etiqueta);
+}
+
+#lista-generos progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--destaque);
+}
+
+#lista-generos progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--destaque);
+}
+
+#capas-cinco-estrelas {
+    display: flex;
+
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: o px 20px;
+}
+
+#capas-cinco-estrelas img {
+    display: block;
+    width: 75px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: var(--sombra);
 }

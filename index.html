@@ -93,7 +93,23 @@
         </section>
         <section id="estatisticas" aria-labelledby="titulo-estatisticas">
             <h2 id="titulo-estatisticas">Estatísticas</h2>
-            <dl id="lista-estatisticas"></dl>
+            <div id="lista-estatisticas">
+                <section class="estatistica" aria-labelledby="titulo-generos">
+                    <h3 id="titulo-generos">Géneros</h3>
+                    <ul id="lista-generos"></ul>
+                </section>
+                <section class="estatistica" aria-labelledby="titulo-classificacoes">
+                    <h3 id="titulo-classificacoes">Média de classificações</h3>
+                    <p class="media"><data id="media-classificacoes" value="0">0,0</data><small> / 5</small></p>
+                    <ul id="grafico-classificacoes" aria-label="Livros por número de estrelas"></ul>
+                    <p id="total-classificados" class="legenda-estatistica"></p>
+                </section>
+                <section class="estatistica" aria-labelledby="titulo-cinco-estrelas">
+                    <h3 id="titulo-cinco-estrelas">Livros ★★★★★</h3>
+                    <ul id="capas-cinco-estrelas"></ul>
+                    <p id="total-cinco-estrelas" class="legenda-estatistica"></p>
+                </section>
+            </div>
         </section>
     </main>
     <footer>
