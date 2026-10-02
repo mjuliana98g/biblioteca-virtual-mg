@@ -14,9 +14,17 @@ function obterDataDeHoje() {
     return new Date().toISOString().slice(0, 10);
 };
 
-export function verificarPorLancar(livro) {
-    return Boolean(livro.dataLancamento) && livro.dataLancamento > obterDataDeHoje();
+export function verificarDataFutura(data) {
+    return data > obterDataDeHoje();
 };
+
+export function verificarPorLancar(livro) {
+    return Boolean(livro.dataLancamento);
+};
+
+export function verificarLancamentoChegou(livro) {
+    return verificarPorLancar(livro) && !verificarDataFutura(livro.dataLancamento);
+}
 
 async function carregarLivrosDoFicheiro() {
     try {
