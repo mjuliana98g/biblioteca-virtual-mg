@@ -34,6 +34,7 @@ function formatarClassificacao(classificacao) {
 function listarDetalhes(livro) {
     const detalhes = [
         ["Autor", livro.autor],
+        ["Editora", livro.editora],
         ["Géneros", livro.generos.join(", ")],
         ["Idioma", livro.idioma],
         ["Páginas", livro.paginas],

@@ -16,6 +16,7 @@ const CHAVE_ORDENACAO = "ordenacao";
 const campoPesquisa = document.querySelector("#filtro-pesquisa");
 const filtroGenero = document.querySelector("#filtro-genero");
 const filtroSaga = document.querySelector("#filtro-saga");
+const filtroEditora = document.querySelector("#filtro-editora");
 const filtrosEstado = document.querySelector("#filtros-estado");
 const campoOrdenacao = document.querySelector("#ordenacao");
 const progressoTexto = document.querySelector("#progresso-texto");
@@ -67,8 +68,15 @@ function filtrarLivros(livros) {
         (livro, saga) => livro.saga === saga
     );
 
-    return filtrarSeHouverEscolha(
+    const daEditora = filtrarSeHouverEscolha(
         daSaga,
+        filtroEditora.value,
+        "todas",
+        (livro, editora) => livro.editora === editora
+    );
+
+    return filtrarSeHouverEscolha(
+        daEditora,
         obterEstadoSelecionado(),
         "todos",
         (livro, estado) => livro.estado === estado
@@ -95,6 +103,12 @@ function listarSagas(livros) {
     );
 };
 
+function listarEditoras(livros) {
+    return listarUnicosOrdenados(
+        livros.filter((livro) => livro.editora).map((livro) => livro.editora)
+    );
+};
+
 function preencherFiltro(filtro, opcoes, valorTodos, textoTodos) {
     const selecionado = filtro.value;
 
@@ -109,12 +123,14 @@ function preencherFiltro(filtro, opcoes, valorTodos, textoTodos) {
 function preencherFiltros(livros) {
     preencherFiltro(filtroGenero, listarGeneros(livros), "todos", "Todos");
     preencherFiltro(filtroSaga, listarSagas(livros), "todas", "Todas");
+    preencherFiltro(filtroEditora, listarEditoras(livros), "todas", "Todas");
 };
 
 export function limparFiltros() {
     campoPesquisa.value = "";
     filtroGenero.value = "todos";
     filtroSaga.value = "todas";
+    filtroEditora.value = "todas";
     filtrosEstado.querySelector('input[value="todos"]').checked = true;
 };
 
@@ -136,6 +152,7 @@ function iniciarFiltros() {
     campoPesquisa.addEventListener("input", atualizarPagina);
     filtroGenero.addEventListener("change", atualizarPagina);
     filtroSaga.addEventListener("change", atualizarPagina);
+    filtroEditora.addEventListener("change", atualizarPagina)
     filtrosEstado.addEventListener("change", atualizarPagina);
     campoOrdenacao.addEventListener("change", () => {
         guardarOrdenacao();
@@ -239,7 +256,7 @@ function abrirDetalhesDoCartao(cartao) {
     abrirDetalhes(obterLivroDoCartao(cartao));
 };
 
-function ignorarClique() {};
+function ignorarClique() { };
 
 const ACOES_DOS_CARTOES = [
     { seletor: "[aria-pressed]", executar: alternarFavoritoDoCartao },
@@ -270,7 +287,6 @@ function fecharMenusAoPrimirEscape(evento) {
         fecharMenusDeEstado();
     }
 };
-
 
 function registarEventos() {
     for (const lista of [listaLancamentos, listaLivros, listaFavoritos]) {

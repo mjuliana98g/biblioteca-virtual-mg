@@ -3,6 +3,7 @@
     "id": 1,
     "titulo": "Casa da Chama e Sombra",
     "autor": "Sarah J. Maas",
+    "editora": "Editorial Presença",
     "generos": [
       "Fantasia",
       "Ficção Científica",
@@ -22,6 +23,7 @@
     "id": 2,
     "titulo": "Strange the Dreamer",
     "autor": "Laini Taylor",
+    "editora": "Hodder Children's Books",
     "generos": [
       "Fantasia"
     ],
@@ -39,6 +41,7 @@
     "id": 3,
     "titulo": "Jade City",
     "autor": "Fonda Lee",
+    "editora": "Orbit",
     "generos": [
       "Fantasia"
     ],
@@ -56,6 +59,7 @@
     "id": 4,
     "titulo": "My Husband's Wife",
     "autor": "Alice Feeney",
+    "editora": "Macmillan",
     "generos": [
       "Thriller"
     ],
@@ -73,6 +77,7 @@
     "id": 5,
     "titulo": "Casa de Céu e Sopro",
     "autor": "Sarah J. Maas",
+    "editora": "Editorial Presença",
     "generos": [
       "Fantasia",
       "Romance",
@@ -92,6 +97,7 @@
     "id": 6,
     "titulo": "Casa de Terra e Sangue",
     "autor": "Sarah J. Maas",
+    "editora": "Editorial Presença",
     "generos": [
       "Fantasia",
       "Romance",
@@ -111,6 +117,7 @@
     "id": 8,
     "titulo": "A Verdade Sobre o Caso Harry Quebert",
     "autor": "Joël Dicker",
+    "editora": "Alfaguara",
     "generos": [
       "Thriller"
     ],
@@ -128,6 +135,7 @@
     "id": 10,
     "titulo": "Strange Buildings",
     "autor": "Uketsu",
+    "editora": "Pushkin Vertigo",
     "generos": [
       "Terror",
       "Thriller"
@@ -142,11 +150,11 @@
     "volume": null,
     "goodreads": "https://www.goodreads.com/book/show/247527532-strange-buildings?ref=nav_sb_ss_1_17"
   },
-
   {
     "id": 17,
     "titulo": "Anathema",
     "autor": "Keri Lake",
+    "editora": "Publicação independente",
     "generos": [
       "Fantasia",
       "Romance"
@@ -165,6 +173,7 @@
     "id": 19,
     "titulo": "A Última Ilusão",
     "autor": "Pedro Miguel Ribeiro",
+    "editora": "Suma de Letras",
     "generos": [
       "Thriller"
     ],
@@ -182,6 +191,7 @@
     "id": 32,
     "titulo": "Alchemised",
     "autor": "SenLinYu",
+    "editora": "Michael Joseph",
     "generos": [
       "Fantasia",
       "Romance"
@@ -200,6 +210,7 @@
     "id": 33,
     "titulo": "Dia da Debulha",
     "autor": "Rebecca Yarros",
+    "editora": "Planeta",
     "generos": [
       "Fantasia",
       "Romance"
@@ -218,6 +229,7 @@
     "id": 35,
     "titulo": "Half City",
     "autor": "Kate Golden",
+    "editora": "Hodder & Stoughton",
     "generos": [
       "Fantasia",
       "Romance"
@@ -236,6 +248,7 @@
     "id": 37,
     "titulo": "Holly",
     "autor": "Adalyn Grace",
+    "editora": "Gollancz",
     "generos": [
       "Fantasia",
       "Romance"

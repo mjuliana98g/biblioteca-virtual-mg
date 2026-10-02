@@ -77,6 +77,12 @@ function criarTitulo(livro) {
     return titulo;
 };
 
+function criarParagrafoEditora(livro) {
+    const paragrafo = criarElemento("p", { texto: livro.editora });
+    paragrafo.hidden = !livro.editora;
+    return paragrafo;
+};
+
 function criarParagrafoGoodreads(livro) {
     const paragrafo = criarElemento("p");
     paragrafo.append(criarLinkGoodreads(livro));
@@ -152,6 +158,7 @@ function criarInformacao(livro) {
     informacao.append(
         criarTitulo(livro),
         criarElemento("p", { texto: livro.autor }),
+        criarParagrafoEditora(livro),
         criarParagrafoGoodreads(livro),
         criarAcoes(livro)
     );
