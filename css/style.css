@@ -180,6 +180,7 @@ select option:checked {
 }
 
 .botao-ja-saiu,
+.botao-atualizar-leitura,
 .botoes-dialogo button {
     min-height: 44px;
     padding: 0 20px;
@@ -191,6 +192,7 @@ select option:checked {
 }
 
 .botao-ja-saiu:hover,
+.botao-atualizar-leitura:hover,
 .botoes-dialogo button:hover,
 .botoes-dialogo .botao-confirmar {
     background: var(--destaque);
@@ -405,7 +407,8 @@ search {
 }
 
 search > label,
-#formulario-livro > label {
+#formulario-livro > label,
+#formulario-leitura > label {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -454,6 +457,7 @@ search > label:first-child {
     outline-offset: 2px;
 }
 
+#lista-leituras,
 #lista-lancamentos,
 #lista-livros,
 #lista-favoritos {
@@ -473,6 +477,10 @@ article {
     background: var(--superficie);
     cursor: pointer;
     transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.cartao-leitura {
+    border-left: 6px solid var(--realce);
 }
 
 article:hover {
@@ -511,6 +519,38 @@ figure img {
 .informacao-livro p {
     color: var(--texto-suave);
     font-size: 0.9rem;
+}
+
+.progresso-livro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.progresso-livro progress {
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--etiqueta);
+}
+
+.progresso-livro progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--etiqueta);
+}
+
+.progresso-livro progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--destaque);
+}
+
+.progresso-livro progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--destaque);
 }
 
 .informacao-livro time {
@@ -686,13 +726,19 @@ dialog::backdrop {
     gap: 12px;
 }
 
-.dialogo-confirmar {
+.dialogo-confirmar,
+#dialogo-atualizar-leitura {
     width: min(420px, calc(100% - 32px));
 }
 
 .dialogo-confirmar p {
     margin-bottom: 24px;
     color: var(--texto-suave);
+}
+
+#formulario-leitura {
+    display: grid;
+    gap: 16px;
 }
 
 #formulario-livro {

@@ -1,5 +1,5 @@
 import { carregarBiblioteca, adicionarLivro, editarLivro } from "./biblioteca.js";
-import { iniciarDetalhes } from "./dialogos.js";
+import { iniciarDetalhes, iniciarLeitura } from "./dialogos.js";
 import { atualizarPagina, iniciarEstante, limparFiltros } from "./estante.js";
 import { abrirParaEditar, iniciarFormulario } from "./formulario.js";
 import { iniciarTema } from "./tema.js";
@@ -19,6 +19,7 @@ async function iniciar() {
     iniciarTema();
     iniciarEstante();
     iniciarDetalhes(abrirParaEditar);
+    iniciarLeitura();
     iniciarFormulario(adicionarNovoLivro, guardarLivroEditado);
 
     await carregarBiblioteca();
