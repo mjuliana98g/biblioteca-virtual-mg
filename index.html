@@ -9,13 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&family=Lora:ital,wght@1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/principal.js"></script>
 </head>
 
 <body id="topo">
+    <button type="button" id="botao-roleta">Não sabes o que ler?</button>
     <button id="botao-menu" type="button" aria-label="Abrir menu" aria-controls="barra-lateral"
         aria-expanded="false">☰</button>
     <aside id="barra-lateral" class="barra-lateral">
@@ -188,6 +189,24 @@
                 <button id="guardar-formulario" class="botao-confirmar" type="submit">Adicionar</button>
             </div>
         </form>
+    </dialog>
+    <dialog id="dialogo-roleta" aria-labelledby="titulo-roleta">
+        <form method="dialog" class="cabecalho-dialogo">
+            <h2 id="titulo-roleta">Roleta da Próxima Leitura</h2>
+            <button class="botao-fechar" aria-label="Fechar">×</button>
+        </form>
+        <p id="mensagem-roleta" hidden>Precisas de pelo menos 2 livros em «Quero ler» para usar a roleta.</p>
+        <div id="conteudo-da-roleta">
+            <section id="area-da-roleta">
+                <svg id="roleta" viewBox="-10 -10 340 340" role="img" aria-label="Roleta com os livros por ler">
+                    <g id="fatias-da-roleta"></g>
+                    <circle class="centro-da-roleta" cx="160" cy="160" r="22"></circle>
+                    <path class="ponteiro-da-roleta" d="M148 -6L172 -6L160 24Z"></path>
+                </svg>
+                <button type="button" id="botao-girar" class="botao-confirmar">Girar</button>
+            </section>
+            <section id="livro-sorteado" hidden></section>
+        </div>
     </dialog>
     <dialog id="dialogo-confirmar-remocao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-remocao">
         <form method="dialog">
