@@ -18,6 +18,7 @@ import {
     pedirProgressoLeitura,
 } from "./dialogos.js";
 import { atualizarEstatisticas } from "./estatisticas.js";
+import { desenharRoleta, iniciarRoleta } from "./desafioRoleta.js";
 
 const CHAVE_ORDENACAO = "ordenacao";
 
@@ -227,6 +228,7 @@ export function atualizarPagina() {
     mostrarLivros(ordenarLivros(filtrarLivros(lancados)), listaLivros);
     mostrarLivros(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
     atualizarEstatisticas(lancados);
+    desenharRoleta(lancados.filter((livro) => livro.estado === "quero-ler"));
     atualizarBarraLateral({ emLeitura, lancados, porLancar, favoritos });
 };
 
@@ -329,7 +331,14 @@ function registarEventos() {
     document.addEventListener("keydown", fecharMenusAoPrimirEscape);
 };
 
+function comecarALerLivroSorteado(livro) {
+    alterarEstado(livro.id, "a-ler");
+    atualizarPagina();
+};
+
 export function iniciarEstante() {
+    iniciarRoleta();
     iniciarFiltros();
     registarEventos();
+    iniciarRoleta(comecarALerLivroSorteado);
 };

@@ -406,9 +406,9 @@ search {
     background: var(--superficie);
 }
 
-search > label,
-#formulario-livro > label,
-#formulario-leitura > label {
+search>label,
+#formulario-livro>label,
+#formulario-leitura>label {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -416,7 +416,7 @@ search > label,
     font-weight: 700;
 }
 
-search > label:first-child {
+search>label:first-child {
     flex: 1 1 220px;
 }
 
@@ -747,15 +747,15 @@ dialog::backdrop {
     gap: 16px;
 }
 
-#formulario-livro > * {
+#formulario-livro>* {
     grid-column: 1 / -1;
 }
 
-#formulario-livro > .campo-metade {
+#formulario-livro>.campo-metade {
     grid-column: auto;
 }
 
-#formulario-livro > .campo-caixa {
+#formulario-livro>.campo-caixa {
     flex-direction: row;
     align-items: center;
     gap: 10px;
@@ -888,7 +888,7 @@ figcaption {
     height: 150px;
 }
 
-#grafico-classificacoes > li {
+#grafico-classificacoes>li {
     position: relative;
     flex: 1;
     display: flex;
@@ -923,8 +923,8 @@ figcaption {
     pointer-events: none;
 }
 
-#grafico-classificacoes > li:hover .livros-da-barra,
-#grafico-classificacoes > li:focus .livros-da-barra {
+#grafico-classificacoes>li:hover .livros-da-barra,
+#grafico-classificacoes>li:focus .livros-da-barra {
     display: block;
 }
 
@@ -977,10 +977,9 @@ figcaption {
 
 #capas-cinco-estrelas {
     display: flex;
-
     flex-wrap: wrap;
     gap: 12px;
-    margin: o px 20px;
+    margin: 0 20px;
 }
 
 #capas-cinco-estrelas img {
@@ -990,4 +989,236 @@ figcaption {
     object-fit: cover;
     border-radius: 4px 8px 8px 4px;
     box-shadow: var(--sombra);
+}
+
+#roleta {
+    width: min(340px, 100%);
+}
+
+.fatia path {
+    stroke: var(--superficie);
+    stroke-width: 3;
+}
+
+.fatia text {
+    font-family: inherit;
+    font-weight: 600;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.fatia-0 path {
+    fill: var(--etiqueta);
+}
+
+.fatia-1 path {
+    fill: var(--fundo);
+}
+
+.fatia-2 path {
+    fill: color-mix(in srgb, var(--realce) 45%, var(--superficie));
+}
+
+.fatia text {
+    fill: var(--texto);
+}
+
+.fatia.sorteada path {
+    fill: var(--destaque);
+}
+
+.fatia.sorteada text {
+    fill: var(--sobre-destaque);
+}
+
+.centro-da-roleta {
+    fill: var(--superficie);
+    stroke: var(--destaque);
+    stroke-width: 4;
+}
+
+.ponteiro-da-roleta {
+    fill: var(--titulo);
+}
+
+#botao-roleta {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 999px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--sombra);
+}
+
+#dialogo-roleta {
+    width: min(620px, calc(100% - 32px));
+    padding: 24px;
+    border: none;
+    border-radius: 16px;
+    background: var(--superficie);
+    color: var(--texto);
+}
+
+#dialogo-roleta::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#dialogo-roleta #roleta {
+    display: block;
+    width: min(280px, 100%);
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25));
+}
+
+#fatias-da-roleta {
+    transform-origin: 160px 160px;
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1);
+}
+
+.fatia {
+    transition: opacity 0.4s;
+}
+
+#fatias-da-roleta:has(.sorteada) .fatia:not(.sorteada) {
+    opacity: 0.35;
+}
+
+#botao-girar {
+    display: block;
+    margin: 16px auto 0;
+}
+
+#conteudo-da-roleta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+#area-da-roleta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#livro-sorteado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 220px;
+    height: 380px;
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--fundo);
+    text-align: center;
+}
+
+#livro-sorteado[hidden] {
+    display: flex !important;
+    justify-content: center;
+    border: 2px dashed var(--borda);
+    background: transparent;
+    color: var(--texto-suave);
+    font-family: "Lora", Georgia, serif;
+    font-style: italic;
+}
+
+#livro-sorteado[hidden]::before {
+    content: "O destino ainda está a escolher…✦";
+}
+
+#livro-sorteado[hidden] > * {
+    display: none;
+}
+
+#livro-sorteado > * {
+    flex-shrink: 0;
+    max-width: 100%;
+    animation: aparecer 0.5s ease;
+}
+
+#livro-sorteado img {
+    width: 90px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: var(--sombra);
+}
+
+#livro-sorteado h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+
+.autor-do-sorteado {
+    overflow: hidden;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.generos-do-sorteado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    max-height: 30px;
+    overflow: hidden;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.autor-do-sorteado {
+    color: var(--texto-suave);
+}
+
+.generos-do-sorteado li {
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--etiqueta);
+    font-size: 0.8rem;
+}
+
+#botao-girar,
+.botao-comecar-a-ler {
+    min-height: 44px;
+    padding: 0 20px;
+    border: 1.5px solid var(--destaque);
+    border-radius: 22px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+    font-weight: 700;
+}
+
+#botao-girar:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.botao-comecar-a-ler {
+    margin-top: auto;
 }
