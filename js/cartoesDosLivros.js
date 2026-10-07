@@ -1,9 +1,11 @@
-import { verificarLancamentoChegou, verificarPorLancar } from "./biblioteca.js";
+import { calcularPercentagem, chegouDataLancamento, temDataLancamento } from "./dadosDosLivros.js";
 
 const CAPA_POR_DEFEITO = "img/sem-capa.svg";
-const ESTADOS = ["quero-ler", "a-ler", "lido"];
+const ESTADOS_LEITURA = ["quero-ler", "a-ler", "lido"];
 
-export function formatarData(data) {
+// ------------------------------------------------------------------------------------------
+
+function formatarData(data) {
     return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", {
         day: "numeric",
         month: "long",
@@ -11,7 +13,7 @@ export function formatarData(data) {
     });
 };
 
-export function criarElemento(etiqueta, { texto, classe } = {}) {
+export function criarElemento(etiqueta, { texto, classe } = {}) { //cria qualquer elemento HTML
     const elemento = document.createElement(etiqueta);
 
     if (texto) {
@@ -38,15 +40,15 @@ export function criarCapa(livro) {
     capa.alt = `Capa do livro ${livro.titulo}`;
     capa.addEventListener("error", () => {
         capa.src = CAPA_POR_DEFEITO;
-    }, { once: true });
+    }, { once: true }); // faz só uma vez, para não entrar em ciclo se a img por defeito também falhar
 
     return capa;
 };
 
-export function criarLinkGoodreads(livro) {
+function criarLinkGoodreads(livro) {
     const pesquisa = `https://www.goodreads.com/search?q=${encodeURIComponent(
         `${livro.titulo} ${livro.autor}`
-    )}`;
+    )}`; // se o livro não tiver link, faz uma pesquisa no Goodreads com título e autor
     const link = criarElemento("a", { texto: "Goodreads ↗" });
 
     link.href = livro.goodreads || pesquisa;
@@ -56,7 +58,7 @@ export function criarLinkGoodreads(livro) {
     return link;
 };
 
-export function obterTextoEstado(estado) {
+function obterTextoEstado(estado) {
     switch (estado) {
         case "lido":
             return "Lido";
@@ -69,9 +71,21 @@ export function obterTextoEstado(estado) {
     }
 };
 
+// ------------------------------------------------------------------------------------------
+
 function criarFigura(livro) {
     const figura = criarElemento("figure");
     figura.append(criarCapa(livro));
+    return figura;
+};
+
+export function criarFiguraComLink(livro) {
+    const figura = criarFigura(livro);
+    const legenda = criarElemento("figcaption");
+
+    legenda.append(criarLinkGoodreads(livro));
+    figura.append(legenda);
+
     return figura;
 };
 
@@ -95,7 +109,7 @@ function criarDataLancamento(livro) {
     const data = criarElemento("time", { texto: formatarData(livro.dataLancamento) });
 
     data.dateTime = livro.dataLancamento;
-    data.hidden = !verificarPorLancar(livro);
+    data.hidden = !temDataLancamento(livro);
 
     return data;
 };
@@ -115,7 +129,7 @@ function criarBotaoEstado(livro) {
     return botao;
 };
 
-function criarOpcaoEstado(estado, livro) {
+function criarOpcaoEstado(estado, livro) { // cria uma opção do menu (um <li> com botão), marcando a atual
     const item = criarElemento("li");
     const botao = criarBotao(obterTextoEstado(estado));
 
@@ -129,23 +143,23 @@ function criarOpcaoEstado(estado, livro) {
     return item;
 };
 
-function criarMenuEstado(livro) {
+function criarMenuEstado(livro) { // cria a lista com as 3 opções (escondida até ser clicada)
     const menu = criarElemento("ul", { classe: "menu-estado" });
 
     menu.hidden = true;
-    menu.append(...ESTADOS.map((estado) => criarOpcaoEstado(estado, livro)));
+    menu.append(...ESTADOS_LEITURA.map((estado) => criarOpcaoEstado(estado, livro)));
 
     return menu;
 };
 
-function criarSeletorEstado(livro) {
+function criarSeletorEstado(livro) { // junta o botão de estado e o menu
     const seletor = criarElemento("div", { classe: "seletor-estado" });
     seletor.append(criarBotaoEstado(livro), criarMenuEstado(livro));
     return seletor;
 };
 
 function criarBotaoFavorito(livro) {
-    const botao = criarBotao(livro.favorito ? "★" : "☆");
+    const botao = criarBotao(livro.favorito ? "❤︎" : "♡");
 
     botao.setAttribute("aria-pressed", livro.favorito);
     botao.setAttribute("aria-label", "Favorito");
@@ -157,31 +171,31 @@ function criarBotaoJaSaiu() {
     return criarBotao("Já saiu", "botao-ja-saiu");
 };
 
-function criarAcoes(livro) {
+function criarBotoesDoCartao(livro) {
     const acoes = criarElemento("div", { classe: "acoes-livro" });
 
-    if (verificarLancamentoChegou(livro)) {
-        acoes.append(criarBotaoJaSaiu());
-    } else if (!verificarPorLancar(livro)) {
+    if (chegouDataLancamento(livro)) {
+        acoes.append(criarBotaoJaSaiu()); //se a data já chegou, só cria o botão 'Já Saiu'
+    } else if (!temDataLancamento(livro)) {
         acoes.append(criarSeletorEstado(livro), criarBotaoFavorito(livro));
-    }
-
+    } // o livro não tem data (já está na estante), cria o seletor de estado + favorito
+    // a data é futura, não cria nenhum botão
     return acoes;
 };
 
-function criarInformacao(livro) {
-    const informacao = criarElemento("div", { classe: "informacao-livro" });
+function criarCorpoDoCartao(livro) {
+    const corpo = criarElemento("div", { classe: "informacao-livro" });
 
-    informacao.append(
+    corpo.append(
         criarTitulo(livro),
         criarElemento("p", { texto: livro.autor }),
         criarParagrafoEditora(livro),
         criarDataLancamento(livro),
         criarParagrafoGoodreads(livro),
-        criarAcoes(livro)
+        criarBotoesDoCartao(livro)
     );
 
-    return informacao;
+    return corpo;
 };
 
 function criarBotaoRemover(livro) {
@@ -191,10 +205,6 @@ function criarBotaoRemover(livro) {
     botao.title = "Remover livro";
 
     return botao;
-};
-
-function calcularPercentagem(paginasLidas, paginas) {
-    return paginas > 0 ? Math.round((paginasLidas / paginas) * 100) : 0;
 };
 
 function criarBarraDeProgresso(livro, percentagem) {
@@ -220,19 +230,57 @@ function criarProgressoLeitura(livro) {
     return progresso;
 };
 
-function criarCartao(livro) {
+function formatarClassificacao(classificacao) {
+    return classificacao > 0
+        ? `★ ${classificacao.toLocaleString("pt-PT")} / 5`
+        : "Sem classificação";
+};
+
+function listarDetalhes(livro) {
+    const detalhes = [
+        ["Autor", livro.autor],
+        ["Editora", livro.editora],
+        ["Géneros", livro.generos.join(", ")],
+        ["Idioma", livro.idioma],
+        ["Páginas", livro.paginas],
+        ["Saga", livro.saga],
+        ["Volume", livro.volume],
+        ["Estado", obterTextoEstado(livro.estado)],
+        ["Classificação", formatarClassificacao(livro.classificacao)],
+        ["Lançamento", livro.dataLancamento ? formatarData(livro.dataLancamento) : ""],
+    ];
+
+    return detalhes.filter(([, valor]) => valor);
+};
+
+export function criarListaDetalhes(livro) {
+    const lista = criarElemento("dl");
+
+    for (const [nome, valor] of listarDetalhes(livro)) {
+        lista.append(
+            criarElemento("dt", { texto: nome }),
+            criarElemento("dd", { texto: String(valor) })
+        );
+    }
+
+    return lista;
+};
+
+// ------------------------------------------------------------------------------------------
+
+function criarItemDoCartao(livro) {
     const item = criarElemento("li");
     const cartao = criarElemento("article");
 
     cartao.dataset.id = livro.id;
-    cartao.append(criarFigura(livro), criarInformacao(livro), criarBotaoRemover(livro));
+    cartao.append(criarFigura(livro), criarCorpoDoCartao(livro), criarBotaoRemover(livro));
     item.append(cartao);
 
     return item;
 };
 
-function criarCartaoLeitura(livro) {
-    const item = criarCartao(livro);
+function criarItemDoCartaoLeitura(livro) {
+    const item = criarItemDoCartao(livro);
     const acoes = item.querySelector(".acoes-livro");
 
     item.querySelector("article").classList.add("cartao-leitura");
@@ -247,20 +295,20 @@ function criarCartaoLeitura(livro) {
     return item;
 };
 
-export function mostrarLeituras(livros, lista) {
-    mostrarLivros(livros, lista, "Não estás a ler nenhum livro de momento.", criarCartaoLeitura);
-};
-
-export function mostrarLivros(
+export function mostrarCartoes(
     livros,
     lista,
     mensagemVazia = "Nenhum livro encontrado.",
-    criarItem = criarCartao
+    criarCartaoDoLivro = criarItemDoCartao
 ) {
     if (livros.length === 0) {
         lista.replaceChildren(criarElemento("li", { texto: mensagemVazia }));
         return;
     }
 
-    lista.replaceChildren(...livros.map((livro) => criarItem(livro)));
+    lista.replaceChildren(...livros.map((livro) => criarCartaoDoLivro(livro)));
+};
+
+export function mostrarCartoesLeitura(livros, lista) {
+    mostrarCartoes(livros, lista, "Não estás a ler nenhum livro de momento.", criarItemDoCartaoLeitura);
 };
