@@ -1,4 +1,7 @@
+/* ------------------------------------------------------------------------------------------ */
+
 :root {
+    /* cores gerais */
     --fundo: #F7EEE9;
     --superficie: #FFFFFF;
     --texto: #2E0708;
@@ -16,6 +19,7 @@
     --erro: #B3261E;
     --erro-fundo: #FBE3E1;
 
+    /* cores dos botões de estado */
     --lido-fundo: #4A0A0C;
     --lido-texto: #FFFFFF;
     --ler-fundo: #751F24;
@@ -24,9 +28,11 @@
     --quero-texto: #2E0708;
     --quero-borda: #751F24;
 
+    /* barra lateral */
     --lateral-inicio: #200405;
     --lateral-fim: #4A0A0C;
     --texto-lateral: #F3E1E4;
+
     --sombra: 0 6px 16px rgba(46, 7, 8, 0.2);
     --largura-lateral: 280px;
 }
@@ -59,21 +65,23 @@
     --sombra: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
+/* ------------------------------------------------------------------------------------------ */
+
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; 
     margin: 0;
     padding: 0;
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; 
 }
 
 body {
     display: grid;
-    grid-template-columns: var(--largura-lateral) 1fr;
-    grid-template-rows: 1fr auto;
-    min-height: 100vh;
+    grid-template-columns: var(--largura-lateral) 1fr; /* barra lateral | conteúdo */
+    grid-template-rows: 1fr auto; /* conteúdo | rodapé */
+    min-height: 100dvh;
     background: var(--fundo);
     color: var(--texto);
     font-family: "DM Sans", system-ui, sans-serif;
@@ -114,10 +122,11 @@ ul {
 }
 
 [hidden] {
-    display: none !important;
+    display: none !important; /* garante que o atributo hidden esconde sempre */
 }
 
-.so-leitores {
+.so-leitores-de-ecra {
+    /* fica invisível, mas os leitores de ecrã continuam a lê-lo */
     position: absolute;
     width: 1px;
     height: 1px;
@@ -125,6 +134,8 @@ ul {
     clip-path: inset(50%);
     white-space: nowrap;
 }
+
+/* ------------------------------------------------------------------------------------------ */
 
 button {
     font: inherit;
@@ -143,6 +154,7 @@ select {
     font-weight: 400;
 }
 
+/* select personalizável: só funciona nos navegadores mais recentes, nos outros fica o select normal */
 select,
 ::picker(select) {
     appearance: base-select;
@@ -154,6 +166,7 @@ select {
     gap: 8px;
 }
 
+/* ::picker(select) é a lista que abre ao clicar no select */
 ::picker(select) {
     padding: 6px;
     border: 1px solid var(--borda);
@@ -179,6 +192,18 @@ select option:checked {
     color: var(--destaque);
 }
 
+/* etiqueta (texto por cima do campo) dos filtros e dos formulários */
+search>label,
+#formulario-livro>label,
+#formulario-leitura>label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* botões em forma de pílula: vazios, e ficam cheios ao passar o rato */
 .botao-ja-saiu,
 .botao-atualizar-leitura,
 .botoes-dialogo button {
@@ -199,6 +224,7 @@ select option:checked {
     color: var(--sobre-destaque);
 }
 
+/* o ✕ redondo */
 .botao-fechar {
     width: 36px;
     height: 36px;
@@ -213,32 +239,63 @@ select option:checked {
     color: var(--destaque);
 }
 
-.barra-lateral {
+/* barras de progresso: cada sítio só muda a altura e, se quiser, as cores
+   (--trilho é o fundo da barra, --preenchimento é a parte já cheia) */
+progress {
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--trilho, var(--etiqueta));
+}
+
+/* as 3 regras seguintes são o mesmo pedido para cada navegador (Chrome/Safari e Firefox) */
+progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--trilho, var(--etiqueta));
+}
+
+progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--preenchimento, var(--destaque));
+}
+
+progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--preenchimento, var(--destaque));
+}
+
+/* ------------------------------------------------------------------------------------------ */
+
+#barra-lateral {
     grid-column: 1;
-    grid-row: 1 / 3;
-    position: sticky;
+    grid-row: 1 / 3; /* ocupa a altura toda (conteúdo + rodapé) */
+    position: sticky; /* fica parada enquanto se faz scroll */
     top: 0;
     z-index: 20;
     display: flex;
     flex-direction: column;
     gap: 48px;
-    height: 100vh;
+    height: 100dvh;
     overflow-y: auto;
     padding: 40px 20px 32px;
     background: linear-gradient(180deg, var(--lateral-inicio), var(--lateral-fim));
     color: var(--texto-lateral);
-    color-scheme: dark;
+    color-scheme: dark; /* os campos e as barras desta zona usam cores de tema escuro */
+    --trilho: rgba(255, 255, 255, 0.2); /* a barra de progresso desta zona é branca */
+    --preenchimento: #FFFFFF;
 }
 
-.barra-lateral header {
-    flex: 1;
+#barra-lateral header {
+    flex: 1; /* ocupa o espaço que sobra e empurra os botões para baixo */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     gap: 48px;
 }
 
-.barra-lateral img {
+#barra-lateral img {
     display: block;
     width: 100%;
     height: auto;
@@ -254,37 +311,16 @@ select option:checked {
 }
 
 #progresso-barra {
-    appearance: none;
-    width: 100%;
     height: 14px;
-    border: 0;
-    border-radius: 999px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.2);
 }
 
-#progresso-barra::-webkit-progress-bar {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 999px;
-}
-
-#progresso-barra::-webkit-progress-value {
-    background: #FFFFFF;
-    border-radius: 999px;
-}
-
-#progresso-barra::-moz-progress-bar {
-    background: #FFFFFF;
-    border-radius: 999px;
-}
-
-.barra-lateral nav ul {
+#barra-lateral nav ul {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.barra-lateral nav a {
+#barra-lateral nav a {
     display: flex;
     align-items: center;
     min-height: 44px;
@@ -294,19 +330,23 @@ select option:checked {
     font-weight: 700;
 }
 
-.barra-lateral nav a:hover {
+#barra-lateral nav a:hover {
     background: rgba(217, 139, 155, 0.2);
     color: #FFFFFF;
 }
 
-.barra-lateral data {
-    margin-left: auto;
-    padding: 2px 10px;
+/* caixinha com o número de livros */
+#barra-lateral data {
+    flex: none; /* não deixa a caixa encolher */
+    width: 40px; /* largura fixa: todas as caixas ficam iguais, tenha o número 1 ou 3 algarismos */
+    margin-left: auto; /* empurra a caixa para o lado direito */
+    padding: 2px 0;
     border-radius: 12px;
     background: var(--realce);
     color: var(--sobre-realce);
     font-size: 0.8rem;
     font-weight: 700;
+    text-align: center; /* o número fica sempre ao meio da caixa */
 }
 
 .botoes-barra-lateral {
@@ -330,7 +370,7 @@ select option:checked {
 }
 
 #botao-adicionar-livro {
-    flex: 1;
+    flex: 1; /* ocupa a largura que o botão do tema deixa livre */
     min-height: 48px;
     border: 0;
     border-radius: 10px;
@@ -343,6 +383,7 @@ select option:checked {
     background: #E8A9B6;
 }
 
+/* botão do menu: fica escondido por agora (vai servir na versão para telemóvel) */
 #botao-menu {
     display: none;
     position: fixed;
@@ -358,11 +399,13 @@ select option:checked {
     font-size: 1.4rem;
 }
 
+/* ------------------------------------------------------------------------------------------ */
+
 main {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    gap: 80px;
+    gap: 80px; /* espaço entre secções */
     padding: 32px;
 }
 
@@ -380,7 +423,7 @@ footer p {
 }
 
 #botao-topo {
-    position: fixed;
+    position: fixed; /* fica sempre no canto, mesmo com scroll */
     right: 24px;
     bottom: 24px;
     display: flex;
@@ -395,9 +438,11 @@ footer p {
     box-shadow: var(--sombra);
 }
 
+/* ------------------------------------------------------------------------------------------ */
+
 search {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* os filtros passam para a linha de baixo quando não cabem */
     gap: 16px;
     margin-bottom: 24px;
     padding: 20px;
@@ -406,22 +451,12 @@ search {
     background: var(--superficie);
 }
 
-search>label,
-#formulario-livro>label,
-#formulario-leitura>label {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
 search>label:first-child {
-    flex: 1 1 220px;
+    flex: 1 1 220px; /* a pesquisa cresce para ocupar o espaço livre (mínimo 220px) */
 }
 
 #filtros-estado {
-    flex: 1 1 100%;
+    flex: 1 1 100%; /* ocupa uma linha inteira */
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -441,12 +476,14 @@ search>label:first-child {
     cursor: pointer;
 }
 
+/* esconde a bolinha do radio: a etiqueta inteira funciona como botão */
 #filtros-estado input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
+/* :has() escolhe a etiqueta que tem lá dentro a opção marcada */
 #filtros-estado label:has(input:checked) {
     background: var(--destaque);
     color: var(--sobre-destaque);
@@ -457,6 +494,9 @@ search>label:first-child {
     outline-offset: 2px;
 }
 
+/* ------------------------------------------------------------------------------------------ */
+
+/* as 4 listas de cartões: as colunas ajustam-se ao ecrã e cada cartão tem pelo menos 360px */
 #lista-leituras,
 #lista-lancamentos,
 #lista-livros,
@@ -467,7 +507,7 @@ search>label:first-child {
 }
 
 article {
-    position: relative;
+    position: relative; /* serve para o botão ✕ ficar posicionado dentro do cartão */
     display: flex;
     gap: 16px;
     height: 100%;
@@ -494,25 +534,31 @@ figure {
     text-align: center;
 }
 
-figure img {
+/* todas as capas (nos cartões, nos detalhes, nas estatísticas e na roleta) */
+figure img,
+#capas-cinco-estrelas img,
+#livro-sorteado img {
     display: block;
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
+    aspect-ratio: 2 / 3; /* proporção de uma capa de livro */
+    object-fit: cover; /* a imagem enche a caixa sem ficar esticada */
     border-radius: 4px 8px 8px 4px;
     box-shadow: var(--sombra);
 }
 
+figure img {
+    width: 100%;
+}
+
 .informacao-livro {
     flex: 1;
-    min-width: 0;
+    min-width: 0; /* deixa o texto encolher em vez de alargar o cartão */
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
 .informacao-livro h3 {
-    padding-right: 36px;
+    padding-right: 36px; /* deixa espaço para o ✕ */
     color: var(--titulo);
 }
 
@@ -521,44 +567,13 @@ figure img {
     font-size: 0.9rem;
 }
 
-.progresso-livro {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 6px;
-}
-
-.progresso-livro progress {
-    appearance: none;
-    width: 100%;
-    height: 12px;
-    border: 0;
-    border-radius: 999px;
-    overflow: hidden;
-    background: var(--etiqueta);
-}
-
-.progresso-livro progress::-webkit-progress-bar {
-    border-radius: 999px;
-    background: var(--etiqueta);
-}
-
-.progresso-livro progress::-webkit-progress-value {
-    border-radius: 999px;
-    background: var(--destaque);
-}
-
-.progresso-livro progress::-moz-progress-bar {
-    border-radius: 999px;
-    background: var(--destaque);
-}
-
 .informacao-livro time {
     color: var(--destaque-2);
     font-size: 0.8rem;
     font-weight: 700;
 }
 
+/* links do Goodreads: andam um bocadinho para a direita ao passar o rato */
 .informacao-livro a,
 figcaption a {
     display: inline-block;
@@ -580,13 +595,24 @@ figcaption a:hover {
     text-align: left;
 }
 
+.progresso-livro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.progresso-livro progress {
+    height: 12px;
+}
+
 .acoes-livro {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
-    margin-top: auto;
+    margin-top: auto; /* empurra os botões para o fundo do cartão */
     padding-top: 12px;
 }
 
@@ -618,12 +644,12 @@ figcaption a:hover {
 }
 
 .seletor-estado {
-    position: relative;
+    position: relative; /* o menu fica posicionado em relação a esta caixa */
 }
 
 .menu-estado {
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + 6px); /* abre para cima, 6px acima do botão */
     left: 0;
     z-index: 5;
     min-width: 150px;
@@ -656,9 +682,10 @@ figcaption a:hover {
 }
 
 .menu-estado button[aria-current="true"]::after {
-    content: " ✓";
+    content: " ✓"; /* marca a opção em que o livro está */
 }
 
+/* botão do coração: aria-pressed="true" quando o livro é favorito */
 .acoes-livro button[aria-pressed] {
     width: 44px;
     height: 44px;
@@ -688,15 +715,17 @@ figcaption a:hover {
 }
 
 .botao-remover {
-    position: absolute;
+    position: absolute; /* canto de cima, à direita do cartão */
     top: 8px;
     right: 8px;
 }
 
+/* ------------------------------------------------------------------------------------------ */
+
 dialog {
-    width: min(560px, calc(100% - 32px));
-    max-height: calc(100vh - 32px);
-    margin: auto;
+    width: min(560px, calc(100% - 32px)); /* 560px, ou a largura do ecrã menos 32px se for mais pequeno */
+    max-height: calc(100dvh - 32px);
+    margin: auto; /* centra a janela */
     padding: 24px;
     overflow-y: auto;
     border: 1px solid var(--borda);
@@ -707,7 +736,7 @@ dialog {
 }
 
 dialog::backdrop {
-    background: rgba(20, 3, 4, 0.65);
+    background: rgba(20, 3, 4, 0.65); /* o fundo escurecido atrás da janela */
 }
 
 .cabecalho-dialogo {
@@ -726,6 +755,7 @@ dialog::backdrop {
     gap: 12px;
 }
 
+/* janelas pequenas */
 .dialogo-confirmar,
 #dialogo-atualizar-leitura {
     width: min(420px, calc(100% - 32px));
@@ -741,6 +771,7 @@ dialog::backdrop {
     gap: 16px;
 }
 
+/* formulário de adicionar/editar livro: grelha de 2 colunas */
 #formulario-livro {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -748,11 +779,11 @@ dialog::backdrop {
 }
 
 #formulario-livro>* {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* por defeito, cada campo ocupa a linha toda */
 }
 
 #formulario-livro>.campo-metade {
-    grid-column: auto;
+    grid-column: auto; /* estes ocupam só uma coluna (dois por linha) */
 }
 
 #formulario-livro>.campo-caixa {
@@ -766,7 +797,7 @@ dialog::backdrop {
 #formulario-livro input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: var(--destaque);
+    accent-color: var(--destaque); /* cor da caixa quando está marcada */
 }
 
 #formulario-livro fieldset {
@@ -793,6 +824,7 @@ dialog::backdrop {
     font-weight: 500;
 }
 
+/* o JavaScript põe aria-invalid="true" nos campos com erro */
 #formulario-livro [aria-invalid="true"] {
     background-color: var(--erro-fundo);
 }
@@ -803,9 +835,10 @@ dialog::backdrop {
 }
 
 #mensagem-erro-formulario:empty {
-    display: none;
+    display: none; /* sem mensagem, o parágrafo não ocupa espaço */
 }
 
+/* janela de detalhes do livro */
 #dialogo-detalhes {
     width: min(640px, calc(100% - 32px));
 }
@@ -828,7 +861,7 @@ figcaption {
 #conteudo-detalhes dl {
     flex: 1 1 240px;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr; /* nome | valor */
     align-content: start;
     gap: 10px 16px;
 }
@@ -842,9 +875,11 @@ figcaption {
     color: var(--texto-suave);
 }
 
-#lista-estatisticas {
+/* ------------------------------------------------------------------------------------------ */
+
+#grelha-estatisticas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); /* as caixas ajustam-se ao espaço (mínimo 240px) */
     gap: 20px;
 }
 
@@ -865,7 +900,7 @@ figcaption {
 }
 
 .legenda-estatistica {
-    margin-top: auto;
+    margin-top: auto; /* a legenda fica sempre no fundo da caixa */
     color: var(--texto-suave);
     font-size: 0.9rem;
 }
@@ -882,6 +917,7 @@ figcaption {
     font-size: 1.2rem;
 }
 
+/* gráfico de barras das classificações */
 #grafico-classificacoes {
     display: flex;
     gap: 6px;
@@ -893,7 +929,7 @@ figcaption {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-end; /* o conteúdo fica encostado ao fundo */
     align-items: center;
     gap: 6px;
 }
@@ -905,6 +941,7 @@ figcaption {
     background: var(--destaque);
 }
 
+/* caixinha com os títulos: só aparece ao passar o rato (ou ao chegar com o teclado) */
 .livros-da-barra {
     display: none;
     position: absolute;
@@ -920,7 +957,7 @@ figcaption {
     box-shadow: var(--sombra);
     color: var(--texto);
     font-size: 0.85rem;
-    pointer-events: none;
+    pointer-events: none; /* o rato "atravessa" a caixa, para não a prender aberta */
 }
 
 #grafico-classificacoes>li:hover .livros-da-barra,
@@ -938,6 +975,7 @@ figcaption {
     font-size: 0.8rem;
 }
 
+/* lista dos géneros */
 #lista-generos {
     display: flex;
     flex-direction: column;
@@ -952,29 +990,10 @@ figcaption {
 }
 
 #lista-generos progress {
-    appearance: none;
-    width: 100%;
     height: 10px;
-    border: 0;
-    border-radius: 999px;
-    overflow: hidden;
-    background: var(--etiqueta);
 }
 
-#lista-generos progress::-webkit-progress-bar {
-    background: var(--etiqueta);
-}
-
-#lista-generos progress::-webkit-progress-value {
-    border-radius: 999px;
-    background: var(--destaque);
-}
-
-#lista-generos progress::-moz-progress-bar {
-    border-radius: 999px;
-    background: var(--destaque);
-}
-
+/* capas dos livros com 5 estrelas */
 #capas-cinco-estrelas {
     display: flex;
     flex-wrap: wrap;
@@ -983,63 +1002,10 @@ figcaption {
 }
 
 #capas-cinco-estrelas img {
-    display: block;
     width: 75px;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-    border-radius: 4px 8px 8px 4px;
-    box-shadow: var(--sombra);
 }
 
-#roleta {
-    width: min(340px, 100%);
-}
-
-.fatia path {
-    stroke: var(--superficie);
-    stroke-width: 3;
-}
-
-.fatia text {
-    font-family: inherit;
-    font-weight: 600;
-    text-anchor: middle;
-    dominant-baseline: middle;
-}
-
-.fatia-0 path {
-    fill: var(--etiqueta);
-}
-
-.fatia-1 path {
-    fill: var(--fundo);
-}
-
-.fatia-2 path {
-    fill: color-mix(in srgb, var(--realce) 45%, var(--superficie));
-}
-
-.fatia text {
-    fill: var(--texto);
-}
-
-.fatia.sorteada path {
-    fill: var(--destaque);
-}
-
-.fatia.sorteada text {
-    fill: var(--sobre-destaque);
-}
-
-.centro-da-roleta {
-    fill: var(--superficie);
-    stroke: var(--destaque);
-    stroke-width: 4;
-}
-
-.ponteiro-da-roleta {
-    fill: var(--titulo);
-}
+/* ------------------------------------------------------------------------------------------ */
 
 #botao-roleta {
     position: fixed;
@@ -1052,46 +1018,11 @@ figcaption {
     background: var(--destaque);
     color: var(--sobre-destaque);
     font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px var(--sombra);
+    box-shadow: var(--sombra);
 }
 
 #dialogo-roleta {
     width: min(620px, calc(100% - 32px));
-    padding: 24px;
-    border: none;
-    border-radius: 16px;
-    background: var(--superficie);
-    color: var(--texto);
-}
-
-#dialogo-roleta::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-#dialogo-roleta #roleta {
-    display: block;
-    width: min(280px, 100%);
-    margin: 0 auto;
-    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25));
-}
-
-#fatias-da-roleta {
-    transform-origin: 160px 160px;
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1);
-}
-
-.fatia {
-    transition: opacity 0.4s;
-}
-
-#fatias-da-roleta:has(.sorteada) .fatia:not(.sorteada) {
-    opacity: 0.35;
-}
-
-#botao-girar {
-    display: block;
-    margin: 16px auto 0;
 }
 
 #conteudo-da-roleta {
@@ -1111,96 +1042,59 @@ figcaption {
     gap: 20px;
 }
 
-#livro-sorteado {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 220px;
-    height: 380px;
-    padding: 16px;
-    border-radius: 16px;
-    background: var(--fundo);
-    text-align: center;
+#roleta {
+    display: block;
+    width: min(280px, 100%);
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25)); /* sombra que acompanha o desenho */
 }
 
-#livro-sorteado[hidden] {
-    display: flex !important;
-    justify-content: center;
-    border: 2px dashed var(--borda);
-    background: transparent;
-    color: var(--texto-suave);
-    font-family: "Lora", Georgia, serif;
-    font-style: italic;
+/* as fatias giram à volta do centro do desenho (160, 160); o 4s tem de ser igual ao tempo no JavaScript */
+#fatias-da-roleta {
+    transform-origin: 160px 160px;
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1); /* começa rápido e vai abrandando */
 }
 
-#livro-sorteado[hidden]::before {
-    content: "O destino ainda está a escolher…✦";
+.fatia {
+    transition: opacity 0.4s;
 }
 
-#livro-sorteado[hidden] > * {
-    display: none;
+/* todas as fatias têm a mesma cor; as linhas brancas separam-nas */
+.fatia path {
+    fill: var(--etiqueta);
+    stroke: var(--superficie);
+    stroke-width: 3;
 }
 
-#livro-sorteado > * {
-    flex-shrink: 0;
-    max-width: 100%;
-    animation: aparecer 0.5s ease;
+.fatia text {
+    fill: var(--texto);
+    font-family: inherit;
+    font-weight: 600;
+    text-anchor: middle; /* o texto fica centrado no ponto */
+    dominant-baseline: middle;
 }
 
-#livro-sorteado img {
-    width: 90px;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-    border-radius: 4px 8px 8px 4px;
-    box-shadow: var(--sombra);
+.fatia.sorteada path {
+    fill: var(--destaque);
 }
 
-#livro-sorteado h3 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    font-size: 1.1rem;
+.fatia.sorteada text {
+    fill: var(--sobre-destaque);
 }
 
-.autor-do-sorteado {
-    overflow: hidden;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+/* depois do sorteio, as fatias que não saíram ficam mais claras */
+#fatias-da-roleta:has(.sorteada) .fatia:not(.sorteada) {
+    opacity: 0.35;
 }
 
-.generos-do-sorteado {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    max-height: 30px;
-    overflow: hidden;
+.centro-da-roleta {
+    fill: var(--superficie);
+    stroke: var(--destaque);
+    stroke-width: 4;
 }
 
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
-}
-
-.autor-do-sorteado {
-    color: var(--texto-suave);
-}
-
-.generos-do-sorteado li {
-    padding: 2px 10px;
-    border-radius: 999px;
-    background: var(--etiqueta);
-    font-size: 0.8rem;
+.ponteiro-da-roleta {
+    fill: var(--titulo);
 }
 
 #botao-girar,
@@ -1214,11 +1108,108 @@ figcaption {
     font-weight: 700;
 }
 
+#botao-girar {
+    display: block;
+    margin: 16px auto 0;
+}
+
 #botao-girar:disabled {
     opacity: 0.5;
     cursor: wait;
 }
 
+/* cartão do livro sorteado: tem sempre o mesmo tamanho, seja qual for o livro */
+#livro-sorteado {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 220px;
+    height: 380px;
+    padding: 15px;
+    border-radius: 16px;
+    background: var(--fundo);
+    text-align: center;
+}
+
+/* antes de sortear (escondido), em vez de desaparecer fica uma caixa tracejada com uma frase,
+   para a janela não mudar de tamanho */
+#livro-sorteado[hidden] {
+    display: flex !important;
+    justify-content: center;
+    border: 2px dashed var(--borda);
+    background: transparent;
+    color: var(--texto-suave);
+    font-family: "Lora", Georgia, serif;
+    font-style: italic;
+}
+
+#livro-sorteado[hidden]::before {
+    content: "O destino ainda está a escolher…✦"; /* a frase pode ser trocada à vontade */
+}
+
+#livro-sorteado[hidden]>* {
+    display: none;
+}
+
+#livro-sorteado>* {
+    flex-shrink: 0;
+    max-width: 100%;
+    animation: aparecer 0.5s ease;
+}
+
+#livro-sorteado img {
+    width: 90px;
+}
+
+/* título com no máximo 2 linhas (o resto é cortado) */
+#livro-sorteado h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 1.1rem;
+}
+
+/* autor numa só linha; se for grande, acaba em "..." */
+.autor-do-sorteado {
+    overflow: hidden;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.generos-do-sorteado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    max-height: 30px; /* só cabe uma linha de géneros */
+    overflow: hidden;
+}
+
+.generos-do-sorteado li {
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--etiqueta);
+    font-size: 0.8rem;
+}
+
 .botao-comecar-a-ler {
-    margin-top: auto;
+    margin-top: auto; /* o botão fica sempre no fundo do cartão */
+}
+
+/* animação: o conteúdo aparece a subir um bocadinho */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }

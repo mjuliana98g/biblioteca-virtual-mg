@@ -17,9 +17,10 @@
 
 <body id="topo">
     <button type="button" id="botao-roleta">Não sabes o que ler?</button>
-    <button id="botao-menu" type="button" aria-label="Abrir menu" aria-controls="barra-lateral"
+    <button type="button" id="botao-menu" aria-label="Abrir menu" aria-controls="barra-lateral"
         aria-expanded="false">☰</button>
-    <aside id="barra-lateral" class="barra-lateral">
+
+    <aside id="barra-lateral">
         <header>
             <h1><img src="img/logo-biblioteca-mg.svg" alt="Biblioteca Virtual de Matilde Gomes"></h1>
             <section class="progresso-leitura" aria-label="Progresso de leitura">
@@ -28,8 +29,7 @@
             </section>
             <nav aria-label="Secções do site">
                 <ul>
-                    <li><a href="#leituras-do-momento">Leituras Atuais<data id="contador-leituras"
-                                value="0">0</data></a></li>
+                    <li><a href="#leituras-do-momento">Leituras Atuais<data id="contador-leituras" value="0">0</data></a></li>
                     <li><a href="#lancamentos">Novidades<data id="contador-lancamentos" value="0">0</data></a></li>
                     <li><a href="#estante">Estante<data id="contador-estante" value="0">0</data></a></li>
                     <li><a href="#favoritos">Favoritos<data id="contador-favoritos" value="0">0</data></a></li>
@@ -38,24 +38,27 @@
             </nav>
         </header>
         <div class="botoes-barra-lateral">
-            <button id="botao-tema" type="button" aria-label="Mudar para modo escuro">⏾</button>
-            <button id="botao-adicionar-livro" type="button" aria-haspopup="dialog">+ Adicionar livro</button>
+            <button type="button" id="botao-tema" aria-label="Mudar para modo escuro">⏾</button>
+            <button type="button" id="botao-adicionar-livro" aria-haspopup="dialog">+ Adicionar livro</button>
         </div>
     </aside>
+
     <main>
         <section id="leituras-do-momento" aria-labelledby="titulo-leituras-do-momento">
             <h2 id="titulo-leituras-do-momento">Leituras Atuais</h2>
             <ul id="lista-leituras"></ul>
         </section>
+
         <section id="lancamentos" aria-labelledby="titulo-lancamentos">
             <h2 id="titulo-lancamentos">Próximos Lançamentos</h2>
             <ul id="lista-lancamentos"></ul>
         </section>
+
         <section id="estante" aria-labelledby="titulo-estante">
             <h2 id="titulo-estante">Estante</h2>
             <search aria-label="Filtrar livros">
                 <label>Pesquisar
-                    <input id="filtro-pesquisa" type="search" placeholder="Título ou autor...">
+                    <input type="search" id="filtro-pesquisa" placeholder="Título ou autor...">
                 </label>
                 <label>Género
                     <select id="filtro-genero">
@@ -79,7 +82,7 @@
                     </select>
                 </label>
                 <fieldset id="filtros-estado">
-                    <legend class="so-leitores">Filtrar por estado</legend>
+                    <legend class="so-leitores-de-ecra">Filtrar por estado</legend>
                     <label><input type="radio" name="estado" value="todos" checked>Todos</label>
                     <label><input type="radio" name="estado" value="quero-ler">Quero ler</label>
                     <label><input type="radio" name="estado" value="a-ler">A ler</label>
@@ -88,13 +91,15 @@
             </search>
             <ul id="lista-livros"></ul>
         </section>
+
         <section id="favoritos" aria-labelledby="titulo-favoritos">
             <h2 id="titulo-favoritos">Favoritos</h2>
             <ul id="lista-favoritos"></ul>
         </section>
+
         <section id="estatisticas" aria-labelledby="titulo-estatisticas">
             <h2 id="titulo-estatisticas">Estatísticas</h2>
-            <div id="lista-estatisticas">
+            <div id="grelha-estatisticas">
                 <section class="estatistica" aria-labelledby="titulo-generos">
                     <h3 id="titulo-generos">Géneros</h3>
                     <ul id="lista-generos"></ul>
@@ -113,25 +118,28 @@
             </div>
         </section>
     </main>
+
     <footer>
         <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
         <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
     </footer>
+
     <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
+
     <dialog id="dialogo-formulario-livro" aria-labelledby="titulo-formulario">
         <form id="formulario-livro" novalidate>
-            <div class="cabecalho-dialogo">
+            <header class="cabecalho-dialogo">
                 <h2 id="titulo-formulario">Adicionar livro</h2>
-                <button id="fechar-formulario" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
-            </div>
+                <button type="button" id="fechar-formulario" class="botao-fechar" aria-label="Fechar">✕</button>
+            </header>
             <label class="campo-metade">Título
-                <input id="titulo-livro" type="text">
+                <input type="text" id="titulo-livro">
             </label>
             <label class="campo-metade">Autor
-                <input id="autor-livro" type="text">
+                <input type="text" id="autor-livro">
             </label>
             <label>Editora
-                <input id="editora-livro" type="text">
+                <input type="text" id="editora-livro">
             </label>
             <fieldset id="generos-livro">
                 <legend>Géneros</legend>
@@ -151,10 +159,10 @@
                 </select>
             </label>
             <label class="campo-metade">Páginas
-                <input id="paginas-livro" type="number" min="1">
+                <input type="number" id="paginas-livro" min="1">
             </label>
             <label class="campo-metade">Saga
-                <input id="saga-livro" type="text" list="lista-sagas">
+                <input type="text" id="saga-livro" list="lista-sagas">
             </label>
             <datalist id="lista-sagas"></datalist>
             <label class="campo-metade">Estado
@@ -165,36 +173,39 @@
                 </select>
             </label>
             <label class="campo-metade">Volume
-                <input id="volume-livro" type="number" min="1">
+                <input type="number" id="volume-livro" min="1">
             </label>
             <label class="campo-metade">Classificação
-                <input id="classificacao-livro" type="number" min="0" max="5" step="0.25" placeholder="0 a 5">
+                <input type="number" id="classificacao-livro" min="0" max="5" step="0.25" placeholder="0 a 5">
             </label>
             <label>Link do Goodreads
-                <input id="link-goodreads" type="url" placeholder="https://www.goodreads.com/book/show/...">
+                <input type="url" id="link-goodreads" placeholder="https://www.goodreads.com/book/show/...">
             </label>
             <label>Link da imagem da capa
-                <input id="link-capa" type="url" placeholder="https://...">
+                <input type="url" id="link-capa" placeholder="https://...">
             </label>
             <label class="campo-caixa">
-                <input id="livro-por-lancar" type="checkbox">
+                <input type="checkbox" id="livro-por-lancar">
                 Ainda não foi lançado?
             </label>
             <label id="campo-data-lancamento" hidden>Data de lançamento
-                <input id="data-lancamento" type="date">
+                <input type="date" id="data-lancamento">
             </label>
             <p id="mensagem-erro-formulario" role="alert"></p>
             <div class="botoes-dialogo">
-                <button id="cancelar-formulario" type="button">Cancelar</button>
-                <button id="guardar-formulario" class="botao-confirmar" type="submit">Adicionar</button>
+                <button type="button" id="cancelar-formulario">Cancelar</button>
+                <button type="submit" id="guardar-formulario" class="botao-confirmar">Adicionar</button>
             </div>
         </form>
     </dialog>
+
     <dialog id="dialogo-roleta" aria-labelledby="titulo-roleta">
-        <form method="dialog" class="cabecalho-dialogo">
+        <header class="cabecalho-dialogo">
             <h2 id="titulo-roleta">Roleta da Próxima Leitura</h2>
-            <button class="botao-fechar" aria-label="Fechar">×</button>
-        </form>
+            <form method="dialog">
+                <button class="botao-fechar" aria-label="Fechar">✕</button>
+            </form>
+        </header>
         <p id="mensagem-roleta" hidden>Precisas de pelo menos 2 livros em «Quero ler» para usar a roleta.</p>
         <div id="conteudo-da-roleta">
             <section id="area-da-roleta">
@@ -203,11 +214,12 @@
                     <circle class="centro-da-roleta" cx="160" cy="160" r="22"></circle>
                     <path class="ponteiro-da-roleta" d="M148 -6L172 -6L160 24Z"></path>
                 </svg>
-                <button type="button" id="botao-girar" class="botao-confirmar">Girar</button>
+                <button type="button" id="botao-girar">Girar</button>
             </section>
             <section id="livro-sorteado" hidden></section>
         </div>
     </dialog>
+
     <dialog id="dialogo-confirmar-remocao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-remocao">
         <form method="dialog">
             <h2 id="titulo-confirmar-remocao">Remover livro</h2>
@@ -218,6 +230,7 @@
             </div>
         </form>
     </dialog>
+
     <dialog id="dialogo-confirmar-lancamento" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-lancamento">
         <form method="dialog">
             <h2 id="titulo-confirmar-lancamento">Já saiu</h2>
@@ -228,25 +241,27 @@
             </div>
         </form>
     </dialog>
+
     <dialog id="dialogo-atualizar-leitura" aria-labelledby="titulo-atualizar-leitura">
         <form id="formulario-leitura" method="dialog">
-            <div class="cabecalho-dialogo">
+            <header class="cabecalho-dialogo">
                 <h2 id="titulo-atualizar-leitura">Atualizar leitura</h2>
-                <button id="fechar-leitura" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
-            </div>
+                <button type="button" id="fechar-leitura" class="botao-fechar" aria-label="Fechar">✕</button>
+            </header>
             <p id="livro-atualizar-leitura"></p>
             <label>Páginas lidas
-                <input id="paginas-lidas" type="number" min="0" step="1" required>
+                <input type="number" id="paginas-lidas" min="0" step="1" required>
             </label>
             <label>Percentagem lida (%)
-                <input id="percentagem-lida" type="number" min="0" max="100" step="1" required>
+                <input type="number" id="percentagem-lida" min="0" max="100" step="1" required>
             </label>
             <div class="botoes-dialogo">
-                <button id="cancelar-leitura" type="button">Cancelar</button>
+                <button type="button" id="cancelar-leitura">Cancelar</button>
                 <button value="guardar" class="botao-confirmar">Guardar</button>
             </div>
         </form>
     </dialog>
+
     <dialog id="dialogo-confirmar-conclusao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-conclusao">
         <form method="dialog">
             <h2 id="titulo-confirmar-conclusao">Leitura concluída</h2>
@@ -257,14 +272,15 @@
             </div>
         </form>
     </dialog>
+
     <dialog id="dialogo-detalhes" aria-labelledby="titulo-detalhes">
-        <div class="cabecalho-dialogo">
+        <header class="cabecalho-dialogo">
             <h2 id="titulo-detalhes"></h2>
-            <button id="fechar-detalhes" class="botao-fechar" type="button" aria-label="Fechar">✕</button>
-        </div>
+            <button type="button" id="fechar-detalhes" class="botao-fechar" aria-label="Fechar">✕</button>
+        </header>
         <div id="conteudo-detalhes"></div>
         <div class="botoes-dialogo">
-            <button id="editar-detalhes" type="button">Editar</button>
+            <button type="button" id="editar-detalhes">Editar</button>
         </div>
     </dialog>
 </body>

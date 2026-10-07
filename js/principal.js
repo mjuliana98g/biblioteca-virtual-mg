@@ -1,29 +1,31 @@
-import { carregarBiblioteca, adicionarLivro, editarLivro } from "./biblioteca.js";
-import { iniciarDetalhes, iniciarLeitura } from "./dialogos.js";
+import { carregarLivros, adicionarLivro, editarLivro } from "./dadosDosLivros.js";
+import { iniciarDialogoDetalhes, iniciarDialogoLeitura } from "./dialogos.js";
 import { atualizarPagina, iniciarEstante, limparFiltros } from "./estante.js";
-import { abrirParaEditar, iniciarFormulario } from "./formulario.js";
+import { abrirDialogoParaEditar, iniciarFormulario } from "./formulario.js";
 import { iniciarTema } from "./tema.js";
 
-function adicionarNovoLivro(livro) {
+// corre quando o formulário termina de adicionar um livro
+function adicionarLivroEstante(livro) {
     adicionarLivro(livro);
     limparFiltros();
     atualizarPagina();
 };
 
+// corre quando o formulário termina de editar um livro
 function guardarLivroEditado(id, campos) {
     editarLivro(id, campos);
     atualizarPagina();
 };
 
-async function iniciar() {
+async function iniciarAplicacao() {
     iniciarTema();
     iniciarEstante();
-    iniciarDetalhes(abrirParaEditar);
-    iniciarLeitura();
-    iniciarFormulario(adicionarNovoLivro, guardarLivroEditado);
+    iniciarDialogoDetalhes(abrirDialogoParaEditar); // função está a ser entregue mas não a ser executada
+    iniciarDialogoLeitura();
+    iniciarFormulario(adicionarLivroEstante, guardarLivroEditado); 
 
-    await carregarBiblioteca();
+    await carregarLivros(); // await para primeiro carregar os livros e depois desenhar a pagina
     atualizarPagina();
 };
 
-iniciar();
+iniciarAplicacao();
