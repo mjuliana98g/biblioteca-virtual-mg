@@ -35,6 +35,14 @@
 
     --sombra: 0 6px 16px rgba(46, 7, 8, 0.2);
     --largura-lateral: 280px;
+
+    /* cores das categorias do bingo */
+    --categoria-formato: #865066;
+    --categoria-historia: #EC6B70;
+    --categoria-autoria: #FAA876;
+    --categoria-formato-texto: #FFFFFF;
+    --categoria-historia-texto: #2E0708;
+    --categoria-autoria-texto: #2E0708;
 }
 
 [data-tema="escuro"] {
@@ -63,6 +71,13 @@
     --quero-borda: #E08D92;
 
     --sombra: 0 6px 16px rgba(0, 0, 0, 0.6);
+
+    --categoria-formato: #6E4258;
+    --categoria-formato-texto: #FFFFFF;
+    --categoria-historia: #9A4046;
+    --categoria-historia-texto: #FFFFFF;
+    --categoria-autoria: #8A5B3C;
+    --categoria-autoria-texto: #FFFFFF;
 }
 
 /* ------------------------------------------------------------------------------------------ */
@@ -206,6 +221,7 @@ search>label,
 /* botões em forma de pílula: vazios, e ficam cheios ao passar o rato */
 .botao-ja-saiu,
 .botao-atualizar-leitura,
+#botao-novo-cartao,
 .botoes-dialogo button {
     min-height: 44px;
     padding: 0 20px;
@@ -218,6 +234,7 @@ search>label,
 
 .botao-ja-saiu:hover,
 .botao-atualizar-leitura:hover,
+#botao-novo-cartao:hover,
 .botoes-dialogo button:hover,
 .botoes-dialogo .botao-confirmar {
     background: var(--destaque);
@@ -333,6 +350,18 @@ progress::-moz-progress-bar {
 #barra-lateral nav a:hover {
     background: rgba(217, 139, 155, 0.2);
     color: #FFFFFF;
+}
+
+/* o link do bingo abre outra página, por isso tem um contorno e uma estrela para se distinguir */
+#barra-lateral nav .link-bingo {
+    margin-top: 12px;
+    border: 1.5px solid var(--realce);
+}
+
+#barra-lateral nav .link-bingo::before {
+    content: "✦";
+    margin-right: 10px;
+    color: var(--realce);
 }
 
 /* caixinha com o número de livros */
@@ -537,7 +566,8 @@ figure {
 /* todas as capas (nos cartões, nos detalhes, nas estatísticas e na roleta) */
 figure img,
 #capas-cinco-estrelas img,
-#livro-sorteado img {
+#livro-sorteado img,
+#livros-do-cartao img {
     display: block;
     aspect-ratio: 2 / 3; /* proporção de uma capa de livro */
     object-fit: cover; /* a imagem enche a caixa sem ficar esticada */
@@ -1212,4 +1242,182 @@ figcaption {
         opacity: 1;
         transform: none;
     }
+}
+
+/* ------------------------------------------------------------------------------------------ */
+
+.pagina-bingo {
+    display: block; /* esta página não tem barra lateral, por isso deixa de ser a grelha de 2 colunas */
+}
+
+.pagina-bingo main {
+    max-width: 1200px;
+    margin: 0 auto; /* centra o conteúdo */
+    padding: 88px 32px 32px; /* 88px em cima para não ficar debaixo dos botões fixos */
+}
+
+#botao-voltar {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+    font-weight: 600;
+    box-shadow: var(--sombra);
+}
+
+/* o botão do tema já existe para a barra lateral (escura); aqui vai no canto, sobre o fundo claro */
+.pagina-bingo #botao-tema {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-color: var(--destaque-2);
+    border-radius: 50%;
+    background: var(--superficie);
+    color: var(--titulo);
+}
+
+#zona-do-jogo {
+    display: flex;
+    flex-wrap: wrap; /* em ecrãs estreitos, a lista de livros passa para baixo do cartão */
+    align-items: flex-start;
+    justify-content: center; /* centra o cartão e a lista de livros na página */
+    gap: 24px;
+}
+
+#cartao-bingo {
+    flex: 0 1 500px;
+    padding: 28px;
+    border: 1px solid var(--borda);
+    border-radius: 24px;
+    background: var(--superficie);
+    text-align: center;
+}
+
+#informacao-cartao {
+    color: var(--texto-suave);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+#cartao-bingo h1 {
+    margin: 4px 0 8px;
+    color: var(--titulo);
+    font-family: "Lora", serif;
+    font-size: 2.4rem;
+    font-style: italic;
+}
+
+#barra-bingo {
+    height: 10px;
+    margin: 8px 0 20px;
+}
+
+#cartela-bingo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 10px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.quadrado-bingo {
+    position: relative; /* serve de referência para posicionar a coordenada no canto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1; /* a altura é igual à largura: o quadrado fica sempre quadrado */
+    padding: 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 14px;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Lora", serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    text-wrap: balance; /* reparte o texto por linhas do mesmo tamanho, sem palavras sozinhas */
+}
+
+.quadrado-bingo:hover {
+    border-color: var(--destaque);
+}
+
+.categoria-formato {
+    background: var(--categoria-formato);
+    color: var(--categoria-formato-texto);
+}
+
+.categoria-historia {
+    background: var(--categoria-historia);
+    color: var(--categoria-historia-texto);
+}
+
+.categoria-autoria {
+    background: var(--categoria-autoria);
+    color: var(--categoria-autoria-texto);
+}
+
+.coordenada {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-family: "DM Sans", system-ui, sans-serif; /* a coordenada fica na letra normal, sem itálico */
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 700;
+    opacity: 0.75; /* um pouco mais discreta que o texto */
+}
+
+#livros-do-cartao {
+    flex: 0 1 400px;
+    padding: 20px;
+    border: 1px solid var(--borda);
+    border-radius: 24px;
+    background: var(--superficie);
+}
+
+#lista-livros-do-cartao {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#lista-livros-do-cartao li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#livros-do-cartao img {
+    flex: none;
+    width: 65px;
+}
+
+#livros-do-cartao strong {
+    flex: 1; /* o título ocupa o espaço livre e empurra a etiqueta para a direita */
+}
+
+.etiqueta-quadrado {
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+    font-size: 0.85rem;
+    font-weight: 700;
 }
