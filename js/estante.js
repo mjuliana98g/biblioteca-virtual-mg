@@ -1,3 +1,4 @@
+import { avisarDesafioPendente } from "./bingoLiterario/avisoBingo.js";
 import { guardarValor, lerValor } from "./armazenamento.js";
 import {
     alterarEstado,
@@ -233,8 +234,18 @@ function alternarFavoritoDoCartao(botao) {
     atualizarPagina();
 };
 
+function alterarEstadoEAvisar(id, estado) {
+    const jaEraLido = encontrarLivro(id).estado === "lido";
+
+    alterarEstado(id, estado);
+
+    if (estado === "lido" && !jaEraLido) {
+        avisarDesafioPendente(id);
+    }
+};
+
 function alterarEstadoDoCartao(opcao) {
-    alterarEstado(obterIdDoCartao(opcao), opcao.dataset.novoEstado); // o novo estado está no data-novo-estado da opção
+    alterarEstadoEAvisar(obterIdDoCartao(opcao), opcao.dataset.novoEstado);
     atualizarPagina();
 };
 
@@ -267,7 +278,7 @@ async function atualizarLeituraDoCartao(botao) {
     guardarProgressoLeitura(livro.id, paginasLidas);
 
     if (paginasLidas === livro.paginas && (await confirmarConclusao(livro))) { // chegou ao fim: pergunta se quer marcar como lido
-        alterarEstado(livro.id, "lido");
+        alterarEstadoEAvisar(livro.id, "lido");
     }
 
     atualizarPagina();
@@ -341,7 +352,7 @@ function comecarALerLivroSorteado(livro) { // entregue à roleta, que a chama qu
 };
 
 export function iniciarEstante() {
-    iniciarRoleta(comecarALerLivroSorteado);
     iniciarFiltros();
     iniciarCliquesDosCartoes();
+    iniciarRoleta(comecarALerLivroSorteado);
 };
