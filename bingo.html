@@ -16,8 +16,10 @@
 </head>
 
 <body class="pagina-bingo">
-    <a href="index.html" id="botao-voltar">← Biblioteca</a>
-    <button type="button" id="botao-tema" aria-label="Mudar para modo escuro">⏾</button>
+    <header id="topo-bingo">
+        <a href="index.html" id="botao-voltar">← Biblioteca</a>
+        <button type="button" id="botao-tema" aria-label="Mudar para modo escuro">⏾</button>
+    </header>
 
     <main>
         <section id="zona-do-jogo" aria-labelledby="titulo-bingo">
@@ -28,24 +30,50 @@
                 </header>
                 <p id="progresso-bingo">0 de 9 desafios cumpridos</p>
                 <progress id="barra-bingo" value="0" max="9" aria-labelledby="progresso-bingo"></progress>
-                <ol id="cartela-bingo">
-                </ol>
-                <button type="button" id="botao-novo-cartao">Sortear novo cartão</button>
+                <div id="zona-da-cartela">
+                    <ol id="cartela-bingo"></ol>
+                    <p id="mensagem-parabens" role="status" hidden></p>
+                </div>
+                <button type="button" id="botao-novo-cartao">Sortear Cartão</button>
             </section>
 
             <aside id="livros-do-cartao" aria-label="Livros que cumprem desafios">
-                <ul id="lista-livros-do-cartao">
-                    <li><img src="img/sem-capa.svg" alt="Capa do livro Casa de Terra e Sangue"><strong>Casa de Terra e
-                            Sangue</strong><small class="etiqueta-quadrado">A1</small></li>
-                    <li><img src="img/sem-capa.svg" alt="Capa do livro Strange the Dreamer"><strong>Strange the
-                            Dreamer</strong><small class="etiqueta-quadrado">B1</small></li>
-                </ul>
+                <ul id="lista-livros-do-cartao"></ul>
             </aside>
+        </section>
+        <section id="estatisticas-bingo" aria-labelledby="titulo-estatisticas-bingo">
+            <h2 id="titulo-estatisticas-bingo">Cartões Completos</h2>
+            <p id="total-cartoes-completos">0</p>
+            <p id="mensagem-livro-extra"></p>
+            <ul id="lista-cartoes-completos"></ul>
         </section>
     </main>
 
+    <dialog id="dialogo-escolher-livro" aria-labelledby="titulo-escolher-livro">
+        <header class="cabecalho-dialogo">
+            <h2 id="titulo-escolher-livro">Opções: </h2>
+            <button type="button" id="fechar-escolher-livro" class="botao-fechar" aria-label="Fechar">✕</button>
+        </header>
+        <p id="desafio-escolhido"></p>
+        <p id="sem-livros-lidos" hidden>Não tens livros lidos disponíveis para este desafio.</p>
+        <ul id="lista-livros-lidos"></ul>
+        <button type="button" id="botao-tirar-livro">Remover Livro</button>
+    </dialog>
+
+    <dialog id="dialogo-novo-cartao" aria-labelledby="titulo-novo-cartao">
+        <form method="dialog">
+            <h2 id="titulo-novo-cartao">Sortear outro cartão?</h2>
+            <p>O cartão atual ainda não está completo. Se sorteares, perdes o progresso!
+            </p>
+            <div class="botoes-dialogo">
+                <button value="cancelar">Cancelar</button>
+                <button value="confirmar" class="botao-confirmar">Sortear</button>
+            </div>
+        </form>
+    </dialog>
+
     <footer>
-        <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
+        <p>Biblioteca Virtual Matilde Gomes <time datetime="2026">2026</time></p>
         <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
     </footer>
 </body>

@@ -1,4 +1,6 @@
-/* ------------------------------------------------------------------------------------------ */
+/* ==========================================================================================
+   Página principal e Bingo
+   ========================================================================================== */
 
 :root {
     /* cores gerais */
@@ -19,30 +21,7 @@
     --erro: #B3261E;
     --erro-fundo: #FBE3E1;
 
-    /* cores dos botões de estado */
-    --lido-fundo: #4A0A0C;
-    --lido-texto: #FFFFFF;
-    --ler-fundo: #751F24;
-    --ler-texto: #FFFFFF;
-    --quero-fundo: #E4CABC;
-    --quero-texto: #2E0708;
-    --quero-borda: #751F24;
-
-    /* barra lateral */
-    --lateral-inicio: #200405;
-    --lateral-fim: #4A0A0C;
-    --texto-lateral: #F3E1E4;
-
     --sombra: 0 6px 16px rgba(46, 7, 8, 0.2);
-    --largura-lateral: 280px;
-
-    /* cores das categorias do bingo */
-    --categoria-formato: #865066;
-    --categoria-historia: #EC6B70;
-    --categoria-autoria: #FAA876;
-    --categoria-formato-texto: #FFFFFF;
-    --categoria-historia-texto: #2E0708;
-    --categoria-autoria-texto: #2E0708;
 }
 
 [data-tema="escuro"] {
@@ -62,40 +41,21 @@
     --erro: #F4A6B5;
     --erro-fundo: #4A2326;
 
-    --lido-fundo: #F0A4A8;
-    --lido-texto: #121115;
-    --ler-fundo: #B44A52;
-    --ler-texto: #FFFFFF;
-    --quero-fundo: #3A3740;
-    --quero-texto: #F5F1EF;
-    --quero-borda: #E08D92;
-
     --sombra: 0 6px 16px rgba(0, 0, 0, 0.6);
-
-    --categoria-formato: #6E4258;
-    --categoria-formato-texto: #FFFFFF;
-    --categoria-historia: #9A4046;
-    --categoria-historia-texto: #FFFFFF;
-    --categoria-autoria: #8A5B3C;
-    --categoria-autoria-texto: #FFFFFF;
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 html {
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
 }
 
+
 body {
-    display: grid;
-    grid-template-columns: var(--largura-lateral) 1fr; /* barra lateral | conteúdo */
-    grid-template-rows: 1fr auto; /* conteúdo | rodapé */
     min-height: 100dvh;
     background: var(--fundo);
     color: var(--texto);
@@ -137,7 +97,8 @@ ul {
 }
 
 [hidden] {
-    display: none !important; /* garante que o atributo hidden esconde sempre */
+    display: none !important;
+    /* garante que o atributo hidden esconde sempre */
 }
 
 .so-leitores-de-ecra {
@@ -150,11 +111,161 @@ ul {
     white-space: nowrap;
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 button {
     font: inherit;
     cursor: pointer;
+}
+
+/* botões em forma de pílula: vazios, e ficam cheios ao passar o rato */
+.botoes-dialogo button {
+    min-height: 44px;
+    padding: 0 20px;
+    border: 1.5px solid var(--destaque);
+    border-radius: 22px;
+    background: transparent;
+    color: var(--destaque);
+    font-weight: 700;
+}
+
+.botoes-dialogo button:hover,
+.botoes-dialogo .botao-confirmar {
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+}
+
+/* o ✕ redondo */
+.botao-fechar {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--texto-suave);
+}
+
+.botao-fechar:hover {
+    background: var(--etiqueta);
+    color: var(--destaque);
+}
+
+/* barras de progresso: cada sítio só muda a altura e, se quiser, as cores
+   (--trilho é o fundo da barra, --preenchimento é a parte já cheia) */
+progress {
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--trilho, var(--etiqueta));
+}
+
+/* as 3 regras seguintes são o mesmo pedido para cada navegador (Chrome/Safari e Firefox) */
+progress::-webkit-progress-bar {
+    border-radius: 999px;
+    background: var(--trilho, var(--etiqueta));
+}
+
+progress::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--preenchimento, var(--destaque));
+}
+
+progress::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--preenchimento, var(--destaque));
+}
+
+footer {
+    padding: 24px 32px;
+    border-top: 1px solid var(--borda);
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+footer p {
+    margin: 4px 0;
+}
+
+dialog {
+    width: min(560px, calc(100% - 32px));
+    /* 560px, ou a largura do ecrã menos 32px se for mais pequeno */
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    /* centra a janela */
+    padding: 24px;
+    overflow-y: auto;
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    background: var(--superficie);
+    color: var(--texto);
+    box-shadow: var(--sombra);
+}
+
+dialog::backdrop {
+    background: rgba(20, 3, 4, 0.65);
+    /* o fundo escurecido atrás da janela */
+}
+
+.cabecalho-dialogo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cabecalho-dialogo h2 {
+    margin-bottom: 0;
+}
+
+.botoes-dialogo {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+
+/* ==========================================================================================
+    PÁGINA PRINCIPAL
+   ========================================================================================== */
+
+:root {
+    /* cores dos botões de estado */
+    --lido-fundo: #4A0A0C;
+    --lido-texto: #FFFFFF;
+    --ler-fundo: #751F24;
+    --ler-texto: #FFFFFF;
+    --quero-fundo: #E4CABC;
+    --quero-texto: #2E0708;
+    --quero-borda: #751F24;
+
+    /* barra lateral */
+    --lateral-inicio: #200405;
+    --lateral-fim: #4A0A0C;
+    --texto-lateral: #F3E1E4;
+
+    --largura-lateral: 280px;
+}
+
+[data-tema="escuro"] {
+    --lido-fundo: #F0A4A8;
+    --lido-texto: #121115;
+    --ler-fundo: #B44A52;
+    --ler-texto: #FFFFFF;
+    --quero-fundo: #3A3740;
+    --quero-texto: #F5F1EF;
+    --quero-borda: #E08D92;
+}
+
+body {
+    display: grid;
+    grid-template-columns: var(--largura-lateral) 1fr;
+    /* barra lateral | conteúdo */
+    grid-template-rows: 1fr auto;
+    /* conteúdo | rodapé */
+}
+
+footer {
+    grid-column: 2;
 }
 
 input:not([type="checkbox"], [type="radio"]),
@@ -218,11 +329,9 @@ search>label,
     font-weight: 700;
 }
 
-/* botões em forma de pílula: vazios, e ficam cheios ao passar o rato */
+/* botões em forma de pílula (a mesma regra da parte partilhada) */
 .botao-ja-saiu,
-.botao-atualizar-leitura,
-#botao-novo-cartao,
-.botoes-dialogo button {
+.botao-atualizar-leitura {
     min-height: 44px;
     padding: 0 20px;
     border: 1.5px solid var(--destaque);
@@ -233,62 +342,17 @@ search>label,
 }
 
 .botao-ja-saiu:hover,
-.botao-atualizar-leitura:hover,
-#botao-novo-cartao:hover,
-.botoes-dialogo button:hover,
-.botoes-dialogo .botao-confirmar {
+.botao-atualizar-leitura:hover {
     background: var(--destaque);
     color: var(--sobre-destaque);
 }
 
-/* o ✕ redondo */
-.botao-fechar {
-    width: 36px;
-    height: 36px;
-    border: 0;
-    border-radius: 50%;
-    background: transparent;
-    color: var(--texto-suave);
-}
-
-.botao-fechar:hover {
-    background: var(--etiqueta);
-    color: var(--destaque);
-}
-
-/* barras de progresso: cada sítio só muda a altura e, se quiser, as cores
-   (--trilho é o fundo da barra, --preenchimento é a parte já cheia) */
-progress {
-    appearance: none;
-    width: 100%;
-    border: 0;
-    border-radius: 999px;
-    overflow: hidden;
-    background: var(--trilho, var(--etiqueta));
-}
-
-/* as 3 regras seguintes são o mesmo pedido para cada navegador (Chrome/Safari e Firefox) */
-progress::-webkit-progress-bar {
-    border-radius: 999px;
-    background: var(--trilho, var(--etiqueta));
-}
-
-progress::-webkit-progress-value {
-    border-radius: 999px;
-    background: var(--preenchimento, var(--destaque));
-}
-
-progress::-moz-progress-bar {
-    border-radius: 999px;
-    background: var(--preenchimento, var(--destaque));
-}
-
-/* ------------------------------------------------------------------------------------------ */
-
 #barra-lateral {
     grid-column: 1;
-    grid-row: 1 / 3; /* ocupa a altura toda (conteúdo + rodapé) */
-    position: sticky; /* fica parada enquanto se faz scroll */
+    grid-row: 1 / 3;
+    /* ocupa a altura toda (conteúdo + rodapé) */
+    position: sticky;
+    /* fica parada enquanto se faz scroll */
     top: 0;
     z-index: 20;
     display: flex;
@@ -299,13 +363,16 @@ progress::-moz-progress-bar {
     padding: 40px 20px 32px;
     background: linear-gradient(180deg, var(--lateral-inicio), var(--lateral-fim));
     color: var(--texto-lateral);
-    color-scheme: dark; /* os campos e as barras desta zona usam cores de tema escuro */
-    --trilho: rgba(255, 255, 255, 0.2); /* a barra de progresso desta zona é branca */
+    color-scheme: dark;
+    /* os campos e as barras desta zona usam cores de tema escuro */
+    --trilho: rgba(255, 255, 255, 0.2);
+    /* a barra de progresso desta zona é branca */
     --preenchimento: #FFFFFF;
 }
 
 #barra-lateral header {
-    flex: 1; /* ocupa o espaço que sobra e empurra os botões para baixo */
+    flex: 1;
+    /* ocupa o espaço que sobra e empurra os botões para baixo */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -366,16 +433,20 @@ progress::-moz-progress-bar {
 
 /* caixinha com o número de livros */
 #barra-lateral data {
-    flex: none; /* não deixa a caixa encolher */
-    width: 40px; /* largura fixa: todas as caixas ficam iguais, tenha o número 1 ou 3 algarismos */
-    margin-left: auto; /* empurra a caixa para o lado direito */
+    flex: none;
+    /* não deixa a caixa encolher */
+    width: 40px;
+    /* largura fixa: todas as caixas ficam iguais, tenha o número 1 ou 3 algarismos */
+    margin-left: auto;
+    /* empurra a caixa para o lado direito */
     padding: 2px 0;
     border-radius: 12px;
     background: var(--realce);
     color: var(--sobre-realce);
     font-size: 0.8rem;
     font-weight: 700;
-    text-align: center; /* o número fica sempre ao meio da caixa */
+    text-align: center;
+    /* o número fica sempre ao meio da caixa */
 }
 
 .botoes-barra-lateral {
@@ -399,7 +470,8 @@ progress::-moz-progress-bar {
 }
 
 #botao-adicionar-livro {
-    flex: 1; /* ocupa a largura que o botão do tema deixa livre */
+    flex: 1;
+    /* ocupa a largura que o botão do tema deixa livre */
     min-height: 48px;
     border: 0;
     border-radius: 10px;
@@ -428,31 +500,18 @@ progress::-moz-progress-bar {
     font-size: 1.4rem;
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 main {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    gap: 80px; /* espaço entre secções */
+    gap: 50px;
+    /* espaço entre secções */
     padding: 32px;
 }
 
-footer {
-    grid-column: 2;
-    padding: 24px 32px;
-    border-top: 1px solid var(--borda);
-    color: var(--texto-suave);
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-footer p {
-    margin: 4px 0;
-}
-
 #botao-topo {
-    position: fixed; /* fica sempre no canto, mesmo com scroll */
+    position: fixed;
+    /* fica sempre no canto, mesmo com scroll */
     right: 24px;
     bottom: 24px;
     display: flex;
@@ -467,11 +526,10 @@ footer p {
     box-shadow: var(--sombra);
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 search {
     display: flex;
-    flex-wrap: wrap; /* os filtros passam para a linha de baixo quando não cabem */
+    flex-wrap: wrap;
+    /* os filtros passam para a linha de baixo quando não cabem */
     gap: 16px;
     margin-bottom: 24px;
     padding: 20px;
@@ -481,11 +539,13 @@ search {
 }
 
 search>label:first-child {
-    flex: 1 1 220px; /* a pesquisa cresce para ocupar o espaço livre (mínimo 220px) */
+    flex: 1 1 220px;
+    /* a pesquisa cresce para ocupar o espaço livre (mínimo 220px) */
 }
 
 #filtros-estado {
-    flex: 1 1 100%; /* ocupa uma linha inteira */
+    flex: 1 1 100%;
+    /* ocupa uma linha inteira */
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -523,8 +583,6 @@ search>label:first-child {
     outline-offset: 2px;
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 /* as 4 listas de cartões: as colunas ajustam-se ao ecrã e cada cartão tem pelo menos 360px */
 #lista-leituras,
 #lista-lancamentos,
@@ -536,7 +594,8 @@ search>label:first-child {
 }
 
 article {
-    position: relative; /* serve para o botão ✕ ficar posicionado dentro do cartão */
+    position: relative;
+    /* serve para o botão ✕ ficar posicionado dentro do cartão */
     display: flex;
     gap: 16px;
     height: 100%;
@@ -563,14 +622,16 @@ figure {
     text-align: center;
 }
 
+
 /* todas as capas (nos cartões, nos detalhes, nas estatísticas e na roleta) */
 figure img,
 #capas-cinco-estrelas img,
-#livro-sorteado img,
-#livros-do-cartao img {
+#livro-sorteado img {
     display: block;
-    aspect-ratio: 2 / 3; /* proporção de uma capa de livro */
-    object-fit: cover; /* a imagem enche a caixa sem ficar esticada */
+    aspect-ratio: 2 / 3;
+    /* proporção de uma capa de livro */
+    object-fit: cover;
+    /* a imagem enche a caixa sem ficar esticada */
     border-radius: 4px 8px 8px 4px;
     box-shadow: var(--sombra);
 }
@@ -581,14 +642,16 @@ figure img {
 
 .informacao-livro {
     flex: 1;
-    min-width: 0; /* deixa o texto encolher em vez de alargar o cartão */
+    min-width: 0;
+    /* deixa o texto encolher em vez de alargar o cartão */
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
 .informacao-livro h3 {
-    padding-right: 36px; /* deixa espaço para o ✕ */
+    padding-right: 36px;
+    /* deixa espaço para o ✕ */
     color: var(--titulo);
 }
 
@@ -642,7 +705,8 @@ figcaption a:hover {
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
-    margin-top: auto; /* empurra os botões para o fundo do cartão */
+    margin-top: auto;
+    /* empurra os botões para o fundo do cartão */
     padding-top: 12px;
 }
 
@@ -674,12 +738,14 @@ figcaption a:hover {
 }
 
 .seletor-estado {
-    position: relative; /* o menu fica posicionado em relação a esta caixa */
+    position: relative;
+    /* o menu fica posicionado em relação a esta caixa */
 }
 
 .menu-estado {
     position: absolute;
-    bottom: calc(100% + 6px); /* abre para cima, 6px acima do botão */
+    bottom: calc(100% + 6px);
+    /* abre para cima, 6px acima do botão */
     left: 0;
     z-index: 5;
     min-width: 150px;
@@ -712,7 +778,8 @@ figcaption a:hover {
 }
 
 .menu-estado button[aria-current="true"]::after {
-    content: " ✓"; /* marca a opção em que o livro está */
+    content: " ✓";
+    /* marca a opção em que o livro está */
 }
 
 /* botão do coração: aria-pressed="true" quando o livro é favorito */
@@ -745,44 +812,10 @@ figcaption a:hover {
 }
 
 .botao-remover {
-    position: absolute; /* canto de cima, à direita do cartão */
+    position: absolute;
+    /* canto de cima, à direita do cartão */
     top: 8px;
     right: 8px;
-}
-
-/* ------------------------------------------------------------------------------------------ */
-
-dialog {
-    width: min(560px, calc(100% - 32px)); /* 560px, ou a largura do ecrã menos 32px se for mais pequeno */
-    max-height: calc(100dvh - 32px);
-    margin: auto; /* centra a janela */
-    padding: 24px;
-    overflow-y: auto;
-    border: 1px solid var(--borda);
-    border-radius: 14px;
-    background: var(--superficie);
-    color: var(--texto);
-    box-shadow: var(--sombra);
-}
-
-dialog::backdrop {
-    background: rgba(20, 3, 4, 0.65); /* o fundo escurecido atrás da janela */
-}
-
-.cabecalho-dialogo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cabecalho-dialogo h2 {
-    margin-bottom: 0;
-}
-
-.botoes-dialogo {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
 }
 
 /* janelas pequenas */
@@ -809,11 +842,13 @@ dialog::backdrop {
 }
 
 #formulario-livro>* {
-    grid-column: 1 / -1; /* por defeito, cada campo ocupa a linha toda */
+    grid-column: 1 / -1;
+    /* por defeito, cada campo ocupa a linha toda */
 }
 
 #formulario-livro>.campo-metade {
-    grid-column: auto; /* estes ocupam só uma coluna (dois por linha) */
+    grid-column: auto;
+    /* estes ocupam só uma coluna (dois por linha) */
 }
 
 #formulario-livro>.campo-caixa {
@@ -827,7 +862,8 @@ dialog::backdrop {
 #formulario-livro input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    accent-color: var(--destaque); /* cor da caixa quando está marcada */
+    accent-color: var(--destaque);
+    /* cor da caixa quando está marcada */
 }
 
 #formulario-livro fieldset {
@@ -865,7 +901,8 @@ dialog::backdrop {
 }
 
 #mensagem-erro-formulario:empty {
-    display: none; /* sem mensagem, o parágrafo não ocupa espaço */
+    display: none;
+    /* sem mensagem, o parágrafo não ocupa espaço */
 }
 
 /* janela de detalhes do livro */
@@ -891,7 +928,8 @@ figcaption {
 #conteudo-detalhes dl {
     flex: 1 1 240px;
     display: grid;
-    grid-template-columns: auto 1fr; /* nome | valor */
+    grid-template-columns: auto 1fr;
+    /* nome | valor */
     align-content: start;
     gap: 10px 16px;
 }
@@ -905,11 +943,10 @@ figcaption {
     color: var(--texto-suave);
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 #grelha-estatisticas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); /* as caixas ajustam-se ao espaço (mínimo 240px) */
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    /* as caixas ajustam-se ao espaço (mínimo 240px) */
     gap: 20px;
 }
 
@@ -930,7 +967,8 @@ figcaption {
 }
 
 .legenda-estatistica {
-    margin-top: auto; /* a legenda fica sempre no fundo da caixa */
+    margin-top: auto;
+    /* a legenda fica sempre no fundo da caixa */
     color: var(--texto-suave);
     font-size: 0.9rem;
 }
@@ -959,7 +997,8 @@ figcaption {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* o conteúdo fica encostado ao fundo */
+    justify-content: flex-end;
+    /* o conteúdo fica encostado ao fundo */
     align-items: center;
     gap: 6px;
 }
@@ -987,7 +1026,8 @@ figcaption {
     box-shadow: var(--sombra);
     color: var(--texto);
     font-size: 0.85rem;
-    pointer-events: none; /* o rato "atravessa" a caixa, para não a prender aberta */
+    pointer-events: none;
+    /* o rato "atravessa" a caixa, para não a prender aberta */
 }
 
 #grafico-classificacoes>li:hover .livros-da-barra,
@@ -1035,8 +1075,6 @@ figcaption {
     width: 75px;
 }
 
-/* ------------------------------------------------------------------------------------------ */
-
 #botao-roleta {
     position: fixed;
     top: 16px;
@@ -1076,13 +1114,15 @@ figcaption {
     display: block;
     width: min(280px, 100%);
     margin: 0 auto;
-    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25)); /* sombra que acompanha o desenho */
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25));
+    /* sombra que acompanha o desenho */
 }
 
 /* as fatias giram à volta do centro do desenho (160, 160); o 4s tem de ser igual ao tempo no JavaScript */
 #fatias-da-roleta {
     transform-origin: 160px 160px;
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1); /* começa rápido e vai abrandando */
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 1);
+    /* começa rápido e vai abrandando */
 }
 
 .fatia {
@@ -1100,7 +1140,8 @@ figcaption {
     fill: var(--texto);
     font-family: inherit;
     font-weight: 600;
-    text-anchor: middle; /* o texto fica centrado no ponto */
+    text-anchor: middle;
+    /* o texto fica centrado no ponto */
     dominant-baseline: middle;
 }
 
@@ -1176,7 +1217,8 @@ figcaption {
 }
 
 #livro-sorteado[hidden]::before {
-    content: "O destino ainda está a escolher…✦"; /* a frase pode ser trocada à vontade */
+    content: "O destino ainda está a escolher…✦";
+    /* a frase pode ser trocada à vontade */
 }
 
 #livro-sorteado[hidden]>* {
@@ -1216,7 +1258,8 @@ figcaption {
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px;
-    max-height: 30px; /* só cabe uma linha de géneros */
+    max-height: 30px;
+    /* só cabe uma linha de géneros */
     overflow: hidden;
 }
 
@@ -1228,7 +1271,8 @@ figcaption {
 }
 
 .botao-comecar-a-ler {
-    margin-top: auto; /* o botão fica sempre no fundo do cartão */
+    margin-top: auto;
+    /* o botão fica sempre no fundo do cartão */
 }
 
 /* animação: o conteúdo aparece a subir um bocadinho */
@@ -1244,23 +1288,66 @@ figcaption {
     }
 }
 
-/* ------------------------------------------------------------------------------------------ */
+/* ==========================================================================================
+   PÁGINA DO BINGO 
+   ========================================================================================== */
+
+:root {
+    /* cores das categorias dos desafios */
+    --categoria-formato: #865066;
+    --categoria-historia: #EC6B70;
+    --categoria-autoria: #FAA876;
+    --categoria-formato-texto: #FFFFFF;
+    --categoria-historia-texto: #2E0708;
+    --categoria-autoria-texto: #2E0708;
+}
+
+[data-tema="escuro"] {
+    --categoria-formato: #6E4258;
+    --categoria-formato-texto: #FFFFFF;
+    --categoria-historia: #9A4046;
+    --categoria-historia-texto: #FFFFFF;
+    --categoria-autoria: #8A5B3C;
+    --categoria-autoria-texto: #FFFFFF;
+}
 
 .pagina-bingo {
-    display: block; /* esta página não tem barra lateral, por isso deixa de ser a grelha de 2 colunas */
+    display: block;
+    /* esta página não tem barra lateral, por isso deixa de ser a grelha de 2 colunas */
 }
 
 .pagina-bingo main {
     max-width: 1200px;
-    margin: 0 auto; /* centra o conteúdo */
-    padding: 88px 32px 32px; /* 88px em cima para não ficar debaixo dos botões fixos */
+    margin: 0 auto;
+    padding: 24px 32px 32px;
+}
+
+#topo-bingo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 32px 0;
+}
+
+.pagina-bingo footer {
+    margin-top: 48px;
+    border-top: 0;
+    background: linear-gradient(180deg, var(--lateral-inicio), var(--lateral-fim));
+    color: var(--texto-lateral);
+}
+
+.pagina-bingo footer a {
+    color: var(--texto-lateral);
+    text-decoration: underline;
+}
+
+.pagina-bingo footer a:hover {
+    color: #FFFFFF;
 }
 
 #botao-voltar {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 10;
     display: flex;
     align-items: center;
     min-height: 44px;
@@ -1272,25 +1359,23 @@ figcaption {
     box-shadow: var(--sombra);
 }
 
-/* o botão do tema já existe para a barra lateral (escura); aqui vai no canto, sobre o fundo claro */
 .pagina-bingo #botao-tema {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
     width: 44px;
     height: 44px;
-    border-color: var(--destaque-2);
+    border: 1.5px solid var(--destaque-2);
     border-radius: 50%;
     background: var(--superficie);
     color: var(--titulo);
+    font-size: 1.2rem;
 }
 
 #zona-do-jogo {
     display: flex;
-    flex-wrap: wrap; /* em ecrãs estreitos, a lista de livros passa para baixo do cartão */
+    flex-wrap: wrap;
+    /* em ecrãs estreitos, a lista de livros passa para baixo do cartão */
     align-items: flex-start;
-    justify-content: center; /* centra o cartão e a lista de livros na página */
+    justify-content: center;
+    /* centra o cartão e a lista de livros na página */
     gap: 24px;
 }
 
@@ -1326,62 +1411,131 @@ figcaption {
 
 #cartela-bingo {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 colunas iguais */
     gap: 10px;
     margin: 0 0 20px;
     padding: 0;
     list-style: none;
 }
 
+#zona-da-cartela {
+    position: relative;
+    /* serve de referência para centrar a mensagem por cima da cartela */
+}
+
+#mensagem-parabens {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    max-width: 90%;
+    padding: 18px 28px;
+    border-radius: 20px;
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+    font-family: "Lora", serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: var(--sombra);
+    transform: translate(-50%, -50%);
+    /* o canto de cima à esquerda vai para o meio, e o -50% puxa a caixa para trás: fica centrada */
+    animation: surgir-mensagem 0.4s ease;
+}
+
+@keyframes surgir-mensagem {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
 .quadrado-bingo {
-    position: relative; /* serve de referência para posicionar a coordenada no canto */
+    position: relative;
+    /* serve de referência para posicionar a coordenada no canto */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    aspect-ratio: 1; /* a altura é igual à largura: o quadrado fica sempre quadrado */
+    aspect-ratio: 1;
+    /* a altura é igual à largura: o quadrado fica sempre quadrado */
     padding: 12px;
     border: 1.5px solid var(--borda);
     border-radius: 14px;
-    background: var(--fundo);
-    color: var(--texto);
+    background: var(--cor);
+    color: var(--cor-texto);
     font-family: "Lora", serif;
     font-size: 1.05rem;
     font-style: italic;
     font-weight: 600;
     line-height: 1.25;
     text-align: center;
-    text-wrap: balance; /* reparte o texto por linhas do mesmo tamanho, sem palavras sozinhas */
+    text-wrap: balance;
+    /* reparte o texto por linhas do mesmo tamanho, sem palavras sozinhas */
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
 .quadrado-bingo:hover {
-    border-color: var(--destaque);
+    z-index: 1;
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: var(--sombra);
+}
+
+.quadrado-bingo.cumprido,
+.quadrado-bingo.cumprido:hover {
+    border: 2px solid var(--titulo);
+    background: repeating-linear-gradient(135deg,
+            color-mix(in srgb, var(--cor) 90%, black) 0 10px,
+            var(--cor) 10px 20px);
+}
+
+.quadrado-bingo.cumprido {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quadrado-bingo.cumprido::after {
+    content: "★";
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    font-size: 1.6rem;
+    font-style: normal;
 }
 
 .categoria-formato {
-    background: var(--categoria-formato);
-    color: var(--categoria-formato-texto);
+    --cor: var(--categoria-formato);
+    --cor-texto: var(--categoria-formato-texto);
 }
 
 .categoria-historia {
-    background: var(--categoria-historia);
-    color: var(--categoria-historia-texto);
+    --cor: var(--categoria-historia);
+    --cor-texto: var(--categoria-historia-texto);
 }
 
 .categoria-autoria {
-    background: var(--categoria-autoria);
-    color: var(--categoria-autoria-texto);
+    --cor: var(--categoria-autoria);
+    --cor-texto: var(--categoria-autoria-texto);
 }
 
 .coordenada {
     position: absolute;
     top: 8px;
     right: 10px;
-    font-family: "DM Sans", system-ui, sans-serif; /* a coordenada fica na letra normal, sem itálico */
+    font-family: "DM Sans", system-ui, sans-serif;
+    /* a coordenada fica na letra normal, sem itálico */
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 700;
-    opacity: 0.75; /* um pouco mais discreta que o texto */
+    opacity: 0.75;
+    /* um pouco mais discreta que o texto */
 }
 
 #livros-do-cartao {
@@ -1395,7 +1549,7 @@ figcaption {
 #lista-livros-do-cartao {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 #lista-livros-do-cartao li {
@@ -1404,13 +1558,22 @@ figcaption {
     gap: 12px;
 }
 
+#lista-livros-do-cartao:empty::before {
+    display: flex;
+    justify-content: center;
+    content: "Nenhum livro de momento!";
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
 #livros-do-cartao img {
     flex: none;
-    width: 65px;
+    width: 44px;
 }
 
 #livros-do-cartao strong {
-    flex: 1; /* o título ocupa o espaço livre e empurra a etiqueta para a direita */
+    flex: 1;
+    font-size: 0.9rem;
 }
 
 .etiqueta-quadrado {
@@ -1420,4 +1583,156 @@ figcaption {
     color: var(--sobre-destaque);
     font-size: 0.85rem;
     font-weight: 700;
+}
+
+
+/* botões em forma de pílula (a mesma regra da parte partilhada) */
+#botao-novo-cartao,
+#botao-tirar-livro {
+    min-height: 44px;
+    padding: 0 20px;
+    border: 1.5px solid var(--destaque);
+    border-radius: 22px;
+    background: transparent;
+    color: var(--destaque);
+    font-weight: 700;
+}
+
+#botao-novo-cartao:enabled:hover,
+#botao-tirar-livro:enabled:hover {
+    background: var(--destaque);
+    color: var(--sobre-destaque);
+}
+
+#livros-do-cartao img,
+.opcao-livro img {
+    display: block;
+    aspect-ratio: 2 / 3;
+    /* proporção de uma capa de livro */
+    object-fit: cover;
+    /* a imagem enche a caixa sem ficar esticada */
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: var(--sombra);
+}
+
+#dialogo-escolher-livro {
+    width: min(480px, calc(100% - 32px));
+}
+
+#desafio-escolhido {
+    display: inline-block;
+    margin: 16px 0;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: var(--cor);
+    color: var(--cor-texto);
+    font-family: "Lora", serif;
+    font-style: italic;
+    font-weight: 600;
+}
+
+#lista-livros-lidos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.opcao-livro {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--texto);
+    text-align: left;
+}
+
+.opcao-livro:hover {
+    border-color: var(--destaque);
+    background: var(--etiqueta);
+}
+
+.opcao-livro img {
+    width: 44px;
+    border-radius: 4px;
+}
+
+.opcao-livro span {
+    display: flex;
+    flex-direction: column;
+}
+
+.opcao-livro small {
+    color: var(--texto-suave);
+}
+
+#estatisticas-bingo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 16px 24px;
+    max-width: 924px;
+    margin: 24px auto 0;
+    padding: 24px;
+    border: 1px solid var(--borda);
+    border-radius: 24px;
+    background: var(--superficie);
+}
+
+#estatisticas-bingo h2,
+#lista-cartoes-completos {
+    grid-column: 1 / -1;
+}
+
+#total-cartoes-completos {
+    color: var(--titulo);
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+#mensagem-livro-extra {
+    padding: 12px 16px;
+    border-left: 6px solid var(--realce);
+    border-radius: 8px;
+    background: var(--fundo);
+}
+
+#lista-cartoes-completos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#lista-cartoes-completos:empty::before {
+    content: "Ainda não completaste nenhum cartão.";
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+#lista-cartoes-completos details {
+    padding: 10px 14px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+}
+
+#lista-cartoes-completos summary {
+    color: var(--titulo);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#lista-cartoes-completos ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
 }
