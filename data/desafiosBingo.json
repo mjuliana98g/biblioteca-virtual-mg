@@ -1,0 +1,31 @@
+[
+    { "id": "mais-de-500-paginas", "texto": "Mais de 5⃣00 Páginas", "categoria": "formato" },
+    { "id": "menos-de-300-paginas", "texto": "Menos de ꒱00 Páginas", "categoria": "formato" },
+    { "id": "livro-em-ingles", "texto": "Livro em Inglês", "categoria": "formato" },
+    { "id": "titulo-de-uma-palavra", "texto": "Título com ➀ Palavra", "categoria": "formato" },
+    { "id": "capa-azul", "texto": "Capa Azul", "categoria": "formato" },
+    { "id": "capa-escura", "texto": "Capa Rosa ✿", "categoria": "formato" },
+    { "id": "animal-na-capa", "texto": "Animal na Capa", "categoria": "formato" },
+    { "id": "numero-no-titulo", "texto": "Número no Título", "categoria": "formato" },
+    { "id": "livro-com-mapa", "texto": "🕮 com Mapa", "categoria": "formato" },
+
+    { "id": "audiobook", "texto": "Audiobook ♪", "categoria": "historia" },
+    { "id": "segundo-livro-de-uma-saga", "texto": "Saga Completa", "categoria": "historia" },
+    { "id": "fantasia", "texto": "Fantasia ✧˖°", "categoria": "historia" },
+    { "id": "romance", "texto": "Romance ❤︎", "categoria": "historia" },
+    { "id": "thriller-ou-misterio", "texto": "Thriller 🗡", "categoria": "historia" },
+    { "id": "terror", "texto": "Terror 𔓎", "categoria": "historia" },
+    { "id": "ficcao-cientifica", "texto": "Ficção Científica ☣︎", "categoria": "historia" },
+    { "id": "adaptado-a-filme-ou-serie", "texto": "Adaptado a 📽", "categoria": "historia" },
+    { "id": "fez-te-chorar", "texto": "Fez Chorar", "categoria": "historia" },
+
+    { "id": "autor-portugues", "texto": "Autor Português", "categoria": "autoria" },
+    { "id": "autora", "texto": "Escrito por ♀", "categoria": "autoria" },
+    { "id": "autor-novo", "texto": "Novo Autor", "categoria": "autoria" },
+    { "id": "cinco-estrelas", "texto": "★ ★ ★ ★ ★", "categoria": "autoria" },
+    { "id": "releitura", "texto": "Releitura", "categoria": "autoria" },
+    { "id": "criaturas-sobrenaturais", "texto": "Criaturas Sobrenaturais", "categoria": "autoria" },
+    { "id": "livro-de-1998", "texto": "•┈𝟏𝟗𝟗𝟖 ┈ •", "categoria": "autoria" },
+    { "id": "recomendado", "texto": "Recomendado", "categoria": "autoria" },
+    { "id": "leitura-conjunta", "texto": "Leitura Conjunta", "categoria": "autoria" }
+]

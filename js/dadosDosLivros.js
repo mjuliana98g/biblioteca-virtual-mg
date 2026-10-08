@@ -13,7 +13,7 @@ let livros = [];
 
 // ------------------------------------------------------------------------------------------
 
-function obterDataHoje() {
+export function obterDataHoje() {
     return new Date().toISOString().slice(0, 10);
 };
 
