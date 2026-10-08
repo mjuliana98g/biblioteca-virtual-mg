@@ -1,6 +1,6 @@
 [
     { "id": "mais-de-500-paginas", "texto": "Mais de 5⃣00 Páginas", "categoria": "formato" },
-    { "id": "menos-de-300-paginas", "texto": "Menos de ꒱00 Páginas", "categoria": "formato" },
+    { "id": "menos-de-300-paginas", "texto": "Menos de 300 Páginas", "categoria": "formato" },
     { "id": "livro-em-ingles", "texto": "Livro em Inglês", "categoria": "formato" },
     { "id": "titulo-de-uma-palavra", "texto": "Título com ➀ Palavra", "categoria": "formato" },
     { "id": "capa-azul", "texto": "Capa Azul", "categoria": "formato" },

@@ -88,6 +88,10 @@ export function obterLivrosLancados() {
     return livros.filter((livro) => !temDataLancamento(livro));
 };
 
+export function obterLivrosLidos() {
+    return livros.filter((livro) => livro.estado === "lido");
+};
+
 export function obterLivrosPorLancar() {
     return livros
         .filter(temDataLancamento)
