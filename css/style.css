@@ -800,15 +800,20 @@ figcaption a:hover {
     box-shadow: 0 0 0 3px rgba(217, 139, 155, 0.35);
 }
 
-.acoes-livro button[aria-pressed]:hover {
+.acoes-livro button[aria-pressed]:enabled:hover {
     border-color: var(--destaque);
     background: var(--etiqueta);
     color: var(--destaque);
 }
 
-.acoes-livro button[aria-pressed="true"]:hover {
+.acoes-livro button[aria-pressed="true"]:enabled:hover {
     background: var(--destaque);
     color: var(--sobre-destaque);
+}
+
+.acoes-livro button[aria-pressed]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .botao-remover {
