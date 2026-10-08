@@ -1,3 +1,14 @@
-import { iniciarTema } from "js/tema.js";
+import { iniciarTema } from "../tema.js";
+import { carregarCartaoAtual, carregarDesafios } from "./dadosDoBingo.js";
+import { atualizarPagina, iniciarPaginaDoBingo } from "./cartoesDoBingo.js";
 
-iniciarTema();
+async function iniciarAplicacao() {
+    iniciarTema();
+    iniciarPaginaDoBingo();
+
+    await carregarDesafios();
+    carregarCartaoAtual();
+    atualizarPagina();
+};
+
+iniciarAplicacao();
