@@ -163,6 +163,8 @@ function criarBotaoFavorito(livro) {
 
     botao.setAttribute("aria-pressed", livro.favorito);
     botao.setAttribute("aria-label", "Favorito");
+    botao.disabled = livro.estado !== "lido" && !livro.favorito;
+    botao.title = botao.disabled ? "Só podes marcar como favorito um livro que já leste" : "";
 
     return botao;
 };
