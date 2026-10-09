@@ -20,7 +20,6 @@ import {
     pedirProgressoLeitura,
 } from "./dialogos.js";
 import { atualizarEstatisticas } from "./estatisticas.js";
-import { desenharRoleta, iniciarRoleta } from "./desafioRoleta.js";
 
 const CHAVE_ORDENACAO = "ordenacao";
 
@@ -191,7 +190,6 @@ export function atualizarPagina() { // redesenha tudo; chama-se sempre que algo 
     const porLancar = obterLivrosPorLancar();
     const favoritos = lancados.filter((livro) => livro.favorito);
     const emLeitura = lancados.filter((livro) => livro.estado === "a-ler");
-    const queroLer = lancados.filter((livro) => livro.estado === "quero-ler");
 
     preencherFiltros(lancados); // primeiro os filtros, porque o filtrarLivros precisa deles
     mostrarCartoesLeitura(emLeitura, listaLeituras);
@@ -199,7 +197,6 @@ export function atualizarPagina() { // redesenha tudo; chama-se sempre que algo 
     mostrarCartoes(ordenarLivros(filtrarLivros(lancados)), listaLivros);
     mostrarCartoes(favoritos, listaFavoritos, "Ainda não tens livros favoritos.");
     atualizarEstatisticas(lancados);
-    desenharRoleta(queroLer);
     atualizarBarraLateral({ emLeitura, lancados, porLancar, favoritos });
 };
 
@@ -346,13 +343,7 @@ function iniciarCliquesDosCartoes() {
     document.addEventListener("keydown", fecharMenusAoPrimirEscape);
 };
 
-function comecarALerLivroSorteado(livro) { // entregue à roleta, que a chama quando carregas em "Começar a ler"
-    alterarEstado(livro.id, "a-ler");
-    atualizarPagina();
-};
-
 export function iniciarEstante() {
     iniciarFiltros();
-    iniciarCliquesDosCartoes();
-    iniciarRoleta(comecarALerLivroSorteado);
+    iniciarCliquesDosCartoes()
 };
