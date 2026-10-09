@@ -16,7 +16,6 @@
 </head>
 
 <body id="topo">
-    <button type="button" id="botao-roleta">Não sabes o que ler?</button>
     <button type="button" id="botao-menu" aria-label="Abrir menu" aria-controls="barra-lateral"
         aria-expanded="false">☰</button>
 
@@ -40,256 +39,262 @@
             </nav>
         </header>
         <div class="botoes-barra-lateral">
-            <button type="button" id="botao-tema" aria-label="Mudar para modo escuro">⏾</button>
             <button type="button" id="botao-adicionar-livro" aria-haspopup="dialog">+ Adicionar livro</button>
         </div>
     </aside>
 
     <main>
-        <section id="leituras-do-momento" aria-labelledby="titulo-leituras-do-momento">
-            <h2 id="titulo-leituras-do-momento">Leituras Atuais</h2>
-            <ul id="lista-leituras"></ul>
-        </section>
+            <header id="topo-pagina">
+                <button type="button" id="botao-roleta">Não sabes o que ler?</button>
+                <button type="button" id="botao-tema" aria-label="Mudar para modo escuro">⏾</button>
+            </header>
 
-        <section id="lancamentos" aria-labelledby="titulo-lancamentos">
-            <h2 id="titulo-lancamentos">Próximos Lançamentos</h2>
-            <ul id="lista-lancamentos"></ul>
-        </section>
+            <section id="leituras-do-momento" aria-labelledby="titulo-leituras-do-momento">
+                <section id="leituras-do-momento" aria-labelledby="titulo-leituras-do-momento">
+                    <h2 id="titulo-leituras-do-momento">Leituras Atuais</h2>
+                    <ul id="lista-leituras"></ul>
+                </section>
 
-        <section id="estante" aria-labelledby="titulo-estante">
-            <h2 id="titulo-estante">Estante</h2>
-            <search aria-label="Filtrar livros">
-                <label>Pesquisar
-                    <input type="search" id="filtro-pesquisa" placeholder="Título ou autor...">
+                <section id="lancamentos" aria-labelledby="titulo-lancamentos">
+                    <h2 id="titulo-lancamentos">Próximos Lançamentos</h2>
+                    <ul id="lista-lancamentos"></ul>
+                </section>
+
+                <section id="estante" aria-labelledby="titulo-estante">
+                    <h2 id="titulo-estante">Estante</h2>
+                    <search aria-label="Filtrar livros">
+                        <label>Pesquisar
+                            <input type="search" id="filtro-pesquisa" placeholder="Título ou autor...">
+                        </label>
+                        <label>Género
+                            <select id="filtro-genero">
+                                <option value="todos">Todos</option>
+                            </select>
+                        </label>
+                        <label>Saga
+                            <select id="filtro-saga">
+                                <option value="todas">Todas</option>
+                            </select>
+                        </label>
+                        <label>Editora
+                            <select id="filtro-editora">
+                                <option value="todas">Todas</option>
+                            </select>
+                        </label>
+                        <label>Ordenar por
+                            <select id="ordenacao">
+                                <option value="titulo">Título (A-Z)</option>
+                                <option value="autor">Autor (A-Z)</option>
+                            </select>
+                        </label>
+                        <fieldset id="filtros-estado">
+                            <legend class="so-leitores-de-ecra">Filtrar por estado</legend>
+                            <label><input type="radio" name="estado" value="todos" checked>Todos</label>
+                            <label><input type="radio" name="estado" value="quero-ler">Quero ler</label>
+                            <label><input type="radio" name="estado" value="a-ler">A ler</label>
+                            <label><input type="radio" name="estado" value="lido">Lido</label>
+                        </fieldset>
+                    </search>
+                    <ul id="lista-livros"></ul>
+                </section>
+
+                <section id="favoritos" aria-labelledby="titulo-favoritos">
+                    <h2 id="titulo-favoritos">Favoritos</h2>
+                    <ul id="lista-favoritos"></ul>
+                </section>
+
+                <section id="estatisticas" aria-labelledby="titulo-estatisticas">
+                    <h2 id="titulo-estatisticas">Estatísticas</h2>
+                    <div id="grelha-estatisticas">
+                        <section class="estatistica" aria-labelledby="titulo-generos">
+                            <h3 id="titulo-generos">Géneros</h3>
+                            <ul id="lista-generos"></ul>
+                        </section>
+                        <section class="estatistica" aria-labelledby="titulo-classificacoes">
+                            <h3 id="titulo-classificacoes">Média de classificações</h3>
+                            <p class="media"><data id="media-classificacoes" value="0">0,0</data><small> / 5</small></p>
+                            <ul id="grafico-classificacoes" aria-label="Livros por número de estrelas"></ul>
+                            <p id="total-classificados" class="legenda-estatistica"></p>
+                        </section>
+                        <section class="estatistica" aria-labelledby="titulo-cinco-estrelas">
+                            <h3 id="titulo-cinco-estrelas">Livros ★★★★★</h3>
+                            <ul id="capas-cinco-estrelas"></ul>
+                            <p id="total-cinco-estrelas" class="legenda-estatistica"></p>
+                        </section>
+                    </div>
+                </section>
+        </main>
+
+        <aside id="aviso-bingo" role="status" hidden>
+            <a id="link-aviso-bingo" href="bingo.html"></a>
+            <button type="button" id="remover-aviso-bingo" class="botao-fechar" aria-label="Fechar aviso">✕</button>
+        </aside>
+
+        <footer>
+            <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
+            <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
+        </footer>
+
+        <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
+
+        <dialog id="dialogo-formulario-livro" aria-labelledby="titulo-formulario">
+            <form id="formulario-livro" novalidate>
+                <header class="cabecalho-dialogo">
+                    <h2 id="titulo-formulario">Adicionar livro</h2>
+                    <button type="button" id="fechar-formulario" class="botao-fechar" aria-label="Fechar">✕</button>
+                </header>
+                <label class="campo-metade">Título
+                    <input type="text" id="titulo-livro">
                 </label>
-                <label>Género
-                    <select id="filtro-genero">
-                        <option value="todos">Todos</option>
-                    </select>
-                </label>
-                <label>Saga
-                    <select id="filtro-saga">
-                        <option value="todas">Todas</option>
-                    </select>
+                <label class="campo-metade">Autor
+                    <input type="text" id="autor-livro">
                 </label>
                 <label>Editora
-                    <select id="filtro-editora">
-                        <option value="todas">Todas</option>
-                    </select>
+                    <input type="text" id="editora-livro">
                 </label>
-                <label>Ordenar por
-                    <select id="ordenacao">
-                        <option value="titulo">Título (A-Z)</option>
-                        <option value="autor">Autor (A-Z)</option>
-                    </select>
-                </label>
-                <fieldset id="filtros-estado">
-                    <legend class="so-leitores-de-ecra">Filtrar por estado</legend>
-                    <label><input type="radio" name="estado" value="todos" checked>Todos</label>
-                    <label><input type="radio" name="estado" value="quero-ler">Quero ler</label>
-                    <label><input type="radio" name="estado" value="a-ler">A ler</label>
-                    <label><input type="radio" name="estado" value="lido">Lido</label>
+                <fieldset id="generos-livro">
+                    <legend>Géneros</legend>
+                    <label><input type="checkbox" name="genero" value="Fantasia">Fantasia</label>
+                    <label><input type="checkbox" name="genero" value="Romance">Romance</label>
+                    <label><input type="checkbox" name="genero" value="Ficção Científica">Ficção Científica</label>
+                    <label><input type="checkbox" name="genero" value="Thriller">Thriller</label>
+                    <label><input type="checkbox" name="genero" value="Terror">Terror</label>
+                    <label><input type="checkbox" name="genero" value="Distopia">Distopia</label>
+                    <label><input type="checkbox" name="genero" value="Outro">Outro</label>
                 </fieldset>
-            </search>
-            <ul id="lista-livros"></ul>
-        </section>
-
-        <section id="favoritos" aria-labelledby="titulo-favoritos">
-            <h2 id="titulo-favoritos">Favoritos</h2>
-            <ul id="lista-favoritos"></ul>
-        </section>
-
-        <section id="estatisticas" aria-labelledby="titulo-estatisticas">
-            <h2 id="titulo-estatisticas">Estatísticas</h2>
-            <div id="grelha-estatisticas">
-                <section class="estatistica" aria-labelledby="titulo-generos">
-                    <h3 id="titulo-generos">Géneros</h3>
-                    <ul id="lista-generos"></ul>
-                </section>
-                <section class="estatistica" aria-labelledby="titulo-classificacoes">
-                    <h3 id="titulo-classificacoes">Média de classificações</h3>
-                    <p class="media"><data id="media-classificacoes" value="0">0,0</data><small> / 5</small></p>
-                    <ul id="grafico-classificacoes" aria-label="Livros por número de estrelas"></ul>
-                    <p id="total-classificados" class="legenda-estatistica"></p>
-                </section>
-                <section class="estatistica" aria-labelledby="titulo-cinco-estrelas">
-                    <h3 id="titulo-cinco-estrelas">Livros ★★★★★</h3>
-                    <ul id="capas-cinco-estrelas"></ul>
-                    <p id="total-cinco-estrelas" class="legenda-estatistica"></p>
-                </section>
-            </div>
-        </section>
-    </main>
-
-    <aside id="aviso-bingo" role="status" hidden>
-        <a id="link-aviso-bingo" href="bingo.html"></a>
-        <button type="button" id="remover-aviso-bingo" class="botao-fechar" aria-label="Fechar aviso">✕</button>
-    </aside>
-
-    <footer>
-        <p>Biblioteca Virtual · Projeto de JavaScript · <time datetime="2026">2026</time></p>
-        <p><a href="https://github.com/mjuliana98g/biblioteca-virtual-mg">Código no GitHub</a></p>
-    </footer>
-
-    <a id="botao-topo" href="#topo" aria-label="Voltar ao início">↑</a>
-
-    <dialog id="dialogo-formulario-livro" aria-labelledby="titulo-formulario">
-        <form id="formulario-livro" novalidate>
-            <header class="cabecalho-dialogo">
-                <h2 id="titulo-formulario">Adicionar livro</h2>
-                <button type="button" id="fechar-formulario" class="botao-fechar" aria-label="Fechar">✕</button>
-            </header>
-            <label class="campo-metade">Título
-                <input type="text" id="titulo-livro">
-            </label>
-            <label class="campo-metade">Autor
-                <input type="text" id="autor-livro">
-            </label>
-            <label>Editora
-                <input type="text" id="editora-livro">
-            </label>
-            <fieldset id="generos-livro">
-                <legend>Géneros</legend>
-                <label><input type="checkbox" name="genero" value="Fantasia">Fantasia</label>
-                <label><input type="checkbox" name="genero" value="Romance">Romance</label>
-                <label><input type="checkbox" name="genero" value="Ficção Científica">Ficção Científica</label>
-                <label><input type="checkbox" name="genero" value="Thriller">Thriller</label>
-                <label><input type="checkbox" name="genero" value="Terror">Terror</label>
-                <label><input type="checkbox" name="genero" value="Distopia">Distopia</label>
-                <label><input type="checkbox" name="genero" value="Outro">Outro</label>
-            </fieldset>
-            <label class="campo-metade">Idioma
-                <select id="idioma-livro">
-                    <option value="Português">Português</option>
-                    <option value="Inglês">Inglês</option>
-                    <option value="Outro">Outro</option>
-                </select>
-            </label>
-            <label class="campo-metade">Páginas
-                <input type="number" id="paginas-livro" min="1">
-            </label>
-            <label class="campo-metade">Saga
-                <input type="text" id="saga-livro" list="lista-sagas">
-            </label>
-            <datalist id="lista-sagas"></datalist>
-            <label class="campo-metade">Estado
-                <select id="estado-livro">
-                    <option value="quero-ler">Quero ler</option>
-                    <option value="a-ler">A ler</option>
-                    <option value="lido">Lido</option>
-                </select>
-            </label>
-            <label class="campo-metade">Volume
-                <input type="number" id="volume-livro" min="1">
-            </label>
-            <label class="campo-metade">Classificação
-                <input type="number" id="classificacao-livro" min="0" max="5" step="0.25" placeholder="0 a 5">
-            </label>
-            <label>Link do Goodreads
-                <input type="url" id="link-goodreads" placeholder="https://www.goodreads.com/book/show/...">
-            </label>
-            <label>Link da imagem da capa
-                <input type="url" id="link-capa" placeholder="https://...">
-            </label>
-            <label class="campo-caixa">
-                <input type="checkbox" id="livro-por-lancar">
-                Ainda não foi lançado?
-            </label>
-            <label id="campo-data-lancamento" hidden>Data de lançamento
-                <input type="date" id="data-lancamento">
-            </label>
-            <p id="mensagem-erro-formulario" role="alert"></p>
-            <div class="botoes-dialogo">
-                <button type="button" id="cancelar-formulario">Cancelar</button>
-                <button type="submit" id="guardar-formulario" class="botao-confirmar">Adicionar</button>
-            </div>
-        </form>
-    </dialog>
-
-    <dialog id="dialogo-roleta" aria-labelledby="titulo-roleta">
-        <header class="cabecalho-dialogo">
-            <h2 id="titulo-roleta">Roleta da Próxima Leitura</h2>
-            <form method="dialog">
-                <button class="botao-fechar" aria-label="Fechar">✕</button>
+                <label class="campo-metade">Idioma
+                    <select id="idioma-livro">
+                        <option value="Português">Português</option>
+                        <option value="Inglês">Inglês</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </label>
+                <label class="campo-metade">Páginas
+                    <input type="number" id="paginas-livro" min="1">
+                </label>
+                <label class="campo-metade">Saga
+                    <input type="text" id="saga-livro" list="lista-sagas">
+                </label>
+                <datalist id="lista-sagas"></datalist>
+                <label class="campo-metade">Estado
+                    <select id="estado-livro">
+                        <option value="quero-ler">Quero ler</option>
+                        <option value="a-ler">A ler</option>
+                        <option value="lido">Lido</option>
+                    </select>
+                </label>
+                <label class="campo-metade">Volume
+                    <input type="number" id="volume-livro" min="1">
+                </label>
+                <label class="campo-metade">Classificação
+                    <input type="number" id="classificacao-livro" min="0" max="5" step="0.25" placeholder="0 a 5">
+                </label>
+                <label>Link do Goodreads
+                    <input type="url" id="link-goodreads" placeholder="https://www.goodreads.com/book/show/...">
+                </label>
+                <label>Link da imagem da capa
+                    <input type="url" id="link-capa" placeholder="https://...">
+                </label>
+                <label class="campo-caixa">
+                    <input type="checkbox" id="livro-por-lancar">
+                    Ainda não foi lançado?
+                </label>
+                <label id="campo-data-lancamento" hidden>Data de lançamento
+                    <input type="date" id="data-lancamento">
+                </label>
+                <p id="mensagem-erro-formulario" role="alert"></p>
+                <div class="botoes-dialogo">
+                    <button type="button" id="cancelar-formulario">Cancelar</button>
+                    <button type="submit" id="guardar-formulario" class="botao-confirmar">Adicionar</button>
+                </div>
             </form>
-        </header>
-        <p id="mensagem-roleta" hidden>Precisas de pelo menos 2 livros em «Quero ler» para usar a roleta.</p>
-        <div id="conteudo-da-roleta">
-            <section id="area-da-roleta">
-                <svg id="roleta" viewBox="-10 -10 340 340" role="img" aria-label="Roleta com os livros por ler">
-                    <g id="fatias-da-roleta"></g>
-                    <circle class="centro-da-roleta" cx="160" cy="160" r="22"></circle>
-                    <path class="ponteiro-da-roleta" d="M148 -6L172 -6L160 24Z"></path>
-                </svg>
-                <button type="button" id="botao-girar">Girar</button>
-            </section>
-            <section id="livro-sorteado" hidden></section>
-        </div>
-    </dialog>
+        </dialog>
 
-    <dialog id="dialogo-confirmar-remocao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-remocao">
-        <form method="dialog">
-            <h2 id="titulo-confirmar-remocao">Remover livro</h2>
-            <p id="mensagem-confirmar-remocao"></p>
-            <div class="botoes-dialogo">
-                <button value="cancelar">Cancelar</button>
-                <button value="remover" class="botao-confirmar">Remover</button>
-            </div>
-        </form>
-    </dialog>
-
-    <dialog id="dialogo-confirmar-lancamento" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-lancamento">
-        <form method="dialog">
-            <h2 id="titulo-confirmar-lancamento">Já saiu</h2>
-            <p id="mensagem-confirmar-lancamento"></p>
-            <div class="botoes-dialogo">
-                <button value="nao">Não</button>
-                <button value="sim" class="botao-confirmar">Sim</button>
-            </div>
-        </form>
-    </dialog>
-
-    <dialog id="dialogo-atualizar-leitura" aria-labelledby="titulo-atualizar-leitura">
-        <form id="formulario-leitura" method="dialog">
+        <dialog id="dialogo-roleta" aria-labelledby="titulo-roleta">
             <header class="cabecalho-dialogo">
-                <h2 id="titulo-atualizar-leitura">Atualizar leitura</h2>
-                <button type="button" id="fechar-leitura" class="botao-fechar" aria-label="Fechar">✕</button>
+                <h2 id="titulo-roleta">Roleta da Próxima Leitura</h2>
+                <form method="dialog">
+                    <button class="botao-fechar" aria-label="Fechar">✕</button>
+                </form>
             </header>
-            <p id="livro-atualizar-leitura"></p>
-            <label>Páginas lidas
-                <input type="number" id="paginas-lidas" min="0" step="1" required>
-            </label>
-            <label>Percentagem lida (%)
-                <input type="number" id="percentagem-lida" min="0" max="100" step="1" required>
-            </label>
-            <div class="botoes-dialogo">
-                <button type="button" id="cancelar-leitura">Cancelar</button>
-                <button value="guardar" class="botao-confirmar">Guardar</button>
+            <p id="mensagem-roleta" hidden>Precisas de pelo menos 2 livros em «Quero ler» para usar a roleta.</p>
+            <div id="conteudo-da-roleta">
+                <section id="area-da-roleta">
+                    <svg id="roleta" viewBox="-10 -10 340 340" role="img" aria-label="Roleta com os livros por ler">
+                        <g id="fatias-da-roleta"></g>
+                        <circle class="centro-da-roleta" cx="160" cy="160" r="22"></circle>
+                        <path class="ponteiro-da-roleta" d="M148 -6L172 -6L160 24Z"></path>
+                    </svg>
+                    <button type="button" id="botao-girar">Girar</button>
+                </section>
+                <section id="livro-sorteado" hidden></section>
             </div>
-        </form>
-    </dialog>
+        </dialog>
 
-    <dialog id="dialogo-confirmar-conclusao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-conclusao">
-        <form method="dialog">
-            <h2 id="titulo-confirmar-conclusao">Leitura concluída</h2>
-            <p id="mensagem-confirmar-conclusao"></p>
+        <dialog id="dialogo-confirmar-remocao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-remocao">
+            <form method="dialog">
+                <h2 id="titulo-confirmar-remocao">Remover livro</h2>
+                <p id="mensagem-confirmar-remocao"></p>
+                <div class="botoes-dialogo">
+                    <button value="cancelar">Cancelar</button>
+                    <button value="remover" class="botao-confirmar">Remover</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="dialogo-confirmar-lancamento" class="dialogo-confirmar"
+            aria-labelledby="titulo-confirmar-lancamento">
+            <form method="dialog">
+                <h2 id="titulo-confirmar-lancamento">Já saiu</h2>
+                <p id="mensagem-confirmar-lancamento"></p>
+                <div class="botoes-dialogo">
+                    <button value="nao">Não</button>
+                    <button value="sim" class="botao-confirmar">Sim</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="dialogo-atualizar-leitura" aria-labelledby="titulo-atualizar-leitura">
+            <form id="formulario-leitura" method="dialog">
+                <header class="cabecalho-dialogo">
+                    <h2 id="titulo-atualizar-leitura">Atualizar leitura</h2>
+                    <button type="button" id="fechar-leitura" class="botao-fechar" aria-label="Fechar">✕</button>
+                </header>
+                <p id="livro-atualizar-leitura"></p>
+                <label>Páginas lidas
+                    <input type="number" id="paginas-lidas" min="0" step="1" required>
+                </label>
+                <label>Percentagem lida (%)
+                    <input type="number" id="percentagem-lida" min="0" max="100" step="1" required>
+                </label>
+                <div class="botoes-dialogo">
+                    <button type="button" id="cancelar-leitura">Cancelar</button>
+                    <button value="guardar" class="botao-confirmar">Guardar</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="dialogo-confirmar-conclusao" class="dialogo-confirmar" aria-labelledby="titulo-confirmar-conclusao">
+            <form method="dialog">
+                <h2 id="titulo-confirmar-conclusao">Leitura concluída</h2>
+                <p id="mensagem-confirmar-conclusao"></p>
+                <div class="botoes-dialogo">
+                    <button value="nao">Ainda não</button>
+                    <button value="sim" class="botao-confirmar">Sim</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="dialogo-detalhes" aria-labelledby="titulo-detalhes">
+            <header class="cabecalho-dialogo">
+                <h2 id="titulo-detalhes"></h2>
+                <button type="button" id="fechar-detalhes" class="botao-fechar" aria-label="Fechar">✕</button>
+            </header>
+            <div id="conteudo-detalhes"></div>
             <div class="botoes-dialogo">
-                <button value="nao">Ainda não</button>
-                <button value="sim" class="botao-confirmar">Sim</button>
+                <button type="button" id="editar-detalhes">Editar</button>
             </div>
-        </form>
-    </dialog>
-
-    <dialog id="dialogo-detalhes" aria-labelledby="titulo-detalhes">
-        <header class="cabecalho-dialogo">
-            <h2 id="titulo-detalhes"></h2>
-            <button type="button" id="fechar-detalhes" class="botao-fechar" aria-label="Fechar">✕</button>
-        </header>
-        <div id="conteudo-detalhes"></div>
-        <div class="botoes-dialogo">
-            <button type="button" id="editar-detalhes">Editar</button>
-        </div>
-    </dialog>
+        </dialog>
 </body>
 
 </html>

@@ -148,6 +148,21 @@ button {
     color: var(--destaque);
 }
 
+#botao-tema {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--destaque-2);
+    border-radius: 50%;
+    background: var(--superficie);
+    color: var(--titulo);
+    font-size: 1.2rem;
+}
+
+#botao-tema:hover {
+    background: var(--etiqueta);
+}
+
 /* barras de progresso: cada sítio só muda a altura e, se quiser, as cores
    (--trilho é o fundo da barra, --preenchimento é a parte já cheia) */
 progress {
@@ -454,21 +469,6 @@ search>label,
     gap: 12px;
 }
 
-#botao-tema {
-    flex: none;
-    width: 48px;
-    height: 48px;
-    border: 1.5px solid var(--realce);
-    border-radius: 10px;
-    background: transparent;
-    color: var(--texto-lateral);
-    font-size: 1.2rem;
-}
-
-#botao-tema:hover {
-    background: rgba(217, 139, 155, 0.2);
-}
-
 #botao-adicionar-livro {
     flex: 1;
     /* ocupa a largura que o botão do tema deixa livre */
@@ -505,7 +505,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 50px;
-    /* espaço entre secções */
     padding: 32px;
 }
 
@@ -1081,17 +1080,23 @@ figcaption {
 }
 
 #botao-roleta {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
     border: none;
     border-radius: 999px;
     background: var(--destaque);
     color: var(--sobre-destaque);
     font-weight: 600;
     box-shadow: var(--sombra);
+}
+
+#topo-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
 #aviso-bingo {
@@ -1382,16 +1387,6 @@ figcaption {
     color: var(--sobre-destaque);
     font-weight: 600;
     box-shadow: var(--sombra);
-}
-
-.pagina-bingo #botao-tema {
-    width: 44px;
-    height: 44px;
-    border: 1.5px solid var(--destaque-2);
-    border-radius: 50%;
-    background: var(--superficie);
-    color: var(--titulo);
-    font-size: 1.2rem;
 }
 
 #zona-do-jogo {
