@@ -1,16 +1,15 @@
-import { iniciarTema } from "../tema.js";
-import { carregarLivros } from "../dadosDosLivros.js";
-import { carregarCartaoAtual, carregarDesafios } from "./dadosDoBingo.js";
-import { atualizarPagina, iniciarPaginaDoBingo } from "./cartoesDoBingo.js";
+   import { iniciarTema } from "../utilidades.js";
+   import { carregarLivros } from "../dados.js";
+   import { carregarBingo } from "./dadosBingo.js";
+   import { atualizarPagina, iniciarPaginaBingo } from "./paginaBingo.js";
 
-async function iniciarAplicacao() {
-    iniciarTema();
-    iniciarPaginaDoBingo();
+   async function iniciarAplicacao() {
+       iniciarTema();
+       iniciarPaginaBingo();
 
-    await carregarDesafios();
-    await carregarLivros();
-    carregarCartaoAtual();
-    atualizarPagina();
-};
+       await carregarLivros();
+       await carregarBingo();
+       atualizarPagina();
+   };
 
-iniciarAplicacao();
+   iniciarAplicacao();
