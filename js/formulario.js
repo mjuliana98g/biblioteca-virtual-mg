@@ -11,7 +11,7 @@ const MENSAGENS = {
     linkCapa: "O link da capa tem de começar por http:// ou https://.",
     repetido: "Já tens um livro com este título e este autor.",
     paginas: "O número de páginas tem de ser um número inteiro maior que 0.",
-    volume: "O volume tem de ser um número inteiro maior que 0.",
+    volume: "O volume tem de ser um número maior que 0.",
     paginasLidas: "O total de páginas não pode ser menor do que as páginas que já leste.",
 };
 const LINK_VALIDO = /^(https?:\/\/\S+)?$/;
@@ -120,8 +120,8 @@ function encontrarErrosDeRegras(livro) {
         [repetido, "titulo", MENSAGENS.repetido],
         [repetido, "autor", MENSAGENS.repetido],
         [eNumeroInvalido(paginas), "paginas", MENSAGENS.paginas],
-        [eNumeroInvalido(livro.volume), "volume", MENSAGENS.volume],
-        [totalMenorQueLidas, "paginas", MENSAGENS.paginasLidas],
+        [livro.volume !== null && livro.volume <= 0, "volume", MENSAGENS.volume],
+         [totalMenorQueLidas, "paginas", MENSAGENS.paginasLidas],
         [caixaPorLancar.checked && estado !== "quero-ler", "estado", MENSAGENS.porLancar],
         [classificacaoInvalida, "classificacao", MENSAGENS.classificacao],
         [classificacao > 0 && estado !== "lido", "classificacao", MENSAGENS.classificarSoLidos],
