@@ -31,5 +31,10 @@ export function removerLivro(id) {
 };
 
 export function alterarLivro(id, alteracoes) {
-    guardarLivros(livros.map((livro) => (livro.id === id ? { ...livro, ...alteracoes } : livro)));
+    const deixouDeSerLido = "estado" in alteracoes && alteracoes.estado !== "lido";
+    const perdidos = deixouDeSerLido ? { favorito: false, classificacao: 0 } : {};
+
+    guardarLivros(livros.map((livro) =>
+        livro.id === id ? { ...livro, ...alteracoes, ...perdidos } : livro
+    ));
 };

@@ -2,6 +2,10 @@ const CHAVE_TEMA = "tema";
 const TEMA_CLARO = "claro";
 const TEMA_ESCURO = "escuro";
 const CAPA_POR_DEFEITO = "img/sem-capa.svg";
+const FORMATOS_DATA = {
+    longo: { day: "numeric", month: "long", year: "numeric" },
+    curto: { day: "2-digit", month: "2-digit" },
+};
 
 const botaoTema = document.querySelector("#botao-tema");
 
@@ -114,12 +118,10 @@ export function obterDataHoje() {
     return `${hoje.getFullYear()}-${mes}-${dia}`;
 };
 
-export function formatarData(data) {
-    return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    });
+export function formatarData(data, formato = "longo") {
+    const opcoes = FORMATOS_DATA[formato];
+
+    return new Date(`${data}T00:00:00`).toLocaleDateString("pt-PT", opcoes);
 };
 
 export function formatarQuantidade(total, singular, plural) {
@@ -135,4 +137,8 @@ export function normalizarTexto(texto) {
 
 export function listarUnicosOrdenados(valores) {
     return [...new Set(valores.filter(Boolean))].sort((a, b) => a.localeCompare(b, "pt"));
+};
+
+export function eNumeroInvalido(numero) {
+    return numero !== null && !(Number.isInteger(numero) && numero > 0);
 };

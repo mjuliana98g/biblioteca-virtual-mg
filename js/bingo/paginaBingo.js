@@ -1,4 +1,4 @@
-import { criarCapa, criarElemento, esperarResposta, formatarQuantidade } from "../utilidades.js";
+import { criarCapa, criarElemento, esperarResposta, formatarQuantidade, formatarData } from "../utilidades.js";
 import { encontrarLivro, obterLivros } from "../dados.js";
 import {
     associarLivro,
@@ -41,10 +41,14 @@ function calcularCoordenada(posicao) {
     return `${LETRAS_COLUNAS[posicao % COLUNAS]}${Math.floor(posicao / COLUNAS) + 1}`;
 };
 
-function formatarDiaMes(data) {
-    const [, mes, dia] = data.split("-");
+function obterTitulo(quadrado) {
+    const livro = encontrarLivro(quadrado.idLivro);
 
-    return `${dia}/${mes}`;
+    if (livro) {
+        return livro.titulo;
+    }
+
+    return quadrado.titulo ? `${quadrado.titulo} (removido)` : "livro removido";
 };
 
 function criarQuadrado(desafio, posicao) {
@@ -63,15 +67,14 @@ function criarQuadrado(desafio, posicao) {
 };
 
 function criarCartaoCompleto(cartao) {
-    const periodo = `${formatarDiaMes(cartao.inicio)} → ${formatarDiaMes(cartao.fim)}`;
+    const inicio = formatarData(cartao.inicio, "curto");
+    const fim = formatarData(cartao.fim, "curto");
     const resumo = criarElemento("summary", {
-        textContent: `Cartão n.º ${cartao.numero} · ${periodo}`,
+        textContent: `Cartão n.º ${cartao.numero} · ${inicio} → ${fim}`,
     });
-    const desafios = cartao.quadrados.map((quadrado) => {
-        const titulo = encontrarLivro(quadrado.idLivro)?.titulo ?? "livro removido";
-
-        return criarElemento("li", { textContent: `${quadrado.texto} — ${titulo}` });
-    });
+    const desafios = cartao.quadrados.map((quadrado) =>
+        criarElemento("li", { textContent: `${quadrado.texto} — ${obterTitulo(quadrado)}` })
+    );
     const lista = criarElemento("ul", { filhos: desafios });
     const detalhes = criarElemento("details", { filhos: [resumo, lista] });
 
@@ -102,16 +105,16 @@ export function atualizarPagina() {
     const cartao = obterCartaoAtual();
     const cumpridos = obterIdsUsados().length;
     const livrosDoCartao = cartao.quadrados
-        .map((quadrado, posicao) => ({
-            coordenada: calcularCoordenada(posicao),
-            livro: encontrarLivro(quadrado.idLivro),
+        .map((quadrado, posicao) => ({ quadrado, coordenada: calcularCoordenada(posicao) }))
+        .filter(({ quadrado }) => quadrado.idLivro)
+        .map(({ quadrado, coordenada }) => ({
+            coordenada,
+            livro: encontrarLivro(quadrado.idLivro) ?? { titulo: obterTitulo(quadrado) },
         }))
-        .filter(({ livro }) => livro)
         .sort((a, b) => a.coordenada.localeCompare(b.coordenada));
 
     infoCartao.textContent =
-        `Cartão n.º ${cartao.numero} · iniciado a ${formatarDiaMes(cartao.inicio)}`;
-    textoProgresso.textContent = `${cumpridos} de ${cartao.quadrados.length} desafios cumpridos`;
+        `Cartão n.º ${cartao.numero} · iniciado a ${formatarData(cartao.inicio, "curto")}`; textoProgresso.textContent = `${cumpridos} de ${cartao.quadrados.length} desafios cumpridos`;
     barraProgresso.value = cumpridos;
     cartela.replaceChildren(...cartao.quadrados.map(criarQuadrado));
     livrosCartao.replaceChildren(...livrosDoCartao.map(criarLivroCartao));
@@ -137,10 +140,10 @@ function celebrar(linhasAntes) {
     }, DURACAO_MENSAGEM);
 };
 
-function associar(idLivro) {
+function associar(livro) {
     const linhasAntes = contarLinhas();
 
-    associarLivro(posicaoEscolhida, idLivro);
+    associarLivro(posicaoEscolhida, livro);
     dialogoLivro.close();
     atualizarPagina();
     celebrar(linhasAntes);
@@ -149,7 +152,7 @@ function associar(idLivro) {
 function criarOpcao(livro) {
     const opcao = criarElemento("button", {
         className: "opcao-livro",
-        onclick: () => associar(livro.id),
+        onclick: () => associar(livro),
         filhos: [
             criarCapa(livro),
             criarElemento("span", {

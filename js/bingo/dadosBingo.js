@@ -1,4 +1,5 @@
 import { carregarJson, guardarValor, lerValor, obterDataHoje } from "../utilidades.js";
+import { obterLivros } from "../dados.js";
 
 const CAMINHO_DESAFIOS = "data/desafiosBingo.json";
 const CHAVE_CARTAO_ATUAL = "bingo-cartao-atual";
@@ -37,10 +38,18 @@ function criarCartao() {
 export async function carregarBingo() {
     const cartaoGuardado = lerValor(localStorage, CHAVE_CARTAO_ATUAL);
     const guardadoValido = cartaoGuardado?.quadrados?.length === DESAFIOS_POR_CARTAO;
+    const idsLidos = obterLivros()
+        .filter((livro) => livro.estado === "lido")
+        .map((livro) => livro.id);
 
     desafios = await carregarJson(CAMINHO_DESAFIOS);
     cartaoAtual = guardadoValido ? cartaoGuardado : criarCartao();
-    guardarValor(localStorage, CHAVE_CARTAO_ATUAL, cartaoAtual);
+
+    if (!cartaoAtual.fim) {
+        guardarQuadrados(cartaoAtual.quadrados.map((quadrado) =>
+            idsLidos.includes(quadrado.idLivro) ? quadrado : { ...quadrado, idLivro: null }
+        ));
+    }
 };
 
 export function obterCartaoAtual() {
@@ -71,14 +80,20 @@ export function estaAMeio() {
     return obterIdsUsados().length > 0 && !temBingo();
 };
 
-export function associarLivro(posicao, idLivro) {
-    const quadrados = cartaoAtual.quadrados.map((quadrado, indice) =>
-        indice === posicao ? { ...quadrado, idLivro } : quadrado
-    );
+function guardarQuadrados(quadrados) {
     const completo = quadrados.every((quadrado) => quadrado.idLivro);
+    const fim = completo ? (cartaoAtual.fim ?? obterDataHoje()) : null;
 
-    cartaoAtual = { ...cartaoAtual, quadrados, fim: completo ? obterDataHoje() : null };
+    cartaoAtual = { ...cartaoAtual, quadrados, fim };
     guardarValor(localStorage, CHAVE_CARTAO_ATUAL, cartaoAtual);
+};
+
+export function associarLivro(posicao, livro) {
+    const escolha = { idLivro: livro?.id ?? null, titulo: livro?.titulo ?? null };
+
+    guardarQuadrados(cartaoAtual.quadrados.map((quadrado, indice) =>
+        indice === posicao ? { ...quadrado, ...escolha } : quadrado
+    ));
 };
 
 export function sortearNovoCartao() {
