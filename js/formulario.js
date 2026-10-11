@@ -1,6 +1,6 @@
 import { adicionarLivro, alterarLivro, encontrarLivro, obterLivros } from "./dados.js";
 import { atualizarPagina, limparFiltros } from "./acoes.js";
-import { guardarValor, lerValor, normalizarTexto } from "./utilidades.js";
+import { guardarValor, lerValor, normalizarTexto, eNumeroInvalido } from "./utilidades.js";
 
 const CHAVE_RASCUNHO = "rascunho-livro";
 const MENSAGENS = {
@@ -10,6 +10,9 @@ const MENSAGENS = {
     linkGoodreads: "O link do Goodreads tem de começar por http:// ou https://.",
     linkCapa: "O link da capa tem de começar por http:// ou https://.",
     repetido: "Já tens um livro com este título e este autor.",
+    paginas: "O número de páginas tem de ser um número inteiro maior que 0.",
+    volume: "O volume tem de ser um número inteiro maior que 0.",
+    paginasLidas: "O total de páginas não pode ser menor do que as páginas que já leste.",
 };
 const LINK_VALIDO = /^(https?:\/\/\S+)?$/;
 
@@ -107,13 +110,18 @@ function estaRepetido(livro) {
 };
 
 function encontrarErrosDeRegras(livro) {
-    const { classificacao, estado } = livro;
+    const { classificacao, estado, paginas } = livro;
     const foraDosLimites = classificacao < 0 || classificacao > 5;
     const classificacaoInvalida = foraDosLimites || !Number.isInteger(classificacao * 4);
+    const paginasLidas = encontrarLivro(idEmEdicao)?.paginasLidas ?? 0;
+    const totalMenorQueLidas = paginas !== null && paginas < paginasLidas;
     const repetido = estaRepetido(livro);
     const regras = [
         [repetido, "titulo", MENSAGENS.repetido],
         [repetido, "autor", MENSAGENS.repetido],
+        [eNumeroInvalido(paginas), "paginas", MENSAGENS.paginas],
+        [eNumeroInvalido(livro.volume), "volume", MENSAGENS.volume],
+        [totalMenorQueLidas, "paginas", MENSAGENS.paginasLidas],
         [caixaPorLancar.checked && estado !== "quero-ler", "estado", MENSAGENS.porLancar],
         [classificacaoInvalida, "classificacao", MENSAGENS.classificacao],
         [classificacao > 0 && estado !== "lido", "classificacao", MENSAGENS.classificarSoLidos],
