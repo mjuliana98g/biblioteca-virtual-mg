@@ -37,6 +37,9 @@ const listaLancamentos = document.querySelector("#lista-lancamentos");
 const listaLivros = document.querySelector("#lista-livros");
 const listaFavoritos = document.querySelector("#lista-favoritos");
 
+const botaoMenu = document.querySelector("#botao-menu");
+const barraLateral = document.querySelector("#barra-lateral");
+
 const avisoBingo = document.querySelector("#aviso-bingo");
 const linkAvisoBingo = document.querySelector("#link-aviso-bingo");
 const botaoRemoverAviso = document.querySelector("#remover-aviso-bingo");
@@ -304,6 +307,28 @@ async function tratarClique(evento) {
 // ------------------------------------------------------------------------------------------
 // ARRANQUE
 // ------------------------------------------------------------------------------------------
+
+export function iniciarMenuLateral() {
+    const mostrarMenu = (aberto) => {
+        barraLateral.classList.toggle("aberta", aberto);
+        botaoMenu.ariaExpanded = String(aberto);
+        botaoMenu.ariaLabel = aberto ? "Fechar menu" : "Abrir menu";
+        botaoMenu.textContent = aberto ? "✕" : "☰";
+    };
+
+    document.addEventListener("click", (evento) => {
+        const estaAberto = barraLateral.classList.contains("aberta");
+        const noBotao = Boolean(evento.target.closest("#botao-menu"));
+        const noMenu = Boolean(evento.target.closest("#barra-lateral"));
+        const numLink = Boolean(evento.target.closest("a, #botao-adicionar-livro"));
+        mostrarMenu(noBotao ? !estaAberto : estaAberto && noMenu && !numLink);
+    });
+    document.addEventListener("keydown", (evento) => {
+        if (evento.key === "Escape") {
+            mostrarMenu(false);
+        }
+    });
+};
 
 export function iniciarDialogos() {
     botaoFecharDetalhes.addEventListener("click", () => dialogoDetalhes.close());
