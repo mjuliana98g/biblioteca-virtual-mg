@@ -30,6 +30,9 @@ const filtroSaga = document.querySelector("#filtro-saga");
 const filtroEditora = document.querySelector("#filtro-editora");
 const filtrosEstado = document.querySelector("#filtros-estado");
 const campoOrdenacao = document.querySelector("#ordenacao");
+const listaAutores = document.querySelector("#lista-autores");
+const listaEditoras = document.querySelector("#lista-editoras");
+const listaSagas = document.querySelector("#lista-sagas");
 
 const zonaPrincipal = document.querySelector("main");
 const listaLeituras = document.querySelector("#lista-leituras");
@@ -96,6 +99,20 @@ function preencherFiltros(livros) {
     }
 };
 
+function preencherSugestoes(livros) {
+    const sugestoes = [
+        [listaAutores, "autor"],
+        [listaEditoras, "editora"],
+        [listaSagas, "saga"],
+    ];
+
+    for (const [lista, campo] of sugestoes) {
+        const valores = listarUnicosOrdenados(livros.map((livro) => livro[campo]));
+
+        lista.replaceChildren(...valores.map((valor) => new Option(valor, valor)));
+    }
+};
+
 export function limparFiltros() {
     campoPesquisa.value = "";
     filtroGenero.value = "todos";
@@ -127,6 +144,7 @@ export function atualizarPagina() {
     const emLeitura = lancados.filter((livro) => livro.estado === "a-ler");
 
     preencherFiltros(lancados);
+    preencherSugestoes(livros);
     mostrarCartoes(emLeitura, listaLeituras, "Não estás a ler nenhum livro de momento.", true);
     mostrarCartoes(porLancar, listaLancamentos, "Ainda não há lançamentos à espera.");
     mostrarCartoes(filtrarEOrdenar(lancados), listaLivros, "Nenhum livro encontrado.");

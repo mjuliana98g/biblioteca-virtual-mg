@@ -147,10 +147,10 @@
                 <input type="text" id="titulo-livro" name="titulo">
             </label>
             <label class="campo-metade">Autor
-                <input type="text" id="autor-livro" name="autor">
+                <input type="text" id="autor-livro" name="autor" list="lista-autores">
             </label>
             <label>Editora
-                <input type="text" id="editora-livro" name="editora">
+                <input type="text" id="editora-livro" name="editora" list="lista-editoras">
             </label>
             <fieldset id="generos-livro">
                 <legend>Géneros</legend>
@@ -175,6 +175,8 @@
             <label class="campo-metade">Saga
                 <input type="text" id="saga-livro" name="saga" list="lista-sagas">
             </label>
+            <datalist id="lista-autores"></datalist>
+            <datalist id="lista-editoras"></datalist>
             <datalist id="lista-sagas"></datalist>
             <label class="campo-metade">Estado
                 <select id="estado-livro" name="estado">
