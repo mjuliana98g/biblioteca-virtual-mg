@@ -47,17 +47,6 @@ Projeto prático do módulo de JavaScript, feito com **HTML5, CSS3 e JavaScript 
   - **sessionStorage:** ordenação, rascunho do formulário e aviso do Bingo (apagam-se ao fechar o separador).
 - Por isso, os dados alterados ficam só no browser onde foram feitos. Para voltar aos livros iniciais, basta limpar o armazenamento do site no browser.
 
-## Como abrir no computador
-
-O projeto usa módulos JavaScript (`import`/`export`) e `fetch`, por isso **não funciona abrindo o `index.html` com duplo clique**. É preciso um servidor local. A forma mais simples:
-
-1. Descarregar o projeto: botão verde **Code → Download ZIP** no GitHub, ou com `git clone https://github.com/mjuliana98g/biblioteca-virtual-mg.git`
-2. Abrir a pasta no **Visual Studio Code**
-3. Instalar a extensão **Live Server**
-4. Clicar com o botão direito no `index.html` → **Open with Live Server**
-
-O site abre no browser.
-
 ## Estrutura do projeto
 
 ```
@@ -81,6 +70,31 @@ O site abre no browser.
         ├── dadosBingo.js      Cartões e desafios
         └── paginaBingo.js     Desenhar e controlar o cartão
 ```
+
+## Requisitos do projeto
+
+| Requisito | Onde está |
+| --- | --- |
+| 1. Lógica e controlo de fluxo | `switch` em `tratarClique` (acoes.js); `filter` + `reduce` + `map` em `mostrarClassificacoes` (paginaLivros.js); `while` em `criarCartao` (bingo/dadosBingo.js) |
+| 2. Dados simples | validação do formulário em `encontrarErrosDeRegras` (formulario.js); `normalizarTexto`, `formatarData` e `calcularPercentagem` (utilidades.js) |
+| 3. Dados complexos imutáveis | `adicionarLivro`, `removerLivro` e `alterarLivro` com spread, `filter` e `map` (dados.js); `filtrarEOrdenar` (acoes.js) |
+| 4. DOM dinâmico | `criarElemento` com `document.createElement` (utilidades.js), usado em todos os cartões, gráficos e no Bingo |
+| 5. Reatividade e eventos | delegação de eventos em `tratarClique` (acoes.js); pesquisa e filtros em tempo real; submissão do formulário (formulario.js) |
+| 6. Scope e closures | lista de livros protegida dentro de dados.js (sem `export`); closure `mostrarMenu` em `iniciarMenuLateral` (acoes.js) |
+| 7. Assincronismo | `carregarJson` com `fetch`, `async/await` e `try/catch` (utilidades.js); janelas com `Promise` em `esperarResposta` |
+| 8. Modularização | 9 módulos com `import`/`export`; utilidades.js e dados.js partilhados pelas duas páginas |
+| Persistência | livros, tema e Bingo no `localStorage`; ordenação, rascunho e aviso do Bingo no `sessionStorage` |
+
+## Como abrir no computador
+
+O projeto usa módulos JavaScript (`import`/`export`) e `fetch`, por isso **não funciona abrindo o `index.html` com duplo clique**. É preciso um servidor local. A forma mais simples:
+
+1. Descarregar o projeto: botão verde **Code → Download ZIP** no GitHub, ou com `git clone https://github.com/mjuliana98g/biblioteca-virtual-mg.git`
+2. Abrir a pasta no **Visual Studio Code**
+3. Instalar a extensão **Live Server**
+4. Clicar com o botão direito no `index.html` → **Open with Live Server**
+
+O site abre no browser.
 
 ## Autora
 
