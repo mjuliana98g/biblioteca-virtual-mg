@@ -17,7 +17,7 @@ Projeto prático do módulo de JavaScript, feito com **HTML5, CSS3 e JavaScript 
 - Mudar o estado de cada livro: **Quero ler**, **A ler** ou **Lido**
 - Marcar livros lidos como favoritos
 - Pesquisa por título ou autor, filtros por género, saga, editora e estado, e ordenação por título ou autor
-- Janela de detalhes de cada livro, com possibilidade pra edição
+- Janela de detalhes de cada livro, com possibilidade para edição
 
 ### Leituras e lançamentos
 - **Leituras Atuais** com barra de progresso, atualizada por páginas ou por percentagem

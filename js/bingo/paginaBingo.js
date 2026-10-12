@@ -88,7 +88,7 @@ function mostrarCompletos() {
     totalCompletos.textContent = cartoes.length;
     mensagemLivroExtra.textContent = cartoes.length === 0
         ? `${REGRA_LIVRO_EXTRA} Completa o primeiro!`
-        : `🕮 ${REGRA_LIVRO_EXTRA} Já ganhaste ${ganhos}!`;
+        : `✦ ${REGRA_LIVRO_EXTRA} Já ganhaste ${ganhos}!`;
     listaCompletos.replaceChildren(...[...cartoes].reverse().map(criarCartaoCompleto));
 };
 
@@ -114,7 +114,8 @@ export function atualizarPagina() {
         .sort((a, b) => a.coordenada.localeCompare(b.coordenada));
 
     infoCartao.textContent =
-        `Cartão n.º ${cartao.numero} · iniciado a ${formatarData(cartao.inicio, "curto")}`; textoProgresso.textContent = `${cumpridos} de ${cartao.quadrados.length} desafios cumpridos`;
+        `Cartão n.º ${cartao.numero} · iniciado a ${formatarData(cartao.inicio, "curto")}`;
+    textoProgresso.textContent = `${cumpridos} de ${cartao.quadrados.length} desafios cumpridos`;
     barraProgresso.value = cumpridos;
     cartela.replaceChildren(...cartao.quadrados.map(criarQuadrado));
     livrosCartao.replaceChildren(...livrosDoCartao.map(criarLivroCartao));
