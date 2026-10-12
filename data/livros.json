@@ -1,26 +1,6 @@
 [
   {
     "id": 1,
-    "titulo": "House of Flame and Shadow",
-    "autor": "Sarah J. Maas",
-    "editora": "Editorial Presença",
-    "generos": [
-      "Fantasia",
-      "Ficção Científica",
-      "Thriller"
-    ],
-    "idioma": "Português",
-    "paginas": 816,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1699972316i/202122069.jpg",
-    "estado": "lido",
-    "favorito": false,
-    "classificacao": 4.25,
-    "saga": "Crescent City",
-    "volume": 3,
-    "goodreads": "https://www.goodreads.com/book/show/202122069-casa-de-chama-e-sombra"
-  },
-  {
-    "id": 2,
     "titulo": "Strange the Dreamer",
     "autor": "Laini Taylor",
     "editora": "Edições ASA",
@@ -29,72 +9,35 @@
     ],
     "idioma": "Inglês",
     "paginas": 544,
+    "paginasLidas": 400,
     "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1519915549i/28449207.jpg",
     "estado": "a-ler",
     "favorito": false,
     "classificacao": 0,
     "saga": "Strange the Dreamer",
     "volume": 1,
-    "goodreads": "https://www.goodreads.com/book/show/28449207?ref=s_s"
+    "goodreads": "https://www.goodreads.com/book/show/28449207-strange-the-dreamer"
   },
   {
-    "id": 3,
-    "titulo": "Jade City",
-    "autor": "Fonda Lee",
-    "editora": "Kathartika",
+    "id": 2,
+    "titulo": "Muse of Nightmares",
+    "autor": "Laini Taylor",
+    "editora": "",
     "generos": [
       "Fantasia"
     ],
     "idioma": "Inglês",
-    "paginas": 512,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1547625704i/43587154.jpg",
+    "paginas": 514,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1518636521i/25446343.jpg",
     "estado": "quero-ler",
     "favorito": false,
     "classificacao": 0,
-    "saga": "The Green Bone Saga",
-    "volume": 1,
-    "goodreads": "https://www.goodreads.com/book/show/43587154?ref=s_s"
-  },
-  {
-    "id": 4,
-    "titulo": "My Husband's Wife",
-    "autor": "Alice Feeney",
-    "editora": "Cultura Editora",
-    "generos": [
-      "Thriller"
-    ],
-    "idioma": "Inglês",
-    "paginas": 310,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1747668611i/231127462.jpg",
-    "estado": "lido",
-    "favorito": false,
-    "classificacao": 3.5,
-    "saga": "",
-    "volume": null,
-    "goodreads": "https://www.goodreads.com/book/show/231127462-my-husband-s-wife?ref=nav_sb_ss_1_13"
-  },
-  {
-    "id": 5,
-    "titulo": "House of Sky and Breath",
-    "autor": "Sarah J. Maas",
-    "editora": "Editorial Presença",
-    "generos": [
-      "Fantasia",
-      "Romance",
-      "Thriller"
-    ],
-    "idioma": "Português",
-    "paginas": 720,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1639701901i/59837782.jpg",
-    "estado": "lido",
-    "favorito": false,
-    "classificacao": 4.75,
-    "saga": "Crescent City",
+    "saga": "Strange the Dreamer",
     "volume": 2,
-    "goodreads": "https://www.goodreads.com/book/show/59837782?ref=s_s"
+    "goodreads": "https://www.goodreads.com/book/show/25446343-muse-of-nightmares"
   },
   {
-    "id": 6,
+    "id": 3,
     "titulo": "House of Earth and Blood",
     "autor": "Sarah J. Maas",
     "editora": "Editorial Presença",
@@ -105,16 +48,183 @@
     ],
     "idioma": "Português",
     "paginas": 896,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1609338434i/54759642.jpg",
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1559142847i/44778083.jpg",
     "estado": "lido",
     "favorito": false,
     "classificacao": 5,
     "saga": "Crescent City",
     "volume": 1,
-    "goodreads": "https://www.goodreads.com/book/show/54759642?ref=s_s"
+    "goodreads": "https://www.goodreads.com/book/show/44778083-house-of-earth-and-blood"
+  },
+  {
+    "id": 4,
+    "titulo": "House of Sky and Breath",
+    "autor": "Sarah J. Maas",
+    "editora": "Editorial Presença",
+    "generos": [
+      "Fantasia",
+      "Romance",
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 720,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1633097753i/40132775.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4.75,
+    "saga": "Crescent City",
+    "volume": 2,
+    "goodreads": "https://www.goodreads.com/book/show/40132775-house-of-sky-and-breath"
+  },
+  {
+    "id": 5,
+    "titulo": "House of Flame and Shadow",
+    "autor": "Sarah J. Maas",
+    "editora": "Editorial Presença",
+    "generos": [
+      "Fantasia",
+      "Ficção Científica",
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 816,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1689809645i/52857700.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4.25,
+    "saga": "Crescent City",
+    "volume": 3,
+    "goodreads": "https://www.goodreads.com/book/show/52857700-house-of-flame-and-shadow"
+  },
+  {
+    "id": 6,
+    "titulo": "Jade City",
+    "autor": "Fonda Lee",
+    "editora": "Kathartika",
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Português",
+    "paginas": 528,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1547625704i/43587154.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "The Green Bone Saga",
+    "volume": 1,
+    "goodreads": "https://www.goodreads.com/book/show/43587154-jade-city"
+  },
+  {
+    "id": 7,
+    "titulo": "Jade War",
+    "autor": "Fonda Lee",
+    "editora": "Kathartika",
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Português",
+    "paginas": 640,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1537885614i/41716919.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "The Green Bone Saga",
+    "volume": 2,
+    "goodreads": "https://www.goodreads.com/book/show/41716919-jade-war"
   },
   {
     "id": 8,
+    "titulo": "Jade Legacy",
+    "autor": "Fonda Lee",
+    "editora": "Kathartika",
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Português",
+    "paginas": 776,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1565294729l/51057191.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "The Green Bone Saga",
+    "volume": 3,
+    "goodreads": "https://www.goodreads.com/book/show/51057191-jade-legacy"
+  },
+  {
+    "id": 9,
+    "titulo": "When the Moon Hatched",
+    "autor": "Sarah A. Parker",
+    "editora": "Marcador",
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Português",
+    "paginas": 496,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1734440766i/202507554.jpg",
+    "estado": "lido",
+    "favorito": true,
+    "classificacao": 5,
+    "saga": "Moonfall",
+    "volume": 1,
+    "goodreads": "https://www.goodreads.com/book/show/202507554"
+  },
+  {
+    "id": 10,
+    "titulo": "The Ballad of Falling Dragons",
+    "autor": "Sarah A. Parker",
+    "editora": "Marcador",
+    "generos": [
+      "Fantasia"
+    ],
+    "idioma": "Português",
+    "paginas": 616,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1764279945i/216815055.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "Moonfall",
+    "volume": 2,
+    "goodreads": "https://www.goodreads.com/book/show/216815055-the-ballad-of-falling-dragons",
+    "dataLancamento": "2026-10-21"
+  },
+  {
+    "id": 11,
+    "titulo": "My Husband's Wife",
+    "autor": "Alice Feeney",
+    "editora": "Cultura Editora",
+    "generos": [
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 320,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1747668611i/231127462.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 3.5,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/231127462-my-husband-s-wife?ref=nav_sb_ss_1_13"
+  },
+  {
+    "id": 12,
+    "titulo": "Sometimes I Lie",
+    "autor": "Alice Feeney",
+    "editora": "Cultura Editora",
+    "generos": [
+      "Thriller"
+    ],
+    "idioma": "Português",
+    "paginas": 336,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1498135142i/32326398.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/32326398?ref=s_s"
+  },
+  {
+    "id": 13,
     "titulo": "The Truth About the Harry Quebert Affair",
     "autor": "Joël Dicker",
     "editora": "Alfaguara",
@@ -122,17 +232,55 @@
       "Thriller"
     ],
     "idioma": "Português",
-    "paginas": 684,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1372356745i/18134442.jpg",
+    "paginas": 664,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1392581029i/19301797.jpg",
     "estado": "lido",
     "favorito": false,
     "classificacao": 3,
     "saga": "",
     "volume": null,
-    "goodreads": "https://www.goodreads.com/book/show/18134442-a-verdade-sobre-o-caso-harry-quebert?ref=nav_sb_ss_1_23"
+    "goodreads": "https://www.goodreads.com/book/show/19301797-the-truth-about-the-harry-quebert-affair?ref=nav_sb_ss_1_26"
   },
   {
-    "id": 10,
+    "id": 14,
+    "titulo": "Strange Houses",
+    "autor": "Uketsu",
+    "editora": "",
+    "generos": [
+      "Terror",
+      "Thriller"
+    ],
+    "idioma": "Inglês",
+    "paginas": 203,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1734077733i/218671839.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 2.75,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/218671839"
+  },
+  {
+    "id": 15,
+    "titulo": "Strange Pictures",
+    "autor": "Uketsu",
+    "editora": "",
+    "generos": [
+      "Terror",
+      "Thriller"
+    ],
+    "idioma": "Inglês",
+    "paginas": 236,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1728787087i/216670080.jpg",
+    "estado": "lido",
+    "favorito": false,
+    "classificacao": 4.5,
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/216670080?ref=s_s"
+  },
+  {
+    "id": 16,
     "titulo": "Strange Buildings",
     "autor": "Uketsu",
     "editora": "",
@@ -141,14 +289,14 @@
       "Thriller"
     ],
     "idioma": "Inglês",
-    "paginas": 382,
+    "paginas": 384,
     "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1770114697i/247527532.jpg",
     "estado": "lido",
     "favorito": false,
     "classificacao": 3.5,
     "saga": "",
     "volume": null,
-    "goodreads": "https://www.goodreads.com/book/show/247527532-strange-buildings?ref=nav_sb_ss_1_17"
+    "goodreads": "https://www.goodreads.com/book/show/247527532?ref=s_s"
   },
   {
     "id": 17,
@@ -159,8 +307,8 @@
       "Fantasia",
       "Romance"
     ],
-    "idioma": "Inglês",
-    "paginas": 655,
+    "idioma": "Português",
+    "paginas": 656,
     "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1712326978i/209741142.jpg",
     "estado": "lido",
     "favorito": false,
@@ -168,6 +316,26 @@
     "saga": "The Eating Woods",
     "volume": 1,
     "goodreads": "https://www.goodreads.com/book/show/209741142?ref=s_s"
+  },
+  {
+    "id": 18,
+    "titulo": "Eldritch",
+    "autor": "Keri Lake",
+    "editora": "TopSeller",
+    "generos": [
+      "Fantasia",
+      "Romance"
+    ],
+    "idioma": "Português",
+    "paginas": 688,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1752165654i/219866773.jpg",
+    "estado": "quero-ler",
+    "favorito": false,
+    "classificacao": 0,
+    "saga": "The Eating Woods",
+    "volume": 2,
+    "goodreads": "https://www.goodreads.com/book/show/219866773-eldritch",
+    "dataLancamento": "2026-10-01"
   },
   {
     "id": 19,
@@ -188,7 +356,7 @@
     "goodreads": "https://www.goodreads.com/book/show/231397145?ref=s_s"
   },
   {
-    "id": 32,
+    "id": 20,
     "titulo": "Alchemised",
     "autor": "SenLinYu",
     "editora": "Planeta",
@@ -196,71 +364,32 @@
       "Fantasia",
       "Romance"
     ],
-    "idioma": "Inglês",
+    "idioma": "Português",
     "paginas": 928,
     "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1737131981i/222490389.jpg",
     "estado": "lido",
-    "favorito": false,
+    "favorito": true,
     "classificacao": 5,
     "saga": "",
     "volume": null,
     "goodreads": "https://www.goodreads.com/book/show/222490389-alchemised?ac=1&from_search=true&qid=GVvTsioHE3&rank=1"
   },
   {
-    "id": 33,
-    "titulo": "Threshing Day",
-    "autor": "Rebecca Yarros",
-    "editora": "Planeta",
-    "generos": [
-      "Fantasia",
-      "Romance"
-    ],
-    "idioma": "Português",
-    "paginas": 300,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1788961933i/258626667.jpg",
-    "estado": "a-ler",
-    "favorito": false,
-    "classificacao": 0,
-    "saga": "The Empyrean",
-    "volume": 3.5,
-    "goodreads": "https://www.goodreads.com/book/show/258626667?ref=s_s"
-  },
-  {
-    "id": 35,
-    "titulo": "Half City",
-    "autor": "Kate Golden",
+    "id": 21,
+    "titulo": "The Handmaid's Tale",
+    "autor": "Margaret Atwood",
     "editora": "",
     "generos": [
-      "Fantasia",
-      "Romance"
+      "Distopia"
     ],
     "idioma": "Inglês",
-    "paginas": 480,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1751423290i/233717187.jpg",
+    "paginas": 311,
+    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1558090637i/45864574.jpg",
     "estado": "quero-ler",
     "favorito": false,
     "classificacao": 0,
-    "saga": "Harker Academy",
-    "volume": 1,
-    "goodreads": "https://www.goodreads.com/book/show/233717187-half-city?ref=nav_sb_ss_1_9"
-  },
-  {
-    "id": 37,
-    "titulo": "Holly",
-    "autor": "Adalyn Grace",
-    "editora": "",
-    "generos": [
-      "Fantasia",
-      "Romance"
-    ],
-    "idioma": "Inglês",
-    "paginas": 371,
-    "capa": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1738602922i/218075240.jpg",
-    "estado": "quero-ler",
-    "favorito": false,
-    "classificacao": 0,
-    "saga": "Belladonna",
-    "volume": 3.5,
-    "goodreads": "https://www.goodreads.com/book/show/218075240-holly?ref=nav_sb_ss_1_11"
+    "saga": "",
+    "volume": null,
+    "goodreads": "https://www.goodreads.com/book/show/45864574-the-handmaid-s-tale"
   }
 ]
