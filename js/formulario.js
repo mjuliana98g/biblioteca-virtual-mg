@@ -121,7 +121,7 @@ function encontrarErrosDeRegras(livro) {
         [repetido, "autor", MENSAGENS.repetido],
         [eNumeroInvalido(paginas), "paginas", MENSAGENS.paginas],
         [livro.volume !== null && livro.volume <= 0, "volume", MENSAGENS.volume],
-         [totalMenorQueLidas, "paginas", MENSAGENS.paginasLidas],
+        [totalMenorQueLidas, "paginas", MENSAGENS.paginasLidas],
         [caixaPorLancar.checked && estado !== "quero-ler", "estado", MENSAGENS.porLancar],
         [classificacaoInvalida, "classificacao", MENSAGENS.classificacao],
         [classificacao > 0 && estado !== "lido", "classificacao", MENSAGENS.classificarSoLidos],

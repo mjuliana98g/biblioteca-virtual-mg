@@ -51,7 +51,7 @@ function mudarTema(tema) {
 
     document.documentElement.dataset.tema = tema;
     guardarValor(localStorage, CHAVE_TEMA, tema);
-    botaoTema.textContent = temaEscuro ? "☀︎" : "⏾";
+    botaoTema.textContent = temaEscuro ? "☀︎" : "☾";
     botaoTema.ariaLabel = temaEscuro ? "Mudar para modo claro" : "Mudar para modo escuro";
 };
 
