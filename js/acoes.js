@@ -127,9 +127,10 @@ export function limparFiltros() {
 
 function mostrarAvisoBingo() {
     const livro = encontrarLivro(lerValor(sessionStorage, CHAVE_AVISO_BINGO));
+    const continuaLido = livro?.estado === "lido";
 
-    avisoBingo.hidden = !livro;
-    linkAvisoBingo.textContent = livro
+    avisoBingo.hidden = !continuaLido;
+    linkAvisoBingo.textContent = continuaLido
         ? `Leste "${livro.titulo}"! Verificar Bingo Literário →`
         : "";
 };
